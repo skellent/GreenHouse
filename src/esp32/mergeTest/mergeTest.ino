@@ -1,9 +1,10 @@
 /*
-  ###############################
-  ### SKELL'S GREENHOUSE V1.0 ### Developed By: Robert Rodríguez "Skellent" & Christopher Ramirez
-  ###############################
+  ###################################################################################################
+  ### SKELL'S GREENHOUSE V1.0 ### Developed By: Robert Rodríguez "Skellent" & Christopher Ramirez ###
+  ###################################################################################################
 */
 
+// IMPORTACION DE LIBRERIAS
 #include <SPI.h>
 #include <WiFi.h>
 #include <WebServer.h>
@@ -13,67 +14,114 @@
 #include "qrcode_gh.h" 
 #include "DHT.h"
 
+
+// TEMPERATURA AMBIENTE
 #define DHTPIN 16 
 #define DHTTYPE DHT11
 DHT dht(DHTPIN, DHTTYPE);
-float temperaturaEsp32 = 0;
 
+
+// TEMPERATURA ESP32
 const int pinDatos = 27;
 OneWire oneWire(pinDatos);
 DallasTemperature sensores(&oneWire);
+float temperaturaEsp32 = 0;
 
+
+// CREDENCIALES WIFI
 const char* ssid = "mannqui";
 const char* password = "576m12935266";
 
-TFT_eSPI tft = TFT_eSPI();
-WebServer server(80);
+
+// INSTANCIAS DE OBJETOS
+TFT_eSPI tft = TFT_eSPI(); // PANTALLA
+WebServer server(80); // SERVIDOR WEB
+
+
+// NIVEL DE ESCUCHA DEL SERVIDOR
 String ipAddress = "0.0.0.0";
 
 
-
-// --- Variables de Estado y Sensores ---
+// VARIABLES DE ESTADO
 volatile int estado = 1;
 volatile bool forzarRedibujado = true;
 unsigned long ultimoToque = 0;
 const unsigned long debounceTime = 300;
 
-float humedadAire = 0, temperatura = 0, humedadTierra = 0, litrosAgua = 0;
-float hA_old, temp_old, hT_old, litros_old; 
 
+// VARIABLES DE SENSORES
+float humedadAire = 0;
+float temperatura = 0;
+float humedadTierra = 0;
+float litrosAgua = 0;
+float hA_old;
+float temp_old;
+float hT_old;
+float litros_old; 
+
+
+// CONFIGURACION DEL PROGRAMA
 void setup() {
+
+
   Serial.begin(115200);
+  
+
+  // CONFIGURACION DE PANTALLA
   tft.init();
   tft.setRotation(1);
   tft.fillScreen(TFT_BLACK);
-  // Calibración táctil si fuera necesaria (depende de tu setup)
+  
+
+  // DELEGACION DE SERVIDOR WEB A NUCLEO SECUNDARIO
   xTaskCreatePinnedToCore(tareaServidorWeb, "WebSrv", 10000, NULL, 1, NULL, 0);
+  
+
+  // Inicio de sensores
   dht.begin();
   sensores.begin();
 }
 
+
+// BUCLE PRINCIPAL
 void loop() {
-  actualizarSensores();
-  manejarTouch();
+
+  actualizarSensores(); // MANTIENE ACTUALIZADO LOS SENSORES POR CADA ITERACION
+  manejarTouch(); // GESTIONA LA PARTE TACTIL DE LA PANTALLA
   
-  if (estado == 1) {
-    if (forzarRedibujado) {
-      dibujarIconosGrandes();
-      actualizarValoresPantalla(true);
-      forzarRedibujado = false;
-    } else {
-      actualizarValoresPantalla(false);
-    }
-  } else if (estado == 4) {
-    animarCaritaGigante(); 
-  } else if (forzarRedibujado) {
-    switch (estado) {
-      case 2: mostrarEstado2XL(); break;
-      case 3: mostrarEstado3(); break;
-    }
-    forzarRedibujado = false;
+
+  /* ### MAQUINA DE ESTADOS ###
+    Permite controlar el flujo de la GUI en la pantalla
+    mediante un sistema rudimentario simple de estados */
+  switch (estado) {
+    // ESTADO 1: Mostrar los valores de los sensores.
+    case 1: 
+      if (forzarRedibujado) {
+        estadoUno();
+        actualizarValoresPantalla(true);
+        forzarRedibujado = false;
+      } else { actualizarValoresPantalla(false); } break;
+
+
+    // ESTADO 2: Mostrar QR para accesibilidad de conexion
+    case 2: 
+      if (forzarRedibujado) { estadoDos(); } forzarRedibujado = false; break;
+
+
+    // ESTADO 3: Mostrar creditos de desarrollo
+    case 3: 
+      if (forzarRedibujado) { estadoTres(); } forzarRedibujado = false; break;
+
+
+    // ESTADO 4: Carita Feliz animada para fines decorativos
+    case 4: 
+      estadoCuatro(); break;
   }
+
+
   delay(30); 
 }
+
 
 void actualizarSensores() {
   static unsigned long lastUpdate = 0;
@@ -93,6 +141,7 @@ void actualizarSensores() {
   }
 }
 
+
 void manejarTouch() {
   uint16_t x, y;
   if (tft.getTouch(&x, &y)) {
@@ -105,31 +154,85 @@ void manejarTouch() {
   }
 }
 
-// -------------------------------------------------------------------
-// PANTALLA: ESTADO 1 (MONITOREO)
-// -------------------------------------------------------------------
-void dibujarIconosGrandes() {
-  tft.drawLine(160, 0, 160, 240, TFT_DARKGREY);
-  tft.drawLine(0, 120, 320, 120, TFT_DARKGREY);
-  tft.fillCircle(60, 45, 15, TFT_WHITE); tft.fillCircle(80, 35, 20, TFT_WHITE); tft.fillCircle(100, 45, 15, TFT_WHITE); // Aire
-  tft.fillRoundRect(235, 15, 12, 50, 6, TFT_LIGHTGREY); tft.fillCircle(241, 70, 14, TFT_RED); // Temp
-  tft.fillCircle(80, 165, 18, 0x9381); tft.fillTriangle(62, 165, 98, 165, 80, 135, 0x9381); // Tierra
-  tft.drawRect(220, 140, 40, 50, TFT_WHITE); tft.fillRect(222, 165, 36, 23, TFT_BLUE); // Agua
-}
 
 void actualizarValoresPantalla(bool forzar) {
   tft.setTextSize(2);
   tft.setTextColor(TFT_WHITE, TFT_BLACK);
-  if (humedadAire != hA_old || forzar) { tft.fillRect(10, 90, 140, 25, TFT_BLACK); tft.setCursor(15, 90); tft.printf("Air: %.1f%%", humedadAire); hA_old = humedadAire; }
-  if (temperatura != temp_old || forzar) { tft.fillRect(170, 90, 140, 25, TFT_BLACK); tft.setCursor(175, 90); tft.printf("Tmp: %.1fC", temperatura); temp_old = temperatura; }
+  if (humedadAire != hA_old || forzar) { tft.fillRect(10, 90, 140, 22, TFT_BLACK); tft.setCursor(15, 90); tft.printf("H.Air: %.1f%%", humedadAire); hA_old = humedadAire; }
+  if (temperatura != temp_old || forzar) { tft.fillRect(173, 90, 140, 25, TFT_BLACK); tft.setCursor(175, 90); tft.printf("Tmp: %.1fC", temperatura); temp_old = temperatura; }
   if (humedadTierra != hT_old || forzar) { tft.fillRect(10, 210, 140, 25, TFT_BLACK); tft.setCursor(15, 210); tft.printf("Soil:%.1f%%", humedadTierra); hT_old = humedadTierra; }
   if (litrosAgua != litros_old || forzar) { tft.fillRect(170, 210, 140, 25, TFT_BLACK); tft.setCursor(175, 210); tft.printf("Wat: %.1fL", litrosAgua); litros_old = litrosAgua; }
 }
 
-// -------------------------------------------------------------------
-// PANTALLA: ESTADO 2 (QR XL)
-// -------------------------------------------------------------------
-void mostrarEstado2XL() {
+
+// PERMITE DIBUJAR GOTAS DE AGUA FACILMENTE
+void dibujarGota(int x, int y, int size, uint16_t color) {
+  tft.fillCircle(x, y, size, color);
+  // Dibujar la punta de la gota (triángulo proporcional)
+  // Punto 0: La punta superior (x centrada, y desplazada hacia arriba)
+  // Punto 1: Esquina izquierda del triángulo (tangente al círculo)
+  // Punto 2: Esquina derecha del triángulo (tangente al círculo)
+  int puntaY = y - (size * 1.8); // Altura de la punta (1.8 veces el radio)
+  int anchoBase = size * 0.9;    // Un poco más estrecho que el radio para suavizar la unión
+  tft.fillTriangle(
+    x, puntaY,            // P0: Punta arriba
+    x - anchoBase, y,     // P1: Izquierda
+    x + anchoBase, y,     // P2: Derecha
+    color
+  );
+}
+
+
+// ESTADO 1: Mostrar los valores de los sensores.
+void estadoUno() {
+  // DIBUJAR LOS ICONOS
+  int x, y; // Para la posicion central de los iconos
+
+  // Ancho: 320; Alto: 240;
+  const int ancho = tft.width();
+  const int alto = tft.height();
+  const int anchoMedio = ancho / 2;
+  const int altoMedio = alto / 2;
+
+  // Dibujar el Marco de la GUI
+  uint16_t marcoColor = TFT_GREEN;
+  int marcoAncho = anchoMedio - 2;
+  int marcoAlto = altoMedio - 2;
+  int marcoRedondeo = 7;
+  tft.drawRoundRect(2, 2, marcoAncho, marcoAlto, marcoRedondeo, marcoColor); // Icono de Humedad del Aire
+  tft.drawRoundRect(162, 2, marcoAncho, marcoAlto, marcoRedondeo, marcoColor); // Icono de Temperatura
+  tft.drawRoundRect(2, 122, marcoAncho, marcoAlto, marcoRedondeo, marcoColor); // Icono de Humedad de la Tierra
+  tft.drawRoundRect(162, 122, marcoAncho, marcoAlto, marcoRedondeo, marcoColor); // Icono de Litros de Agua
+  tft.fillCircle(anchoMedio, altoMedio, 14, TFT_WHITE);
+  tft.fillCircle(anchoMedio - 5, altoMedio - 4, 3, TFT_BLACK);
+  tft.fillCircle(anchoMedio + 5, altoMedio - 4, 3, TFT_BLACK);
+  tft.drawArc(anchoMedio, altoMedio + 2, 7, 6, 270, 90, TFT_BLACK, TFT_WHITE, true);
+
+  // Icono de Humedad del Aire
+  tft.fillCircle(60, 45, 15, TFT_WHITE);
+  tft.fillCircle(80, 35, 20, TFT_WHITE);
+  tft.fillCircle(100, 45, 15, TFT_WHITE);
+  dibujarGota(70, 55, 6, TFT_CYAN);
+  dibujarGota(90, 65, 6, TFT_CYAN);
+
+  // Icono de Temperatura
+  tft.fillRoundRect(235, 15, 12, 50, 6, TFT_LIGHTGREY);
+  tft.fillCircle(241, 70, 14, TFT_RED);
+  
+  // Icono de Humedad de la Tierra
+  tft.fillCircle(80, 165, 18, 0x9381);
+  tft.fillTriangle(62, 165, 98, 165, 80, 135, 0x9381);
+
+  // Icono de Litros de Agua disponible
+  tft.drawRect(220, 140, 40, 50, TFT_WHITE);
+  tft.fillRect(222, 165, 36, 23, TFT_BLUE);
+
+  
+}
+
+
+// ESTADO 2: Mostrar QR para accesibilidad de conexion
+void estadoDos() {
   tft.fillScreen(TFT_BLACK);
   QRCode qrcode;
   uint8_t qrcodeData[qrcode_getBufferSize(3)];
@@ -149,10 +252,9 @@ void mostrarEstado2XL() {
   tft.print("http://" + ipAddress);
 }
 
-// -------------------------------------------------------------------
-// PANTALLA: ESTADO 3 (CREDITOS)
-// -------------------------------------------------------------------
-void mostrarEstado3() {
+
+// ESTADO 3: Mostrar creditos de desarrollo
+void estadoTres() {
   tft.fillScreen(TFT_BLACK);
   tft.setTextSize(2);
   tft.setTextColor(TFT_CYAN, TFT_BLACK);
@@ -165,13 +267,12 @@ void mostrarEstado3() {
   tft.setTextColor(TFT_WHITE, TFT_BLACK);
 }
 
-// -------------------------------------------------------------------
-// PANTALLA: ESTADO 4 (EMOJI GIGANTE)
-// -------------------------------------------------------------------
-void animarCaritaGigante() {
+
+// ESTADO 4: Carita Feliz animada para fines decorativos
+void estadoCuatro() {
   static unsigned long lastAnim = 0;
   static bool ojosCerrados = false;
-  int cx = 160, cy = 60;
+  int cx = 160, cy = 90;
 
   if (millis() - lastAnim > (ojosCerrados ? 120 : 3500)) {
     ojosCerrados = !ojosCerrados;
@@ -190,9 +291,8 @@ void animarCaritaGigante() {
   }
 }
 
-// -------------------------------------------------------------------
-// SERVIDOR WEB (RESPONSIVE FULLSCREEN)
-// -------------------------------------------------------------------
+
+// SERVIDOR WEB
 void tareaServidorWeb(void* p) {
   WiFi.begin(ssid, password);
   while (WiFi.status() != WL_CONNECTED) delay(500);
