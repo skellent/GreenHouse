@@ -11,7 +11,7 @@
 #include <TFT_eSPI.h>
 #include <OneWire.h>
 #include <DallasTemperature.h>
-#include "qrcode_gh.h" 
+#include "qrcode_gh.h"
 #include "DHT.h"
 
 
@@ -29,8 +29,8 @@ float temperaturaEsp32 = 0;
 
 
 // CREDENCIALES WIFI
-const char* ssid = "mannqui";
-const char* password = "576m12935266";
+const char* ssid = "Rodriguez's Net";
+const char* password = "7kyxj2fd";
 
 
 // INSTANCIAS DE OBJETOS
@@ -186,7 +186,7 @@ void dibujarGota(int x, int y, int size, uint16_t color) {
 // ESTADO 1: Mostrar los valores de los sensores.
 void estadoUno() {
   // DIBUJAR LOS ICONOS
-  int x, y; // Para la posicion central de los iconos
+  // int x, y; // Para la posicion central de los iconos
 
   // Ancho: 320; Alto: 240;
   const int ancho = tft.width();
