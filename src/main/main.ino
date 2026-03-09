@@ -15,6 +15,10 @@
 #include "DHT.h"
 
 
+// IMPORTACION DE MODULOS PROPIOS
+#include "GUI.h"
+
+
 // TEMPERATURA AMBIENTE
 #define DHTPIN 16 
 #define DHTTYPE DHT11
@@ -62,21 +66,14 @@ float litros_old;
 
 // CONFIGURACION DEL PROGRAMA
 void setup() {
-
-
   Serial.begin(115200);
-  
 
-  // CONFIGURACION DE PANTALLA
-  tft.init();
-  tft.setRotation(1);
-  tft.fillScreen(TFT_BLACK);
-  
+  // Inicializacion de la GUI
+  gui.iniciar();
 
   // DELEGACION DE SERVIDOR WEB A NUCLEO SECUNDARIO
   xTaskCreatePinnedToCore(tareaServidorWeb, "WebSrv", 10000, NULL, 1, NULL, 0);
   
-
   // Inicio de sensores
   dht.begin();
   sensores.begin();
@@ -90,9 +87,7 @@ void loop() {
   manejarTouch(); // GESTIONA LA PARTE TACTIL DE LA PANTALLA
   
 
-  /* ### MAQUINA DE ESTADOS ###
-    Permite controlar el flujo de la GUI en la pantalla
-    mediante un sistema rudimentario simple de estados */
+  // ### MAQUINA DE ESTADOS ###
   switch (estado) {
     // ESTADO 1: Mostrar los valores de los sensores.
     case 1: 
@@ -117,7 +112,6 @@ void loop() {
     case 4: 
       estadoCuatro(); break;
   }
-
 
   delay(30); 
 }
@@ -165,69 +159,13 @@ void actualizarValoresPantalla(bool forzar) {
 }
 
 
-// PERMITE DIBUJAR GOTAS DE AGUA FACILMENTE
-void dibujarGota(int x, int y, int size, uint16_t color) {
-  tft.fillCircle(x, y, size, color);
-  // Dibujar la punta de la gota (triángulo proporcional)
-  // Punto 0: La punta superior (x centrada, y desplazada hacia arriba)
-  // Punto 1: Esquina izquierda del triángulo (tangente al círculo)
-  // Punto 2: Esquina derecha del triángulo (tangente al círculo)
-  int puntaY = y - (size * 1.8); // Altura de la punta (1.8 veces el radio)
-  int anchoBase = size * 0.9;    // Un poco más estrecho que el radio para suavizar la unión
-  tft.fillTriangle(
-    x, puntaY,            // P0: Punta arriba
-    x - anchoBase, y,     // P1: Izquierda
-    x + anchoBase, y,     // P2: Derecha
-    color
-  );
-}
-
-
 // ESTADO 1: Mostrar los valores de los sensores.
 void estadoUno() {
-  // DIBUJAR LOS ICONOS
-  // int x, y; // Para la posicion central de los iconos
-
-  // Ancho: 320; Alto: 240;
-  const int ancho = tft.width();
-  const int alto = tft.height();
-  const int anchoMedio = ancho / 2;
-  const int altoMedio = alto / 2;
-
-  // Dibujar el Marco de la GUI
-  uint16_t marcoColor = TFT_GREEN;
-  int marcoAncho = anchoMedio - 2;
-  int marcoAlto = altoMedio - 2;
-  int marcoRedondeo = 7;
-  tft.drawRoundRect(2, 2, marcoAncho, marcoAlto, marcoRedondeo, marcoColor); // Icono de Humedad del Aire
-  tft.drawRoundRect(162, 2, marcoAncho, marcoAlto, marcoRedondeo, marcoColor); // Icono de Temperatura
-  tft.drawRoundRect(2, 122, marcoAncho, marcoAlto, marcoRedondeo, marcoColor); // Icono de Humedad de la Tierra
-  tft.drawRoundRect(162, 122, marcoAncho, marcoAlto, marcoRedondeo, marcoColor); // Icono de Litros de Agua
-  tft.fillCircle(anchoMedio, altoMedio, 14, TFT_WHITE);
-  tft.fillCircle(anchoMedio - 5, altoMedio - 4, 3, TFT_BLACK);
-  tft.fillCircle(anchoMedio + 5, altoMedio - 4, 3, TFT_BLACK);
-  tft.drawArc(anchoMedio, altoMedio + 2, 7, 6, 270, 90, TFT_BLACK, TFT_WHITE, true);
-
-  // Icono de Humedad del Aire
-  tft.fillCircle(60, 45, 15, TFT_WHITE);
-  tft.fillCircle(80, 35, 20, TFT_WHITE);
-  tft.fillCircle(100, 45, 15, TFT_WHITE);
-  dibujarGota(70, 55, 6, TFT_CYAN);
-  dibujarGota(90, 65, 6, TFT_CYAN);
-
-  // Icono de Temperatura
-  tft.fillRoundRect(235, 15, 12, 50, 6, TFT_LIGHTGREY);
-  tft.fillCircle(241, 70, 14, TFT_RED);
-  
-  // Icono de Humedad de la Tierra
-  tft.fillCircle(80, 165, 18, 0x9381);
-  tft.fillTriangle(62, 165, 98, 165, 80, 135, 0x9381);
-
-  // Icono de Litros de Agua disponible
-  tft.drawRect(220, 140, 40, 50, TFT_WHITE);
-  tft.fillRect(222, 165, 36, 23, TFT_BLUE);
-
-  
+  gui.marco();
+  gui.icono.aire();
+  gui.icono.temp();
+  gui.icono.tierra();
+  gui.icono.agua();
 }
 
 
