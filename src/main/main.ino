@@ -226,20 +226,29 @@ void estadoCuatro() {
   }
 }
 
+// Función para limpiar valores NaN antes de enviarlos por JSON
+String validarDato(float valor) { if (isnan(valor)) {return "0.0"; } return String(valor, 1); }
 
 // SERVIDOR WEB
 void tareaServidorWeb(void* p) {
+  // Conexión al WIFI
   WiFi.begin(red.NOMBRE, red.CLAVE);
   while (WiFi.status() != WL_CONNECTED) delay(500);
   ipAddress = WiFi.localIP().toString();
 
+  // Servir página web monitor
   server.on("/", []() {
     server.send(200, "text/html", monitor.WEBPAGE);
   });
 
+  // API para poder usar los datos en otras aplicaciones/sistemas
   server.on("/data", []() {
-    String json = "{\"ha\":" + String(humedadAire, 1) + ",\"te\":" + String(temperatura, 1) + 
-                  ",\"ht\":" + String(humedadTierra, 1) + ",\"li\":" + String(litrosAgua, 1) + "}";
+    String json = "{";
+    json += "\"ha\":" + validarDato(humedadAire) + ",";
+    json += "\"te\":" + validarDato(temperatura) + ",";
+    json += "\"ht\":" + validarDato(humedadTierra) + ",";
+    json += "\"li\":" + validarDato(litrosAgua);
+    json += "}";
     server.send(200, "application/json", json);
   });
 
