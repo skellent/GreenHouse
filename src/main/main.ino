@@ -93,7 +93,7 @@ void loop() {
         actualizarValoresPantalla(true);
         forzarRedibujado = false;
       } else { actualizarValoresPantalla(false); } break;
-
+ 
 
     // ESTADO 2: Mostrar QR para accesibilidad de conexion
     case 2: 
