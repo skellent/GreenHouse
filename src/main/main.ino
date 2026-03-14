@@ -1,55 +1,55 @@
-/*
-  ###################################################################################################
+/*###################################################################################################
   ### SKELL'S GREENHOUSE V1.0 ### Developed By: Robert Rodríguez "Skellent" & Christopher Ramirez ###
   ###################################################################################################
-*/
-
-// IMPORTACION DE LIBRERIAS
-#include <SPI.h>
-#include <WiFi.h>
-#include <WebServer.h>
-#include <TFT_eSPI.h>
-#include <OneWire.h>
-#include <DallasTemperature.h>
-#include "qrcode_gh.h"
-#include "DHT.h"
+  #
+  #  <Breve texto informativo o descripcion del proyecto>
+  #
+  ###################################################################################################*/
 
 
-// IMPORTACION DE MODULOS PROPIOS
-#include "GUI.h"
-#include "CONFIG.h"
-#include "MONITOR.h"
+/*#################################################
+  ### IMPORTACION DE LIBRERIAS EXTERNAS/NATIVAS ###
+  #################################################*/
+#include <SPI.h> // COMUNICACION SERIAL CON LA PANTALLA
+#include <WiFi.h> // CONEXION A LA RED
+#include <WebServer.h> // SERVIDOR WEB
+#include <TFT_eSPI.h> // RENDERIZADO EN PANTALLA
+#include <OneWire.h> // NO SE ##############
+#include <DallasTemperature.h> // NO SE #############
+#include "qrcode_gh.h" // GENERADOR DE QRs
+#include "DHT.h" // NO SE ###############
 
 
-// TEMPERATURA AMBIENTE
+/*######################################
+  ### IMPORTACION DE MODULOS PROPIOS ###
+  ######################################*/
+#include "GUI.h" // DIBUJADO DE INTERFAZ
+#include "CONFIG.h" // CONFIGURACIONES BASICAS
+#include "MONITOR.h" // HTML DEL SERVIDOR WEB
+
+
+/*#########################################
+  ### CREACION DE INSTANCIAS DE OBJETOS ###
+  #########################################*/
 #define DHTPIN 16 
 #define DHTTYPE DHT11
 DHT dht(DHTPIN, DHTTYPE);
-
-
-// TEMPERATURA ESP32
 const int pinDatos = 27;
+float temperaturaEsp32 = 0;
 OneWire oneWire(pinDatos);
 DallasTemperature sensores(&oneWire);
-float temperaturaEsp32 = 0;
-
-
-// INSTANCIAS DE OBJETOS
 TFT_eSPI tft = TFT_eSPI(); // PANTALLA
-WebServer server(80); // SERVIDOR WEB
+WebServer server(red.PUERTO); // SERVIDOR WEB
+String ipAddress = red.ESCUCHA;
 
-
-// NIVEL DE ESCUCHA DEL SERVIDOR
-String ipAddress = "0.0.0.0";
-
-
-// VARIABLES DE ESTADO
+/*##########################
+  ### VARIABLES GLOBALES ###
+  ##########################*/
+// VARIABLES DE CONTROL DE ESTADO
 volatile int estado = 1;
 volatile bool forzarRedibujado = true;
 unsigned long ultimoToque = 0;
 const unsigned long debounceTime = 300;
-
-
 // VARIABLES DE SENSORES
 float humedadAire = 0;
 float temperatura = 0;
@@ -61,78 +61,94 @@ float hT_old;
 float litros_old; 
 
 
-// CONFIGURACION DEL PROGRAMA
+/*##################################
+  ### CONFIGURACION DEL PROGRAMA ###
+  ##################################*/
 void setup() {
   Serial.begin(115200);
-
-  // Inicializacion de la GUI
-  gui.iniciar();
-
-  // DELEGACION DE SERVIDOR WEB A NUCLEO SECUNDARIO
-  xTaskCreatePinnedToCore(tareaServidorWeb, "WebSrv", 10000, NULL, 1, NULL, 0);
-  
-  // Inicio de sensores
-  dht.begin();
-  sensores.begin();
+  gui.iniciar(); // Inicializacion de la GUI
+  xTaskCreatePinnedToCore(tareaServidorWeb, "WebSrv", 10000, NULL, 1, NULL, 0); // DELEGACION DE SERVIDOR WEB A NUCLEO SECUNDARIO
+  dht.begin(); // Inicio de sensores
+  sensores.begin(); // Inicio de sensores
 }
 
 
-// BUCLE PRINCIPAL
+/*####################################
+  ### BUCLE PRINCIPAL DEL PROGRAMA ###
+  ####################################*/
 void loop() {
-
   actualizarSensores(); // MANTIENE ACTUALIZADO LOS SENSORES POR CADA ITERACION
   manejarTouch(); // GESTIONA LA PARTE TACTIL DE LA PANTALLA
   
-
-  // ### MAQUINA DE ESTADOS ###
+  // GESTIÓN DE PANTALLAS ESTÁTICAS (Se dibujan solo una vez al cambiar)
+  if (forzarRedibujado) {
+    tft.fillScreen(TFT_BLACK); // Limpiamos la pantalla una sola vez aquí
+    switch (estado) {
+      case 1:
+        estadoUno();
+        actualizarValoresPantalla(true); // Forzamos los textos iniciales
+        break;
+      case 2: estadoDos(); break;
+      case 3: estadoTres(); break;
+      case 4: break; // En el estado 4 no hacemos nada especial al "entrar" 
+    }
+    forzarRedibujado = false; // ¡El switch terminó! Bajamos la bandera.
+  }
+  // 2. GESTIÓN DE LÓGICA DINÁMICA (Se ejecuta siempre, sin importar el 'if')
   switch (estado) {
-    // ESTADO 1: Mostrar los valores de los sensores.
-    case 1: 
+    case 1: actualizarValoresPantalla(false); break; // Actualiza solo si el número cambió 
+    case 4: estadoCuatro(); break; // Mantiene la carita parpadeando
+  }
+  delay(30);
+  
+
+
+  /* CODIGO ORIGINAL DE SKELL
+  /*########################
+  ### MAQUINA DE ESTADOS ###
+  ##########################
+  switch (estado) {
+    case 1: // ### ESTADO 1 ###: Mostrar los valores de los sensores.
       if (forzarRedibujado) {
         estadoUno();
         actualizarValoresPantalla(true);
         forzarRedibujado = false;
       } else { actualizarValoresPantalla(false); } break;
  
-
-    // ESTADO 2: Mostrar QR para accesibilidad de conexion
-    case 2: 
+    case 2: // ### ESTADO 2 ###: Mostrar QR para accesibilidad de conexion
       if (forzarRedibujado) { estadoDos(); } forzarRedibujado = false; break;
 
-
-    // ESTADO 3: Mostrar creditos de desarrollo
-    case 3: 
+    case 3: // ### ESTADO 3 ###: Mostrar creditos de desarrollo
       if (forzarRedibujado) { estadoTres(); } forzarRedibujado = false; break;
 
-
-    // ESTADO 4: Carita Feliz animada para fines decorativos
-    case 4: 
+    case 4: // ### ESTADO 4 ###: Carita Feliz animada para fines decorativos
       estadoCuatro(); break;
   }
-
   delay(30); 
+  */
 }
 
-
+/*#################################
+  ### ACTUALIZACION DE SENSORES ###
+  #################################*/
 void actualizarSensores() {
   static unsigned long lastUpdate = 0;
   if (millis() - lastUpdate > 2000) {
     humedadAire = dht.readHumidity();
     temperatura = dht.readTemperature();
-    Serial.print(temperatura);
     sensores.requestTemperatures();
     float temperaturaEsp32 = sensores.getTempCByIndex(0);
     humedadTierra = random(100, 900) / 10.0;
     litrosAgua = random(10, 600) / 10.0;
     lastUpdate = millis();
     
-  }
-  if(temperaturaEsp32 == DEVICE_DISCONNECTED_C) {
-    Serial.println("Error: Sensor no encontrado");
-  }
+  } if(temperaturaEsp32 == DEVICE_DISCONNECTED_C) { Serial.println("Error: Sensor no encontrado"); }
 }
 
 
+/*####################################
+  ### SISTEMA DE CONTROL POR TACTO ###
+  ####################################*/
 void manejarTouch() {
   uint16_t x, y;
   if (tft.getTouch(&x, &y)) {
@@ -145,18 +161,45 @@ void manejarTouch() {
   }
 }
 
-
+/*#########################################
+  ### ACTUALIZACION GRAFICA DE SENSORES ###
+  #########################################*/
 void actualizarValoresPantalla(bool forzar) {
   tft.setTextSize(2);
   tft.setTextColor(TFT_WHITE, TFT_BLACK);
-  if (humedadAire != hA_old || forzar) { tft.fillRect(10, 90, 140, 22, TFT_BLACK); tft.setCursor(15, 90); tft.printf("H.Air: %.1f%%", humedadAire); hA_old = humedadAire; }
-  if (temperatura != temp_old || forzar) { tft.fillRect(173, 90, 140, 25, TFT_BLACK); tft.setCursor(175, 90); tft.printf("Tmp: %.1fC", temperatura); temp_old = temperatura; }
-  if (humedadTierra != hT_old || forzar) { tft.fillRect(10, 210, 140, 25, TFT_BLACK); tft.setCursor(15, 210); tft.printf("Soil:%.1f%%", humedadTierra); hT_old = humedadTierra; }
-  if (litrosAgua != litros_old || forzar) { tft.fillRect(170, 210, 140, 25, TFT_BLACK); tft.setCursor(175, 210); tft.printf("Wat: %.1fL", litrosAgua); litros_old = litrosAgua; }
+  if (humedadAire != hA_old || forzar) {
+    tft.fillRect(10, 90, 140, 22, TFT_BLACK);
+    tft.setCursor(15, 90);
+    tft.printf("Air: %.1f%%", humedadAire);
+    hA_old = humedadAire;
+  }
+  if (temperatura != temp_old || forzar) {
+    tft.fillRect(173, 90, 140, 25, TFT_BLACK);
+    tft.setCursor(180, 90);
+    tft.printf("Tmp: %.1fC", temperatura);
+    temp_old = temperatura;
+  }
+  if (humedadTierra != hT_old || forzar) {
+    tft.fillRect(10, 210, 140, 25, TFT_BLACK);
+    tft.setCursor(15, 210);
+    tft.printf("Soil:%.1f%%", humedadTierra);
+    hT_old = humedadTierra;
+  }
+  if (litrosAgua != litros_old || forzar) {
+    tft.fillRect(170, 210, 140, 25, TFT_BLACK);
+    tft.setCursor(175, 210);
+    tft.printf("Wat: %.1fL", litrosAgua);
+    litros_old = litrosAgua;
+  }
 }
 
 
-// ESTADO 1: Mostrar los valores de los sensores.
+/*################
+  ### ESTADO 1 ###
+  ######################################################
+  # ESTE ESTADO SE ENCARGA DE MOSTRAR CON UNA INTERFAZ #
+  # SIMPLE LOS VALORES OBTENIDOS POR LOS SENSORES      #
+  ######################################################*/
 void estadoUno() {
   gui.marco();
   gui.icono.aire();
@@ -166,7 +209,13 @@ void estadoUno() {
 }
 
 
-// ESTADO 2: Mostrar QR para accesibilidad de conexion
+/*################
+  ### ESTADO 2 ###
+  ########################################################
+  # ESTE ESTADO SE ENCARGA DE MOSTRAR UN CODIGO QR PARA  #
+  # ACCEDER AL SERVIDOR WEB QUE SIRVE UN MONITOR CON LOS #
+  # DATOS DE LOS SENSORES                                #
+  ########################################################*/
 void estadoDos() {
   tft.fillScreen(TFT_BLACK);
   QRCode qrcode;
@@ -188,7 +237,12 @@ void estadoDos() {
 }
 
 
-// ESTADO 3: Mostrar creditos de desarrollo
+/*################
+  ### ESTADO 3 ###
+  #####################################################
+  # ESTE ESTADO SE ENCARGA DE MOSTRAR LOS CREDITOS DE #
+  # DESARROLLO DE SKELL'S GREENHOUSE                  #
+  #####################################################*/
 void estadoTres() {
   tft.fillScreen(TFT_BLACK);
   tft.setTextSize(2);
@@ -203,7 +257,13 @@ void estadoTres() {
 }
 
 
-// ESTADO 4: Carita Feliz animada para fines decorativos
+/*################
+  ### ESTADO 4 ###
+  ########################################################
+  # ESTE ESTADO SE ENCARGA DE MOSTRAR UNA CARITA ANIMADA #
+  # QUE DEPENDIENDO DEL ESTADO DEL INVERNADERO, SE ANIME #
+  # EJ: CALOR ALTO = LENTES DE SOL Y SUDOR EN LA CARITA  #
+  ########################################################*/
 void estadoCuatro() {
   static unsigned long lastAnim = 0;
   static bool ojosCerrados = false;
@@ -229,7 +289,9 @@ void estadoCuatro() {
 // Función para limpiar valores NaN antes de enviarlos por JSON
 String validarDato(float valor) { if (isnan(valor)) {return "0.0"; } return String(valor, 1); }
 
-// SERVIDOR WEB
+/*#############################
+  ### SERVIDOR WEB DELEGADO ###
+  #############################*/
 void tareaServidorWeb(void* p) {
   // Conexión al WIFI
   WiFi.begin(red.NOMBRE, red.CLAVE);
@@ -241,7 +303,9 @@ void tareaServidorWeb(void* p) {
     server.send(200, "text/html", monitor.WEBPAGE);
   });
 
-  // API para poder usar los datos en otras aplicaciones/sistemas
+  /*################################
+    ### API DE DATOS DE SENSORES ###
+    ################################*/
   server.on("/data", []() {
     String json = "{";
     json += "\"ha\":" + validarDato(humedadAire) + ",";

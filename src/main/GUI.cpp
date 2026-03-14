@@ -1,32 +1,40 @@
-#include "gui.h"
+/*##################
+  ### MODULO GUI ###
+  ##################*/
 
-/*
-  ######################
+#include "GUI.h"
+
+/*######################
   ### SECCION DE GUI ###
-  ######################
-*/
+  ######################*/
 void GUI::iniciar() {
   tft.init();
   tft.setRotation(1);
   tft.fillScreen(TFT_BLACK);
 }
 
+/*#################################
+  ### MARCOS VERDES REDONDEADOS ###
+  #################################*/
 void GUI::marco() {
   // Medidas de la pantalla
   const int ancho = tft.width();
   const int alto = tft.height();
   const int anchoMedio = ancho / 2;
   const int altoMedio = alto / 2;
+
   // Configuracion de los marcos
   const uint16_t marcoColor = TFT_GREEN;
   const int marcoAncho = anchoMedio - 3;
   const int marcoAlto = altoMedio - 3;
   const int marcoRedondeo = 15;
+
   // Dibujado
   tft.drawRoundRect(3, 3, marcoAncho, marcoAlto, marcoRedondeo, marcoColor); // Icono de Humedad del Aire
   tft.drawRoundRect(163, 3, marcoAncho, marcoAlto, marcoRedondeo, marcoColor); // Icono de Temperatura
   tft.drawRoundRect(3, 123, marcoAncho, marcoAlto, marcoRedondeo, marcoColor); // Icono de Humedad de la Tierra
   tft.drawRoundRect(163, 123, marcoAncho, marcoAlto, marcoRedondeo, marcoColor); // Icono de Litros de Agua
+
   // Carita de Decoracion
   tft.fillCircle(anchoMedio, altoMedio, 14, TFT_WHITE);
   tft.fillCircle(anchoMedio - 5, altoMedio - 4, 3, TFT_BLACK);
@@ -34,11 +42,13 @@ void GUI::marco() {
   tft.drawArc(anchoMedio, altoMedio + 2, 7, 6, 270, 90, TFT_BLACK, TFT_WHITE, true);
 }
 
-/*
-  #########################
+/*#########################
   ### SECCION DE ICONOS ###
-  #########################
-*/
+  #########################*/
+
+/*############################
+### ICONO DE GOTA DE AGUA ###
+############################*/
 void Iconos::gota(int x, int y, int size, uint16_t color) {
   tft.fillCircle(x, y, size, color);
   const int puntaY = y - (size * 1.8);
@@ -51,6 +61,9 @@ void Iconos::gota(int x, int y, int size, uint16_t color) {
   );
 }
 
+/*#####################
+  ### ICONO DE AIRE ###
+  #####################*/
 void Iconos::aire() {
   tft.fillEllipse(50, 48, 18, 18, 0xBDF7);
   tft.fillEllipse(53, 45, 15, 15, 0xFFFF);
@@ -64,6 +77,9 @@ void Iconos::aire() {
   gota(100, 65, 7, 0x24BE);
 }
 
+/*############################
+  ### ICONO DE TEMPERATURA ###
+  ############################*/
   void Iconos::temp(){
   tft.fillEllipse(200, 41, 19, 19, 0xFFFF);
   tft.fillRoundRect(194, 32, 104, 20, 8, 0xFFFF);
@@ -77,6 +93,9 @@ void Iconos::aire() {
   tft.fillRect(263, 34, 3, 9, 0xFFFF);
 }
 
+/*##################################
+  ### ICONO DE HUMEDAD DE TIERRA ###
+  ##################################*/
 void Iconos::tierra() {
   tft.fillRoundRect(33, 146, 68, 50, 10, 0x8283);
   tft.fillRoundRect(33, 150, 68, 40, 10, 0xAB45);
@@ -97,6 +116,9 @@ void Iconos::tierra() {
   gota(120, 175, 15, 0x24BE);
 }
 
+/*################################
+  ### ICONO DE AGUA DISPONIBLE ###
+  ################################*/
 void Iconos::agua() {
   tft.drawEllipse(243, 141, 33, 7, 0xFFFF);
   tft.drawEllipse(243, 192, 33, 7, 0xFFFF);
