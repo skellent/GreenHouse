@@ -38,7 +38,15 @@
 #define DHTPIN 16 
 #define DHTTYPE DHT11
 // HUMEDAD-TIERRA
-#define SOIL_PIN 4
+#define SOIL_PIN 35
+// LITROS DE AGUA
+#define WATER_PIN 34
+// BOMBA DE AGUA
+#define PIN_BOMBA 33      // El pin físico
+#define CANAL_BOMBA 0     // Canal PWM
+#define FREC_BOMBA 5000   // 5kHz
+#define RES_BOMBA 8       // 8 bits (0-255)
+#define VEL_BOMBA 150     // Velocidad
 
 /*#########################################
   ### CREACION DE INSTANCIAS DE OBJETOS ###
@@ -84,11 +92,18 @@ void setup() {
   gui.iniciar(); 
   Serial.println("OK");
 
-  Serial.print("Iniciando Sensores... ");
+  Serial.print("Iniciando Sensores y Pines... ");
+  // Sensores especializados
   dht.begin(); 
   sensores.begin();
+  // Ultrasonido
   pinMode(TRIG_PIN, OUTPUT);
   pinMode(ECHO_PIN, INPUT);
+  // Bomba de Agua
+  ledcSetup(CANAL_BOMBA, FREC_BOMBA, RES_BOMBA);
+  ledcAttachPin(PIN_BOMBA, CANAL_BOMBA);
+  ledcWrite(CANAL_BOMBA, 0); // Empezar apagada
+
   Serial.println("OK");
 
   Serial.print("Lanzando WebServer en Core 0... ");
@@ -123,7 +138,10 @@ void loop() {
     actualizarValoresPantalla();
     ultimaActualizacion = millis();
   }
-
+  if (estado == 4 && (millis() - ultimaActualizacion > 2000)) {
+    estadoCuatro();
+    ultimaActualizacion = millis();
+  }
   delay(25);
 }
 
@@ -158,13 +176,15 @@ void actualizarSensores() {
     sensores.requestTemperatures();
     float temperaturaEsp32 = sensores.getTempCByIndex(0);
     // HUMEDAD DE LA TIERRA
-    humedadTierra = 
+    humedadTierra = ( 4095 - analogRead(SOIL_PIN) ) * 100 / 4095;
     // LITROS DE AGUA DISPONIBLES EN TANQUE
-    litrosAgua = 0;
+    //litrosAgua = 100 - ( analogRead(WATER_PIN) * 100L / 4095);
+    //litrosAgua = analogRead(WATER_PIN);
+    litrosAgua = map(analogRead(WATER_PIN), 0, 1600, 0, 100);
     // ALTURA DE LA PLANTA (ULTRASONIDO)
     alturaPlanta = leerUltrasonido();
 
-  Serial.printf("LOG | Hum: %.1f%% | Temp: %.1fC | S3-Temp: %.1fC | Soil: %.1f | H: %.1f cm\n", humedadAire, temperatura, temperaturaEsp32, humedadTierra, alturaPlanta);
+  Serial.printf("LOG | Hum: %.1f%% | Temp: %.1fC | S3-Temp: %.1fC | Soil: %.1f | Water: %.1f | H: %.1f cm\n", humedadAire, temperatura, temperaturaEsp32, humedadTierra, litrosAgua, alturaPlanta);
     ultimaActualizacionSensores = millis();    
   }
 }
@@ -206,7 +226,7 @@ void actualizarValoresPantalla() {
   // LITROS DE AGUA DISPONIBLE
   tft.fillRect(170, 210, 140, 25, TFT_BLACK);
   tft.setCursor(175, 210);
-  tft.printf("Wat: %.1fL", litrosAgua);
+  tft.printf("Wat: %.0f%%", litrosAgua);
 }
 
 
