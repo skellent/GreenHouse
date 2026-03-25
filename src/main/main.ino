@@ -28,11 +28,22 @@
 #include "MONITOR.h" // HTML DEL SERVIDOR WEB
 
 
+/*############################
+### CONFIGURACION DE PINES ###
+##############################*/
+// ULTRASONIDO
+#define TRIG_PIN 12
+#define ECHO_PIN 14
+// DHT11
+#define DHTPIN 16 
+#define DHTTYPE DHT11
+// HUMEDAD-TIERRA
+#define SOIL_PIN 4
+
 /*#########################################
   ### CREACION DE INSTANCIAS DE OBJETOS ###
   #########################################*/
-#define DHTPIN 16 
-#define DHTTYPE DHT11
+
 DHT dht(DHTPIN, DHTTYPE);
 const int pinDatos = 27;
 float temperaturaEsp32 = 0;
@@ -49,27 +60,43 @@ String ipAddress = red.ESCUCHA;
 volatile int estado = 1;
 volatile bool forzarRedibujado = true;
 unsigned long ultimoToque = 0;
+static unsigned long ultimaActualizacion = 0;
 const unsigned long debounceTime = 300;
 // VARIABLES DE SENSORES
-float humedadAire = 0;
-float temperatura = 0;
-float humedadTierra = 0;
-float litrosAgua = 0;
-float hA_old;
-float temp_old;
-float hT_old;
-float litros_old; 
+float humedadAire = 0, temperatura = 0, humedadTierra = 0, litrosAgua = 0, alturaPlanta = 0;
 
 
 /*##################################
   ### CONFIGURACION DEL PROGRAMA ###
   ##################################*/
 void setup() {
+  // 1. Inicializar Serial inmediatamente
   Serial.begin(115200);
-  gui.iniciar(); // Inicializacion de la GUI
-  xTaskCreatePinnedToCore(tareaServidorWeb, "WebSrv", 10000, NULL, 1, NULL, 0); // DELEGACION DE SERVIDOR WEB A NUCLEO SECUNDARIO
-  dht.begin(); // Inicio de sensores
-  sensores.begin(); // Inicio de sensores
+  
+  // 2. Espera real y visual para sincronizar el USB del PC
+  delay(1000); 
+  Serial.println("\n\n*********************************");
+  Serial.println(">>> GREENHOUSE DEBUG START <<<");
+  Serial.println("*********************************");
+
+  // 3. Inicializar componentes uno por uno con mensajes de progreso
+  Serial.print("Iniciando Pantalla... ");
+  gui.iniciar(); 
+  Serial.println("OK");
+
+  Serial.print("Iniciando Sensores... ");
+  dht.begin(); 
+  sensores.begin();
+  pinMode(TRIG_PIN, OUTPUT);
+  pinMode(ECHO_PIN, INPUT);
+  Serial.println("OK");
+
+  Serial.print("Lanzando WebServer en Core 0... ");
+  // Aumentamos el stack de la tarea por si acaso
+  xTaskCreatePinnedToCore(ServidorWeb, "WebSrv", 10000, NULL, 1, NULL, 0); 
+  Serial.println("OK");
+
+  Serial.println(">>> TODO INICIALIZADO CORRECTAMENTE <<<");
 }
 
 
@@ -79,70 +106,67 @@ void setup() {
 void loop() {
   actualizarSensores(); // MANTIENE ACTUALIZADO LOS SENSORES POR CADA ITERACION
   manejarTouch(); // GESTIONA LA PARTE TACTIL DE LA PANTALLA
+  // ejecutarCuidado(); GESTIONA LA PARTE DE CUIDAR FISICAMENTE LA PLANTA
   
-  // GESTIÓN DE PANTALLAS ESTÁTICAS (Se dibujan solo una vez al cambiar)
   if (forzarRedibujado) {
     tft.fillScreen(TFT_BLACK); // Limpiamos la pantalla una sola vez aquí
     switch (estado) {
-      case 1:
-        estadoUno();
-        actualizarValoresPantalla(true); // Forzamos los textos iniciales
-        break;
+      case 1: estadoUno();break;
       case 2: estadoDos(); break;
       case 3: estadoTres(); break;
-      case 4: break; // En el estado 4 no hacemos nada especial al "entrar" 
+      case 4: estadoCuatro(); break; // En el estado 4 no hacemos nada especial al "entrar" 
     }
-    forzarRedibujado = false; // ¡El switch terminó! Bajamos la bandera.
+    forzarRedibujado = false;
   }
-  // 2. GESTIÓN DE LÓGICA DINÁMICA (Se ejecuta siempre, sin importar el 'if')
-  switch (estado) {
-    case 1: actualizarValoresPantalla(false); break; // Actualiza solo si el número cambió 
-    case 4: estadoCuatro(); break; // Mantiene la carita parpadeando
+
+  if (estado == 1 && (millis() - ultimaActualizacion) > 2000) { // SE ENCARGA DE ACTUALIZAR LOS VALORES PERIODICAMENTE
+    actualizarValoresPantalla();
+    ultimaActualizacion = millis();
   }
-  delay(30);
-  
 
-
-  /* CODIGO ORIGINAL DE SKELL
-  /*########################
-  ### MAQUINA DE ESTADOS ###
-  ##########################
-  switch (estado) {
-    case 1: // ### ESTADO 1 ###: Mostrar los valores de los sensores.
-      if (forzarRedibujado) {
-        estadoUno();
-        actualizarValoresPantalla(true);
-        forzarRedibujado = false;
-      } else { actualizarValoresPantalla(false); } break;
- 
-    case 2: // ### ESTADO 2 ###: Mostrar QR para accesibilidad de conexion
-      if (forzarRedibujado) { estadoDos(); } forzarRedibujado = false; break;
-
-    case 3: // ### ESTADO 3 ###: Mostrar creditos de desarrollo
-      if (forzarRedibujado) { estadoTres(); } forzarRedibujado = false; break;
-
-    case 4: // ### ESTADO 4 ###: Carita Feliz animada para fines decorativos
-      estadoCuatro(); break;
-  }
-  delay(30); 
-  */
+  delay(25);
 }
+
+
+float leerUltrasonido() {
+  digitalWrite(TRIG_PIN, LOW);
+  delayMicroseconds(2);
+  digitalWrite(TRIG_PIN, HIGH);
+  delayMicroseconds(10);
+  digitalWrite(TRIG_PIN, LOW);
+  // pulseIn mide el tiempo en microsegundos que el pin ECHO está en HIGH
+  long duracion = pulseIn(ECHO_PIN, HIGH, 30000); // timeout de 30ms
+  // Convertir tiempo a distancia: Distancia = (Tiempo * Velocidad del sonido) / 2
+  // En cm: duracion / 58.2
+  float distancia = duracion / 58.2;
+  if (distancia <= 0 || distancia > 400) return 0; // Error o fuera de rango
+  return distancia;
+}
+
 
 /*#################################
   ### ACTUALIZACION DE SENSORES ###
   #################################*/
 void actualizarSensores() {
-  static unsigned long lastUpdate = 0;
-  if (millis() - lastUpdate > 2000) {
+  static unsigned long ultimaActualizacionSensores = 0;
+  if (millis() - ultimaActualizacionSensores > 2000) {
+    // HUMEDAD DEL AIRE
     humedadAire = dht.readHumidity();
+    // TEMPERATURA AMBIENTE
     temperatura = dht.readTemperature();
+    // TEMPERATURA DEL ESP32 (POR SEGURIDAD)
     sensores.requestTemperatures();
     float temperaturaEsp32 = sensores.getTempCByIndex(0);
-    humedadTierra = random(100, 900) / 10.0;
-    litrosAgua = random(10, 600) / 10.0;
-    lastUpdate = millis();
-    
-  } if(temperaturaEsp32 == DEVICE_DISCONNECTED_C) { Serial.println("Error: Sensor no encontrado"); }
+    // HUMEDAD DE LA TIERRA
+    humedadTierra = 
+    // LITROS DE AGUA DISPONIBLES EN TANQUE
+    litrosAgua = 0;
+    // ALTURA DE LA PLANTA (ULTRASONIDO)
+    alturaPlanta = leerUltrasonido();
+
+  Serial.printf("LOG | Hum: %.1f%% | Temp: %.1fC | S3-Temp: %.1fC | Soil: %.1f | H: %.1f cm\n", humedadAire, temperatura, temperaturaEsp32, humedadTierra, alturaPlanta);
+    ultimaActualizacionSensores = millis();    
+  }
 }
 
 
@@ -156,7 +180,6 @@ void manejarTouch() {
       estado = (estado % 4) + 1;
       forzarRedibujado = true;
       ultimoToque = millis();
-      tft.fillScreen(TFT_BLACK);
     }
   }
 }
@@ -164,34 +187,28 @@ void manejarTouch() {
 /*#########################################
   ### ACTUALIZACION GRAFICA DE SENSORES ###
   #########################################*/
-void actualizarValoresPantalla(bool forzar) {
+void actualizarValoresPantalla() {
+  // CONFIGURACION
   tft.setTextSize(2);
   tft.setTextColor(TFT_WHITE, TFT_BLACK);
-  if (humedadAire != hA_old || forzar) {
-    tft.fillRect(10, 90, 140, 22, TFT_BLACK);
-    tft.setCursor(15, 90);
-    tft.printf("Air: %.1f%%", humedadAire);
-    hA_old = humedadAire;
-  }
-  if (temperatura != temp_old || forzar) {
-    tft.fillRect(173, 90, 140, 25, TFT_BLACK);
-    tft.setCursor(180, 90);
-    tft.printf("Tmp: %.1fC", temperatura);
-    temp_old = temperatura;
-  }
-  if (humedadTierra != hT_old || forzar) {
-    tft.fillRect(10, 210, 140, 25, TFT_BLACK);
-    tft.setCursor(15, 210);
-    tft.printf("Soil:%.1f%%", humedadTierra);
-    hT_old = humedadTierra;
-  }
-  if (litrosAgua != litros_old || forzar) {
-    tft.fillRect(170, 210, 140, 25, TFT_BLACK);
-    tft.setCursor(175, 210);
-    tft.printf("Wat: %.1fL", litrosAgua);
-    litros_old = litrosAgua;
-  }
+  // HUMEDAD DEL AIRE
+  tft.fillRect(10, 90, 140, 22, TFT_BLACK);
+  tft.setCursor(15, 90);
+  tft.printf("Air: %.0f%%", humedadAire);
+  // TEMPERATURA AMBIENTE
+  tft.fillRect(173, 90, 140, 25, TFT_BLACK);
+  tft.setCursor(180, 90);
+  tft.printf("Tmp: %.0fC", temperatura);
+  // HUMEDAD DE LA TIERRA
+  tft.fillRect(10, 210, 140, 25, TFT_BLACK);
+  tft.setCursor(15, 210);
+  tft.printf("Soil: %.0f%%", humedadTierra);
+  // LITROS DE AGUA DISPONIBLE
+  tft.fillRect(170, 210, 140, 25, TFT_BLACK);
+  tft.setCursor(175, 210);
+  tft.printf("Wat: %.1fL", litrosAgua);
 }
+
 
 
 /*################
@@ -206,6 +223,7 @@ void estadoUno() {
   gui.icono.temp();
   gui.icono.tierra();
   gui.icono.agua();
+  actualizarValoresPantalla();
 }
 
 
@@ -219,18 +237,19 @@ void estadoUno() {
 void estadoDos() {
   tft.fillScreen(TFT_BLACK);
   QRCode qrcode;
-  uint8_t qrcodeData[qrcode_getBufferSize(3)];
-  qrcode_initText(&qrcode, qrcodeData, 3, 0, ("http://" + ipAddress).c_str());
-  
-  int tam = 6; // Aumentado a 6 para máxima visibilidad
-  int offX = (320 - qrcode.size * tam) / 2;
-  int offY = (240 - qrcode.size * tam) / 2 - 15;
-
+  // CONFIGURACIONES DEL QR
+  uint8_t qrcodeData[qrcode_getBufferSize(3)]; // EN LA MEMORIA
+  qrcode_initText(&qrcode, qrcodeData, 3, 0, ("http://" + ipAddress).c_str()); // CON LA IP
+  int tam = 6; // TAMAÑO; Aumentado a 6 para máxima visibilidad
+  int offX = (320 - qrcode.size * tam) / 2; // POSICION X
+  int offY = (240 - qrcode.size * tam) / 2 - 15; // POSICION Y
+  // DIBUJA FILA POR FILA EL CODIGO QR
   for (int y = 0; y < qrcode.size; y++) {
     for (int x = 0; x < qrcode.size; x++) {
       if (qrcode_getModule(&qrcode, x, y)) tft.fillRect(offX + x*tam, offY + y*tam, tam, tam, TFT_WHITE);
     }
   }
+  // ESCRIBE LA IP PARA ACCESO MANUAL O USO DE LA API
   tft.setTextSize(2);
   tft.setCursor((320 - (ipAddress.length()+7)*12)/2, 220); 
   tft.print("http://" + ipAddress);
@@ -249,10 +268,11 @@ void estadoTres() {
   tft.setTextColor(TFT_CYAN, TFT_BLACK);
   tft.setCursor(10, 40); tft.println("Skell's GreenHouse");
   tft.setTextColor(TFT_WHITE, TFT_BLACK);
-  tft.setCursor(10, 80); tft.println("V1.3 - ESP32-S3");
+  tft.setCursor(10, 80); tft.println("V1.0 - ESP32-S3");
   tft.setTextColor(TFT_YELLOW, TFT_BLACK);
   tft.setCursor(10, 140); tft.println("Robert Rodriguez");
   tft.setCursor(10, 170); tft.println("Christopher Ramirez");
+  tft.setCursor(10, 200); tft.println("Fabiana Hernandez");
   tft.setTextColor(TFT_WHITE, TFT_BLACK);
 }
 
@@ -265,34 +285,22 @@ void estadoTres() {
   # EJ: CALOR ALTO = LENTES DE SOL Y SUDOR EN LA CARITA  #
   ########################################################*/
 void estadoCuatro() {
-  static unsigned long lastAnim = 0;
-  static bool ojosCerrados = false;
-  int cx = 160, cy = 90;
-
-  if (millis() - lastAnim > (ojosCerrados ? 120 : 3500)) {
-    ojosCerrados = !ojosCerrados;
-    lastAnim = millis();
-    
-    if (ojosCerrados) {
-      tft.fillRect(cx - 80, cy - 40, 160, 50, TFT_BLACK); 
-      tft.fillRect(cx - 70, cy - 10, 40, 4, TFT_WHITE); // Ojo L cerrado XL
-      tft.fillRect(cx + 30, cy - 10, 40, 4, TFT_WHITE); // Ojo R cerrado XL
-    } else {
-      tft.fillRect(cx - 80, cy - 40, 160, 50, TFT_BLACK);
-      tft.fillCircle(cx - 50, cy - 15, 18, TFT_WHITE); // Ojo L XL
-      tft.fillCircle(cx + 50, cy - 15, 18, TFT_WHITE); // Ojo R XL
-    }
-    tft.drawArc(cx, cy + 30, 70, 60, 270, 90, TFT_WHITE, TFT_BLACK, true); // Sonrisa XL
-  }
+  int x = 160, y = 90;
+  tft.fillRect(x - 80, y - 40, 160, 50, TFT_BLACK);
+  tft.fillCircle(x - 50, y - 15, 18, TFT_WHITE); // Ojo L XL
+  tft.fillCircle(x + 50, y - 15, 18, TFT_WHITE); // Ojo R XL
+  tft.drawArc(x, y + 30, 70, 60, 270, 90, TFT_WHITE, TFT_BLACK, true); // Sonrisa XL
 }
+
 
 // Función para limpiar valores NaN antes de enviarlos por JSON
 String validarDato(float valor) { if (isnan(valor)) {return "0.0"; } return String(valor, 1); }
 
+
 /*#############################
   ### SERVIDOR WEB DELEGADO ###
   #############################*/
-void tareaServidorWeb(void* p) {
+void ServidorWeb(void* p) {
   // Conexión al WIFI
   WiFi.begin(red.NOMBRE, red.CLAVE);
   while (WiFi.status() != WL_CONNECTED) delay(500);
