@@ -1,6 +1,11 @@
-/*###################################################################################################
-  ### SKELL'S GREENHOUSE V1.0 ### Developed By: Robert Rodríguez "Skellent" & Christopher Ramirez ###
-  ###################################################################################################
+/*###############################
+  ### SKELL'S GREENHOUSE V1.0 ###
+  ######################################
+  ###          Developed By:        ###
+  ### - Robert Rodríguez "Skellent" ###
+  ###    - Christopher Ramirez      ###
+  ###     - Fabiana Hernandez       ###
+  ######################################################################
   #
   #  <Breve texto informativo o descripcion del proyecto>
   #
@@ -14,10 +19,10 @@
 #include <WiFi.h> // CONEXION A LA RED
 #include <WebServer.h> // SERVIDOR WEB
 #include <TFT_eSPI.h> // RENDERIZADO EN PANTALLA
-#include <OneWire.h> // NO SE ##############
-#include <DallasTemperature.h> // NO SE #############
+#include <OneWire.h> // TEMPERATURA ESP32
+#include <DallasTemperature.h> // AYUDANTE DE OneWire
 #include "qrcode_gh.h" // GENERADOR DE QRs
-#include "DHT.h" // NO SE ###############
+#include "DHT.h" // // TEMPERATURA Y HUMEDAD DEL AIRE
 
 
 /*######################################
@@ -36,14 +41,25 @@
 #define ECHO_PIN 14
 // DHT11
 #define DHTPIN 16 
-#define DHTTYPE DHT11
+#define DHTTYPE DHT22
 // HUMEDAD-TIERRA
 #define SOIL_PIN 35
 // LITROS DE AGUA
 #define WATER_PIN 34
+
+// LUCES UV
+#define LUZ_UVA 25
+#define LUZ_UVB 27
+  // Configuración PWM
+#define FRECUENCIA_UV 5000 // 5kHz es excelente para LEDs
+#define RESOLUCION_UV 8    // 0 a 255
+  // Canales independientes
+#define CANAL_UVA 1
+#define CANAL_UVB 2
+
 // BOMBA DE AGUA
 #define PIN_BOMBA 33      // El pin físico
-#define CANAL_BOMBA 0     // Canal PWM
+#define CANAL_BOMBA 3     // Canal PWM
 #define FREC_BOMBA 5000   // 5kHz
 #define RES_BOMBA 8       // 8 bits (0-255)
 #define VEL_BOMBA 150     // Velocidad
@@ -51,14 +67,16 @@
 /*#########################################
   ### CREACION DE INSTANCIAS DE OBJETOS ###
   #########################################*/
-
 DHT dht(DHTPIN, DHTTYPE);
-const int pinDatos = 27;
-float temperaturaEsp32 = 0;
-OneWire oneWire(pinDatos);
+
+OneWire oneWire(27);
+
 DallasTemperature sensores(&oneWire);
+
 TFT_eSPI tft = TFT_eSPI(); // PANTALLA
+
 WebServer server(red.PUERTO); // SERVIDOR WEB
+
 String ipAddress = red.ESCUCHA;
 
 /*##########################
@@ -71,7 +89,7 @@ unsigned long ultimoToque = 0;
 static unsigned long ultimaActualizacion = 0;
 const unsigned long debounceTime = 300;
 // VARIABLES DE SENSORES
-float humedadAire = 0, temperatura = 0, humedadTierra = 0, litrosAgua = 0, alturaPlanta = 0;
+float humedadAire = 0, temperatura = 0, humedadTierra = 0, litrosAgua = 0, alturaPlanta = 0, temperaturaEsp32 = 0;
 
 
 /*##################################
@@ -88,17 +106,28 @@ void setup() {
   Serial.println("*********************************");
 
   // 3. Inicializar componentes uno por uno con mensajes de progreso
-  Serial.print("Iniciando Pantalla... ");
+  Serial.println("Iniciando Pantalla... ");
   gui.iniciar(); 
   Serial.println("OK");
 
-  Serial.print("Iniciando Sensores y Pines... ");
+  Serial.println("Iniciando Sensores y Pines... ");
   // Sensores especializados
-  dht.begin(); 
+  dht.begin();
   sensores.begin();
   // Ultrasonido
   pinMode(TRIG_PIN, OUTPUT);
   pinMode(ECHO_PIN, INPUT);
+
+  // Configurar Canal para UVA
+  ledcSetup(CANAL_UVA, FRECUENCIA_UV, RESOLUCION_UV);
+  ledcAttachPin(LUZ_UVA, CANAL_UVA);
+  // Configurar Canal para UVB
+  ledcSetup(CANAL_UVB, FRECUENCIA_UV, RESOLUCION_UV);
+  ledcAttachPin(LUZ_UVB, CANAL_UVB);
+  // Iniciar apagadas por seguridad
+  ledcWrite(CANAL_UVA, 255);
+  ledcWrite(CANAL_UVB, 255);
+
   // Bomba de Agua
   ledcSetup(CANAL_BOMBA, FREC_BOMBA, RES_BOMBA);
   ledcAttachPin(PIN_BOMBA, CANAL_BOMBA);
@@ -127,9 +156,9 @@ void loop() {
     tft.fillScreen(TFT_BLACK); // Limpiamos la pantalla una sola vez aquí
     switch (estado) {
       case 1: estadoUno();break;
-      case 2: estadoDos(); break;
-      case 3: estadoTres(); break;
-      case 4: estadoCuatro(); break; // En el estado 4 no hacemos nada especial al "entrar" 
+      case 2: estadoCuatro(); break;
+      case 3: estadoDos(); break;
+      case 4: estadoTres(); break; // En el estado 4 no hacemos nada especial al "entrar" 
     }
     forzarRedibujado = false;
   }
@@ -138,10 +167,19 @@ void loop() {
     actualizarValoresPantalla();
     ultimaActualizacion = millis();
   }
-  if (estado == 4 && (millis() - ultimaActualizacion > 2000)) {
+  if (estado == 2 && (millis() - ultimaActualizacion > 2000)) {
     estadoCuatro();
     ultimaActualizacion = millis();
   }
+
+  if (estado == 2) {
+    ledcWrite(CANAL_UVA, 0); 
+    ledcWrite(CANAL_UVB, 0);
+  } else {
+    ledcWrite(CANAL_UVA, 255); 
+    ledcWrite(CANAL_UVB, 255);
+  }
+
   delay(25);
 }
 
@@ -169,9 +207,9 @@ void actualizarSensores() {
   static unsigned long ultimaActualizacionSensores = 0;
   if (millis() - ultimaActualizacionSensores > 2000) {
     // HUMEDAD DEL AIRE
-    humedadAire = dht.readHumidity();
+    humedadAire = 65;// ORIGINAL: dht.readHumidity();
     // TEMPERATURA AMBIENTE
-    temperatura = dht.readTemperature();
+    temperatura = 25;// ORIGINAL: dht.readTemperature();
     // TEMPERATURA DEL ESP32 (POR SEGURIDAD)
     sensores.requestTemperatures();
     float temperaturaEsp32 = sensores.getTempCByIndex(0);
@@ -184,7 +222,8 @@ void actualizarSensores() {
     // ALTURA DE LA PLANTA (ULTRASONIDO)
     alturaPlanta = leerUltrasonido();
 
-  Serial.printf("LOG | Hum: %.1f%% | Temp: %.1fC | S3-Temp: %.1fC | Soil: %.1f | Water: %.1f | H: %.1f cm\n", humedadAire, temperatura, temperaturaEsp32, humedadTierra, litrosAgua, alturaPlanta);
+    Serial.printf("LOG | Hum: %.1f%% | Temp: %.1fC | S3-Temp: %.1fC | Soil: %.1f | Water: %.1f | H: %.1f cm\n", humedadAire, temperatura, temperaturaEsp32, humedadTierra, litrosAgua, alturaPlanta);
+    Serial.println("");
     ultimaActualizacionSensores = millis();    
   }
 }
@@ -339,7 +378,8 @@ void ServidorWeb(void* p) {
     json += "\"ha\":" + validarDato(humedadAire) + ",";
     json += "\"te\":" + validarDato(temperatura) + ",";
     json += "\"ht\":" + validarDato(humedadTierra) + ",";
-    json += "\"li\":" + validarDato(litrosAgua);
+    json += "\"li\":" + validarDato(litrosAgua) + ",";
+    json += "\"ap\":" + validarDato(alturaPlanta);
     json += "}";
     server.send(200, "application/json", json);
   });
