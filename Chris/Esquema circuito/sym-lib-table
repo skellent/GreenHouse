@@ -1,0 +1,4 @@
+(sym_lib_table
+  (version 7)
+  (lib (name "Esquemas_per")(type "KiCad")(uri "${KIPRJMOD}/Esquemas_per.kicad_sym")(options "")(descr ""))
+)

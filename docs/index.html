@@ -11,15 +11,70 @@
     <h1>Skell's GreenHouse</h1>
     <nav>
         <ul>
-            <li><a href="#">Inicio</a></li>
-            <li><a href="#">Documentación</a></li>
-            <li><a href="#">Contacto</a></li>
+            <li><a href="#inicio">Inicio</a></li>
+            <li><a href="#indice">Índice</a></li>
+            <li><a href="#hardware">Hardware</a></li>
+            <li><a href="#software">Software</a></li>
+            <li><a href="#uso">Instrucciones de Uso</a></li>
+            <li><a href="#tft">Pantalla TFT</a></li>
+            <li><a href="#contacto">Contacto</a></li>
         </ul>
     </nav>
     <main>
-        <section>
+        <section id="inicio">
             <h2>Bienvenido a Skell's GreenHouse</h2>
-            <p>Skell's GreenHouse es un proyecto dedicado a la creación de un sistema de invernadero inteligente. Nuestro objetivo es proporcionar una solución eficiente y sostenible para el cultivo de plantas, utilizando tecnología avanzada para monitorear y controlar las condiciones del invernadero.</p>
+            <p>Skell's GreenHouse es un invernadero inteligente y autónomo, desarrollado para monitorear y controlar variables ambientales usando ESP32, sensores y una pantalla TFT. El proyecto es open source y está documentado para facilitar su uso y adaptación.</p>
+        </section>
+        <section id="indice">
+            <h2>Índice</h2>
+            <ol>
+                <li><a href="#hardware">Hardware</a></li>
+                <li><a href="#software">Software</a></li>
+                <li><a href="#uso">Instrucciones de Uso</a></li>
+                <li><a href="#tft">Configuración de Pantalla TFT</a></li>
+                <li><a href="#contacto">Contacto</a></li>
+            </ol>
+        </section>
+        <section id="hardware">
+            <h2>Hardware</h2>
+            <ul>
+                <li>ESP32 Dev Board</li>
+                <li>Pantalla TFT ILI9341 (SPI)</li>
+                <li>Sensores: DHT22, DS18B20, sensor de humedad de tierra, sensor de nivel de agua</li>
+                <li>Luces UV (control PWM)</li>
+                <li>Bomba de agua</li>
+                <li>Placa y esquemas: <a href="../Chris/Esquema circuito/Esquema circuito.kicad_sch">Esquema KiCad</a></li>
+            </ul>
+        </section>
+        <section id="software">
+            <h2>Software</h2>
+            <ul>
+                <li>Firmware principal: <code>src/main/main.ino</code></li>
+                <li>Módulos: <code>GUI</code>, <code>CONFIG</code>, <code>MONITOR</code></li>
+                <li>Servidor web integrado para monitoreo en tiempo real</li>
+                <li>Generación de interfaz gráfica en pantalla TFT</li>
+                <li>Documentación y código fuente en <a href="https://github.com/">GitHub</a></li>
+            </ul>
+        </section>
+        <section id="uso">
+            <h2>Instrucciones de Uso</h2>
+            <ol>
+                <li>Clona o descarga este repositorio.</li>
+                <li>Abre el proyecto en Arduino IDE o PlatformIO.</li>
+                <li>Configura tus credenciales WiFi en <code>CONFIG_example.h</code> y renómbralo a <code>CONFIG.h</code>.</li>
+                <li>Reemplaza el archivo <code>User_Setup.h</code> en la carpeta de la librería <b>TFT_eSPI</b> por el incluido en <code>src/User_Setup.h</code> para asegurar la correcta configuración de la pantalla.</li>
+                <li>Compila y sube el firmware al ESP32.</li>
+                <li>Accede al servidor web desde la IP mostrada en la pantalla TFT.</li>
+            </ol>
+        </section>
+        <section id="tft">
+            <h2>Configuración de Pantalla TFT</h2>
+            <p>El archivo <code>User_Setup.h</code> define los pines y parámetros para la pantalla ILI9341. Es <b>imprescindible</b> reemplazar el archivo original de la librería <b>TFT_eSPI</b> por el proporcionado aquí para el correcto funcionamiento del proyecto.</p>
+            <ul>
+                <li>Pines SPI: MISO=19, MOSI=23, SCLK=18, CS=15, DC=2, RST=4, TOUCH_CS=21</li>
+                <li>Frecuencia SPI: 27 MHz</li>
+                <li>Driver: ILI9341</li>
+            </ul>
         </section>
     </main>
     <footer>
