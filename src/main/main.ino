@@ -1,6 +1,6 @@
 /*###############################
   ### SKELL'S GREENHOUSE V1.0 ###
-  ######################################
+  #####################################
   ###          Developed By:        ###
   ### - Robert Rodríguez "Skellent" ###
   ###    - Christopher Ramirez      ###
@@ -39,17 +39,17 @@
 // ULTRASONIDO
 #define TRIG_PIN 12
 #define ECHO_PIN 14
-// DHT11
-#define DHTPIN 16 
+// DHT22
+#define DHTPIN 14
 #define DHTTYPE DHT22
 // HUMEDAD-TIERRA
 #define SOIL_PIN 35
 // LITROS DE AGUA
-#define WATER_PIN 34
+#define WATER_PIN 19
 
 // LUCES UV
 #define LUZ_UVA 25
-#define LUZ_UVB 27
+#define LUZ_UVB 23
   // Configuración PWM
 #define FRECUENCIA_UV 5000 // 5kHz es excelente para LEDs
 #define RESOLUCION_UV 8    // 0 a 255
@@ -58,19 +58,18 @@
 #define CANAL_UVB 2
 
 // BOMBA DE AGUA
-#define PIN_BOMBA 33      // El pin físico
-#define CANAL_BOMBA 3     // Canal PWM
+#define PIN_BOMBA 22      // El pin físico
+#define CANAL_BOMBA 0     // Canal PWM
 #define FREC_BOMBA 5000   // 5kHz
 #define RES_BOMBA 8       // 8 bits (0-255)
-#define VEL_BOMBA 150     // Velocidad
+#define VEL_BOMBA 255     // Velocidad
 
 /*#########################################
   ### CREACION DE INSTANCIAS DE OBJETOS ###
   #########################################*/
 DHT dht(DHTPIN, DHTTYPE);
 
-OneWire oneWire(27);
-
+OneWire oneWire(15);
 DallasTemperature sensores(&oneWire);
 
 TFT_eSPI tft = TFT_eSPI(); // PANTALLA
@@ -113,7 +112,7 @@ void setup() {
   Serial.println("Iniciando Sensores y Pines... ");
   // Sensores especializados
   dht.begin();
-  sensores.begin();
+  //sensores.begin();
   // Ultrasonido
   pinMode(TRIG_PIN, OUTPUT);
   pinMode(ECHO_PIN, INPUT);
@@ -175,9 +174,11 @@ void loop() {
   if (estado == 2) {
     ledcWrite(CANAL_UVA, 0); 
     ledcWrite(CANAL_UVB, 0);
+    ledcWrite(CANAL_BOMBA, 0);
   } else {
     ledcWrite(CANAL_UVA, 255); 
     ledcWrite(CANAL_UVB, 255);
+    ledcWrite(CANAL_BOMBA, VEL_BOMBA);
   }
 
   delay(25);
@@ -207,12 +208,12 @@ void actualizarSensores() {
   static unsigned long ultimaActualizacionSensores = 0;
   if (millis() - ultimaActualizacionSensores > 2000) {
     // HUMEDAD DEL AIRE
-    humedadAire = 65;// ORIGINAL: dht.readHumidity();
+    humedadAire = dht.readHumidity();
     // TEMPERATURA AMBIENTE
-    temperatura = 25;// ORIGINAL: dht.readTemperature();
+    temperatura = dht.readTemperature();
     // TEMPERATURA DEL ESP32 (POR SEGURIDAD)
-    sensores.requestTemperatures();
-    float temperaturaEsp32 = sensores.getTempCByIndex(0);
+    //sensores.requestTemperatures();
+    //float temperaturaEsp32 = sensores.getTempCByIndex(0);
     // HUMEDAD DE LA TIERRA
     humedadTierra = ( 4095 - analogRead(SOIL_PIN) ) * 100 / 4095;
     // LITROS DE AGUA DISPONIBLES EN TANQUE
