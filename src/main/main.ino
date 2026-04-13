@@ -32,60 +32,25 @@
 #include "CONFIG.h" // CONFIGURACIONES BASICAS
 #include "MONITOR.h" // HTML DEL SERVIDOR WEB
 
-
-/*############################
-### CONFIGURACION DE PINES ###
-##############################*/
-// ULTRASONIDO
-#define TRIG_PIN 12
-#define ECHO_PIN 14
-// DHT22
-#define DHTPIN 14
-#define DHTTYPE DHT22
-// HUMEDAD-TIERRA
-#define SOIL_PIN 35
-// LITROS DE AGUA
-#define WATER_PIN 19
-
-// LUCES UV
-#define LUZ_UVA 25
-#define LUZ_UVB 23
-  // Configuración PWM
-#define FRECUENCIA_UV 5000 // 5kHz es excelente para LEDs
-#define RESOLUCION_UV 8    // 0 a 255
-  // Canales independientes
-#define CANAL_UVA 1
-#define CANAL_UVB 2
-
-// BOMBA DE AGUA
-#define PIN_BOMBA 22      // El pin físico
-#define CANAL_BOMBA 0     // Canal PWM
-#define FREC_BOMBA 5000   // 5kHz
-#define RES_BOMBA 8       // 8 bits (0-255)
-#define VEL_BOMBA 255     // Velocidad
-
 /*#########################################
   ### CREACION DE INSTANCIAS DE OBJETOS ###
   #########################################*/
-DHT dht(DHTPIN, DHTTYPE);
-
-OneWire oneWire(15);
+DHT dht(pines.dht.PIN, pines.dht.MODEL);
+OneWire oneWire(pines.esp32.TEMP);
 DallasTemperature sensores(&oneWire);
-
 TFT_eSPI tft = TFT_eSPI(); // PANTALLA
-
 WebServer server(red.PUERTO); // SERVIDOR WEB
-
-String ipAddress = red.ESCUCHA;
 
 /*##########################
   ### VARIABLES GLOBALES ###
   ##########################*/
+String ipAddress = red.ESCUCHA;
 // VARIABLES DE CONTROL DE ESTADO
 volatile int estado = 1;
 volatile bool forzarRedibujado = true;
 unsigned long ultimoToque = 0;
 static unsigned long ultimaActualizacion = 0;
+static unsigned long ultimaLuz = 0;
 const unsigned long debounceTime = 300;
 // VARIABLES DE SENSORES
 float humedadAire = 0, temperatura = 0, humedadTierra = 0, litrosAgua = 0, alturaPlanta = 0, temperaturaEsp32 = 0;
@@ -95,51 +60,35 @@ float humedadAire = 0, temperatura = 0, humedadTierra = 0, litrosAgua = 0, altur
   ### CONFIGURACION DEL PROGRAMA ###
   ##################################*/
 void setup() {
-  // 1. Inicializar Serial inmediatamente
   Serial.begin(115200);
-  
-  // 2. Espera real y visual para sincronizar el USB del PC
-  delay(1000); 
+  delay(1000);
+
   Serial.println("\n\n*********************************");
   Serial.println(">>> GREENHOUSE DEBUG START <<<");
   Serial.println("*********************************");
 
-  // 3. Inicializar componentes uno por uno con mensajes de progreso
   Serial.println("Iniciando Pantalla... ");
   gui.iniciar(); 
-  Serial.println("OK");
 
   Serial.println("Iniciando Sensores y Pines... ");
-  // Sensores especializados
-  dht.begin();
-  //sensores.begin();
-  // Ultrasonido
-  pinMode(TRIG_PIN, OUTPUT);
-  pinMode(ECHO_PIN, INPUT);
-
-  // Configurar Canal para UVA
-  ledcSetup(CANAL_UVA, FRECUENCIA_UV, RESOLUCION_UV);
-  ledcAttachPin(LUZ_UVA, CANAL_UVA);
-  // Configurar Canal para UVB
-  ledcSetup(CANAL_UVB, FRECUENCIA_UV, RESOLUCION_UV);
-  ledcAttachPin(LUZ_UVB, CANAL_UVB);
-  // Iniciar apagadas por seguridad
-  ledcWrite(CANAL_UVA, 255);
-  ledcWrite(CANAL_UVB, 255);
-
+  dht.begin(); // DHT22 (Temperatura y Humedad Ambiental)
+  sensores.begin(); // ESP32 Temperatura
+  pinMode(pines.ultrasonido.TRIG, OUTPUT); pinMode(pines.ultrasonido.ECHO, INPUT); // Ultrasonido (Altura de la Planta)
+  // Configurar Canal para UV-A
+  ledcSetup(pines.ultravioleta.A.CAN, pines.ultravioleta.FRQ, pines.ultravioleta.RES);
+  ledcAttachPin(pines.ultravioleta.A.PIN, pines.ultravioleta.A.CAN);
+  ledcWrite(pines.ultravioleta.A.CAN, pines.ultravioleta.OFF); // Apagada
+  // Configurar Canal para UV-B
+  ledcSetup(pines.ultravioleta.B.CAN, pines.ultravioleta.FRQ, pines.ultravioleta.RES);
+  ledcAttachPin(pines.ultravioleta.B.PIN, pines.ultravioleta.B.CAN);
+  ledcWrite(pines.ultravioleta.B.CAN, pines.ultravioleta.OFF); // Apagada
   // Bomba de Agua
-  ledcSetup(CANAL_BOMBA, FREC_BOMBA, RES_BOMBA);
-  ledcAttachPin(PIN_BOMBA, CANAL_BOMBA);
-  ledcWrite(CANAL_BOMBA, 0); // Empezar apagada
+  ledcSetup(pines.bomba.CAN, pines.bomba.FRQ, pines.bomba.RES);
+  ledcAttachPin(pines.bomba.PIN, pines.bomba.CAN);
+  ledcWrite(pines.bomba.CAN, pines.bomba.OFF); // Encendida
 
-  Serial.println("OK");
-
-  Serial.print("Lanzando WebServer en Core 0... ");
-  // Aumentamos el stack de la tarea por si acaso
+  Serial.println("Lanzando WebServer en Core 0... ");
   xTaskCreatePinnedToCore(ServidorWeb, "WebSrv", 10000, NULL, 1, NULL, 0); 
-  Serial.println("OK");
-
-  Serial.println(">>> TODO INICIALIZADO CORRECTAMENTE <<<");
 }
 
 
@@ -149,7 +98,7 @@ void setup() {
 void loop() {
   actualizarSensores(); // MANTIENE ACTUALIZADO LOS SENSORES POR CADA ITERACION
   manejarTouch(); // GESTIONA LA PARTE TACTIL DE LA PANTALLA
-  // ejecutarCuidado(); GESTIONA LA PARTE DE CUIDAR FISICAMENTE LA PLANTA
+  ejecutarCuidado(); // CUIDADO AUTONOMO
   
   if (forzarRedibujado) {
     tft.fillScreen(TFT_BLACK); // Limpiamos la pantalla una sola vez aquí
@@ -162,44 +111,45 @@ void loop() {
     forzarRedibujado = false;
   }
 
-  if (estado == 1 && (millis() - ultimaActualizacion) > 2000) { // SE ENCARGA DE ACTUALIZAR LOS VALORES PERIODICAMENTE
+  if (estado == 1 && (millis() - ultimaActualizacion) > 1000) { // SE ENCARGA DE ACTUALIZAR LOS VALORES PERIODICAMENTE
     actualizarValoresPantalla();
     ultimaActualizacion = millis();
   }
-  if (estado == 2 && (millis() - ultimaActualizacion > 2000)) {
-    estadoCuatro();
-    ultimaActualizacion = millis();
-  }
-
-  if (estado == 2) {
-    ledcWrite(CANAL_UVA, 0); 
-    ledcWrite(CANAL_UVB, 0);
-    ledcWrite(CANAL_BOMBA, 0);
-  } else {
-    ledcWrite(CANAL_UVA, 255); 
-    ledcWrite(CANAL_UVB, 255);
-    ledcWrite(CANAL_BOMBA, VEL_BOMBA);
-  }
-
-  delay(25);
 }
 
+void ejecutarCuidado() {
+  // AGUA
+  if ( humedadTierra < calibracion.riego.RANGO ) {
+    ledcWrite(pines.bomba.CAN, pines.bomba.ON);
+    ledcWrite(pines.ultravioleta.A.CAN, pines.ultravioleta.OFF);
+    ledcWrite(pines.ultravioleta.B.CAN, pines.ultravioleta.OFF);
+  } else {
+    ledcWrite(pines.bomba.CAN, pines.bomba.OFF);
+
+    // LUZ UV
+    if ( temperatura < calibracion.luz.RANGO ) {
+      ledcWrite(pines.ultravioleta.A.CAN, pines.ultravioleta.ON);
+      ledcWrite(pines.ultravioleta.B.CAN, pines.ultravioleta.ON);
+    } else {
+      ledcWrite(pines.ultravioleta.A.CAN, pines.ultravioleta.OFF);
+      ledcWrite(pines.ultravioleta.B.CAN, pines.ultravioleta.OFF);
+    }
+  }
+}
 
 float leerUltrasonido() {
-  digitalWrite(TRIG_PIN, LOW);
+  digitalWrite(pines.ultrasonido.TRIG, LOW);
   delayMicroseconds(2);
-  digitalWrite(TRIG_PIN, HIGH);
+  digitalWrite(pines.ultrasonido.TRIG, HIGH);
   delayMicroseconds(10);
-  digitalWrite(TRIG_PIN, LOW);
+  digitalWrite(pines.ultrasonido.TRIG, LOW);
   // pulseIn mide el tiempo en microsegundos que el pin ECHO está en HIGH
-  long duracion = pulseIn(ECHO_PIN, HIGH, 30000); // timeout de 30ms
+  long duracion = pulseIn(pines.ultrasonido.ECHO, HIGH, 30000); // timeout de 30ms
   // Convertir tiempo a distancia: Distancia = (Tiempo * Velocidad del sonido) / 2
-  // En cm: duracion / 58.2
-  float distancia = duracion / 58.2;
+  float distancia = duracion / 58.2;   // En cm: duracion / 58.2
   if (distancia <= 0 || distancia > 400) return 0; // Error o fuera de rango
   return distancia;
 }
-
 
 /*#################################
   ### ACTUALIZACION DE SENSORES ###
@@ -207,24 +157,24 @@ float leerUltrasonido() {
 void actualizarSensores() {
   static unsigned long ultimaActualizacionSensores = 0;
   if (millis() - ultimaActualizacionSensores > 2000) {
-    // HUMEDAD DEL AIRE
-    humedadAire = dht.readHumidity();
-    // TEMPERATURA AMBIENTE
-    temperatura = dht.readTemperature();
-    // TEMPERATURA DEL ESP32 (POR SEGURIDAD)
-    //sensores.requestTemperatures();
-    //float temperaturaEsp32 = sensores.getTempCByIndex(0);
-    // HUMEDAD DE LA TIERRA
-    humedadTierra = ( 4095 - analogRead(SOIL_PIN) ) * 100 / 4095;
-    // LITROS DE AGUA DISPONIBLES EN TANQUE
-    //litrosAgua = 100 - ( analogRead(WATER_PIN) * 100L / 4095);
-    //litrosAgua = analogRead(WATER_PIN);
-    litrosAgua = map(analogRead(WATER_PIN), 0, 1600, 0, 100);
-    // ALTURA DE LA PLANTA (ULTRASONIDO)
-    alturaPlanta = leerUltrasonido();
+    if ( !std::isnan(dht.readHumidity()) ) { humedadAire = dht.readHumidity(); } // HUMEDAD DEL AIRE
+    if ( !std::isnan(dht.readTemperature()) ) { temperatura = dht.readTemperature(); } // TEMPERATURA AMBIENTE
 
+    // TEMPERATURA DEL ESP32 (POR SEGURIDAD)
+    sensores.requestTemperatures(); 
+    temperaturaEsp32 = sensores.getTempCByIndex(0);
+
+    // HUMEDAD DE LA TIERRA
+    humedadTierra = constrain(map(analogRead(pines.agua.TIERRA), calibracion.tierra.SECO, calibracion.tierra.MOJA, 0, 100), 0, 100);
+    if (humedadTierra > 100) { humedadTierra = 100; } 
+
+    // LITROS DE AGUA DISPONIBLES EN TANQUE
+    litrosAgua = map(analogRead(pines.agua.TANQUE), calibracion.tanque.SECO, calibracion.tanque.MOJA, 0, 100);
+    if (litrosAgua > 100) { litrosAgua = 100; }
+
+    // ALTURA DE LA PLANTA (ULTRASONIDO)
+    alturaPlanta = leerUltrasonido(); 
     Serial.printf("LOG | Hum: %.1f%% | Temp: %.1fC | S3-Temp: %.1fC | Soil: %.1f | Water: %.1f | H: %.1f cm\n", humedadAire, temperatura, temperaturaEsp32, humedadTierra, litrosAgua, alturaPlanta);
-    Serial.println("");
     ultimaActualizacionSensores = millis();    
   }
 }
@@ -284,6 +234,10 @@ void estadoUno() {
   gui.icono.tierra();
   gui.icono.agua();
   actualizarValoresPantalla();
+  if ((millis() - ultimaActualizacion) > 2000) { // SE ENCARGA DE ACTUALIZAR LOS VALORES PERIODICAMENTE
+    actualizarValoresPantalla();
+    ultimaActualizacion = millis();
+  }
 }
 
 
@@ -371,9 +325,23 @@ void ServidorWeb(void* p) {
     server.send(200, "text/html", monitor.WEBPAGE);
   });
 
-  /*################################
-    ### API DE DATOS DE SENSORES ###
-    ################################*/
+  /* // API de Calibracion 
+  > ¡IMPORTANTE! PENDIENTE POR ADAPTAR PARA USO MEJOR
+  server.on("/config", []() {
+    if (server.hasArg("hum")) { umbralHumedadRiego = server.arg("hum").toFloat(); }
+    if (server.hasArg("temp")) { umbralTempLuces = server.arg("temp").toFloat(); }
+
+    // Guardar en memoria persistente
+    prefs.begin("gh-settings", false);
+    prefs.putFloat("uHum", umbralHumedadRiego);
+    prefs.putFloat("uTemp", umbralTempLuces);
+    prefs.end();
+
+    server.send(200, "text/plain", "OK: Umbrales actualizados");
+  });
+  */
+
+  // API de Datos de Sensores
   server.on("/data", []() {
     String json = "{";
     json += "\"ha\":" + validarDato(humedadAire) + ",";
