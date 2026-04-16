@@ -62,6 +62,8 @@ float humedadAire = 0, temperatura = 0, humedadTierra = 0, litrosAgua = 0, altur
 float tiempoEncendido = pines.ultravioleta.TIME; 
 unsigned long tiempoReferenciaLuz = 0;
 bool lucesActivas = false;
+// VARIABLES PARA EL TANQUE DE AGUA
+float rangoHumedad = calibracion.riego.RANGO;
 
 /*##################################
   ### CONFIGURACION DEL PROGRAMA ###
@@ -105,10 +107,11 @@ void setup() {
   Serial.println("Lanzando WebServer en Core 0... ");
   xTaskCreatePinnedToCore(ServidorWeb, "WebSrv", 10000, NULL, 1, NULL, 0); 
 
-  // Memoria Editable y Luces UV
+  // Memoria Editable y Luces UV y Humedad
   prefs.begin("gh-settings", true);
   // Si no existe "uTime", usa el valor por defecto de CONFIG.h
-  tiempoEncendido = prefs.getFloat("uTime", pines.ultravioleta.TIME); 
+  tiempoEncendido = prefs.getFloat("uTime", pines.ultravioleta.TIME);
+  rangoHumedad    = prefs.getFloat("uHum", calibracion.riego.RANGO);
   prefs.end();
   tiempoReferenciaLuz = millis(); // Iniciar cronómetro de luces
 }
@@ -143,7 +146,7 @@ void loop() {
 
 void ejecutarCuidado() {
   // AGUA
-  if ( humedadTierra < calibracion.riego.RANGO ) {
+  if (humedadTierra < rangoHumedad && litrosAgua > 40) {
     ledcWrite(pines.bomba.CAN, pines.bomba.ON);
     ledcWrite(pines.ultravioleta.A.CAN, pines.ultravioleta.OFF);
     ledcWrite(pines.ultravioleta.B.CAN, pines.ultravioleta.OFF);
@@ -152,21 +155,16 @@ void ejecutarCuidado() {
 
     // LUZ UV
     unsigned long tiempoActual = millis();
-    unsigned long cicloTotal = tiempoEncendido * 3;
+    unsigned long tiempoTranscurrido = tiempoActual - tiempoReferenciaLuz;
+    unsigned long cicloTotal = tiempoEncendido * 3;  // 1 parte encendido, 2 partes apagado
 
-    if (tiempoActual - tiempoReferenciaLuz < tiempoEncendido) { // FASE DE ENCENDIDO
-      if (!lucesActivas) {
-        ledcWrite(pines.ultravioleta.A.CAN, pines.ultravioleta.ON);
-        ledcWrite(pines.ultravioleta.B.CAN, pines.ultravioleta.ON);
-        lucesActivas = true;
-      }
+    if (tiempoTranscurrido < tiempoEncendido) { // FASE DE ENCENDIDO
+      ledcWrite(pines.ultravioleta.A.CAN, pines.ultravioleta.ON);
+      ledcWrite(pines.ultravioleta.B.CAN, pines.ultravioleta.ON);
     } 
-    else if (tiempoActual - tiempoReferenciaLuz < cicloTotal) { // FASE DE APAGADO (Dura el doble)
-      if (lucesActivas) {
-        ledcWrite(pines.ultravioleta.A.CAN, pines.ultravioleta.OFF);
-        ledcWrite(pines.ultravioleta.B.CAN, pines.ultravioleta.OFF);
-        lucesActivas = false;
-      }
+    else if (tiempoTranscurrido < cicloTotal) { // FASE DE APAGADO (Dura el doble)
+      ledcWrite(pines.ultravioleta.A.CAN, pines.ultravioleta.OFF);
+      ledcWrite(pines.ultravioleta.B.CAN, pines.ultravioleta.OFF);
     } 
     else { tiempoReferenciaLuz = tiempoActual; } // REINICIO DEL CICLO
   }
@@ -208,8 +206,10 @@ void actualizarSensores() {
     if (humedadTierra > 100) { humedadTierra = 100; } 
 
     // LITROS DE AGUA DISPONIBLES EN TANQUE
-    litrosAgua = map(analogRead(pines.agua.TANQUE), calibracion.tanque.SECO, calibracion.tanque.MOJA, 0, 100);
-    if (litrosAgua > 100) { litrosAgua = 100; }
+      int lecturaTanque = analogRead(pines.agua.TANQUE);
+    Serial.printf("Tanque ADC: %d\n", lecturaTanque);
+    litrosAgua = map(lecturaTanque, calibracion.tanque.SECO, calibracion.tanque.MOJA, 0, 100);
+    litrosAgua = constrain(litrosAgua, 0, 100);  // Mejor que el if manual
 
     // ALTURA DE LA PLANTA (ULTRASONIDO)
     alturaPlanta = leerUltrasonido(); 
@@ -226,9 +226,10 @@ void manejarTouch() {
   uint16_t x, y;
   if (tft.getTouch(&x, &y)) {
     if (millis() - ultimoToque > debounceTime) {
-      estado = (estado % 4) + 1;
+      estado = (estado % 6) + 1;
       forzarRedibujado = true;
       ultimoToque = millis();
+    printf("Pantalla Tocada!");
     }
   }
 }
@@ -352,8 +353,6 @@ void estadoCuatro() {
   ########################################################*/
 void estadoCinco() {
   gui.icono.ganchoDerecha();
-  //gancho.step(pines.step.ADD90);
-  delay(1000);
 }
 
 /*################
@@ -363,8 +362,6 @@ void estadoCinco() {
   ########################################################*/
 void estadoSeis() {
   gui.icono.ganchoIzquierda();
-  //gancho.step(pines.step.SUS90);
-  delay(1000);
 }
 
 // Función para limpiar valores NaN antes de enviarlos por JSON
@@ -377,7 +374,7 @@ String validarDato(float valor) { if (isnan(valor)) {return "0.0"; } return Stri
 void ServidorWeb(void* p) {
   // Conexión al WIFI
   WiFi.begin(red.NOMBRE, red.CLAVE);
-  while (WiFi.status() != WL_CONNECTED) delay(500);
+  while (WiFi.status() != WL_CONNECTED) vTaskDelay(pdMS_TO_TICKS(500));
   ipAddress = WiFi.localIP().toString();
 
   // Servir página web monitor
@@ -390,23 +387,32 @@ void ServidorWeb(void* p) {
     if (server.hasArg("time")) {
       float nuevoTime = server.arg("time").toFloat();
       if (nuevoTime > 0) {
-        tiempoEncendido = nuevoTime; // Variable global 
-        
-        // Persistencia
+        tiempoEncendido = nuevoTime;
         prefs.begin("gh-settings", false);
         prefs.putFloat("uTime", tiempoEncendido);
         prefs.end();
-        
-        // Reiniciar ciclo de luces
         tiempoReferenciaLuz = millis();
-        server.send(200, "text/plain", "OK");
+        server.send(200, "text/plain", "TIEMPO DE ILUMINACIÓN MODIFICADO EXITOSAMENTE");
       }
+    }
+
+    if (server.hasArg("hum")) {
+      float nuevoHum = server.arg("hum").toFloat();
+      if (nuevoHum >= 0 && nuevoHum <= 100) {
+        rangoHumedad = nuevoHum;
+        prefs.begin("gh-settings", false);
+        prefs.putFloat("uHum", rangoHumedad);
+        prefs.end();
+        server.send(200, "text/plain", "UMBRAL DE HUMEDAD MODIFICADO EXITOSAMENTE");
+      } else { server.send(400, "text/plain", "Valor fuera de rango (0-100)"); }
     }
   });
 
   // API de Datos de Sensores
   server.on("/data", []() {
-    String json = "{";
+    String json;
+    json.reserve(150);
+    json = "{";
     json += "\"ha\":" + validarDato(humedadAire) + ",";
     json += "\"te\":" + validarDato(temperatura) + ",";
     json += "\"ht\":" + validarDato(humedadTierra) + ",";
@@ -417,5 +423,9 @@ void ServidorWeb(void* p) {
   });
 
   server.begin();
-  while (true) { server.handleClient(); delay(10); }
+
+  for (;;) {
+    server.handleClient(); // Atiende peticiones
+    vTaskDelay(pdMS_TO_TICKS(10)); // <--- VITAL: Libera el núcleo por 10ms
+  }
 }
