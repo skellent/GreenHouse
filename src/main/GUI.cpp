@@ -129,4 +129,27 @@ void Iconos::agua() {
   tft.fillEllipse(243, 163, 30, 7, 0x65DF);
 }
 
+/*ICONOS DE MOTOR PASO A PASO*/
+void Iconos::ganchoDerecha() {
+    // Medidas de la pantalla
+  const int ancho = tft.width();
+  const int alto = tft.height();
+  const int anchoMedio = ancho / 2;
+  const int altoMedio = alto / 2;
+
+  tft.drawArc(anchoMedio, altoMedio, 20, 15, 30, 300, 0xFFFF, TFT_BLACK, true);
+  tft.fillTriangle(anchoMedio + 15, altoMedio + 5, anchoMedio + 25, altoMedio + 15, anchoMedio + 5, altoMedio + 15, 0xFFFF);
+}
+
+void Iconos::ganchoIzquierda() {
+    // Medidas de la pantalla
+  const int ancho = tft.width();
+  const int alto = tft.height();
+  const int anchoMedio = ancho / 2;
+  const int altoMedio = alto / 2;
+
+  tft.drawArc(anchoMedio, altoMedio, 20, 15, 60, 330, 0xFFFF, TFT_BLACK, true);
+  tft.fillTriangle(anchoMedio - 15, altoMedio + 5, anchoMedio - 25, altoMedio + 15, anchoMedio - 5, altoMedio + 15, 0xFFFF);
+}
+
 GUI gui;

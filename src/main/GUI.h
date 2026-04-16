@@ -13,6 +13,8 @@ struct Iconos {
   void temp();
   void tierra();
   void agua();
+  void ganchoDerecha();
+  void ganchoIzquierda();
   void gota(int x, int y, int size, uint16_t color);
 };
 

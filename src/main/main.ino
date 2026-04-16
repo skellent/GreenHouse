@@ -23,6 +23,7 @@
 #include <DallasTemperature.h> // AYUDANTE DE OneWire
 #include "qrcode_gh.h" // GENERADOR DE QRs
 #include "DHT.h" // // TEMPERATURA Y HUMEDAD DEL AIRE
+#include <Preferences.h> // MEMORIA PERSISTENTE
 
 
 /*######################################
@@ -32,6 +33,7 @@
 #include "CONFIG.h" // CONFIGURACIONES BASICAS
 #include "MONITOR.h" // HTML DEL SERVIDOR WEB
 
+
 /*#########################################
   ### CREACION DE INSTANCIAS DE OBJETOS ###
   #########################################*/
@@ -40,6 +42,8 @@ OneWire oneWire(pines.esp32.TEMP);
 DallasTemperature sensores(&oneWire);
 TFT_eSPI tft = TFT_eSPI(); // PANTALLA
 WebServer server(red.PUERTO); // SERVIDOR WEB
+Preferences prefs;
+
 
 /*##########################
   ### VARIABLES GLOBALES ###
@@ -54,7 +58,10 @@ static unsigned long ultimaLuz = 0;
 const unsigned long debounceTime = 300;
 // VARIABLES DE SENSORES
 float humedadAire = 0, temperatura = 0, humedadTierra = 0, litrosAgua = 0, alturaPlanta = 0, temperaturaEsp32 = 0;
-
+// VARIABLES PARA LUCES UV
+float tiempoEncendido = pines.ultravioleta.TIME; 
+unsigned long tiempoReferenciaLuz = 0;
+bool lucesActivas = false;
 
 /*##################################
   ### CONFIGURACION DEL PROGRAMA ###
@@ -71,24 +78,39 @@ void setup() {
   gui.iniciar(); 
 
   Serial.println("Iniciando Sensores y Pines... ");
+
   dht.begin(); // DHT22 (Temperatura y Humedad Ambiental)
   sensores.begin(); // ESP32 Temperatura
+
   pinMode(pines.ultrasonido.TRIG, OUTPUT); pinMode(pines.ultrasonido.ECHO, INPUT); // Ultrasonido (Altura de la Planta)
+
   // Configurar Canal para UV-A
   ledcSetup(pines.ultravioleta.A.CAN, pines.ultravioleta.FRQ, pines.ultravioleta.RES);
   ledcAttachPin(pines.ultravioleta.A.PIN, pines.ultravioleta.A.CAN);
   ledcWrite(pines.ultravioleta.A.CAN, pines.ultravioleta.OFF); // Apagada
+
   // Configurar Canal para UV-B
   ledcSetup(pines.ultravioleta.B.CAN, pines.ultravioleta.FRQ, pines.ultravioleta.RES);
   ledcAttachPin(pines.ultravioleta.B.PIN, pines.ultravioleta.B.CAN);
   ledcWrite(pines.ultravioleta.B.CAN, pines.ultravioleta.OFF); // Apagada
+  
   // Bomba de Agua
   ledcSetup(pines.bomba.CAN, pines.bomba.FRQ, pines.bomba.RES);
   ledcAttachPin(pines.bomba.PIN, pines.bomba.CAN);
   ledcWrite(pines.bomba.CAN, pines.bomba.OFF); // Encendida
 
+  // Motor Paso a Paso
+  //gancho.setSpeed(10);
+
   Serial.println("Lanzando WebServer en Core 0... ");
   xTaskCreatePinnedToCore(ServidorWeb, "WebSrv", 10000, NULL, 1, NULL, 0); 
+
+  // Memoria Editable y Luces UV
+  prefs.begin("gh-settings", true);
+  // Si no existe "uTime", usa el valor por defecto de CONFIG.h
+  tiempoEncendido = prefs.getFloat("uTime", pines.ultravioleta.TIME); 
+  prefs.end();
+  tiempoReferenciaLuz = millis(); // Iniciar cronómetro de luces
 }
 
 
@@ -101,12 +123,14 @@ void loop() {
   ejecutarCuidado(); // CUIDADO AUTONOMO
   
   if (forzarRedibujado) {
-    tft.fillScreen(TFT_BLACK); // Limpiamos la pantalla una sola vez aquí
+    tft.fillScreen(TFT_BLACK);
     switch (estado) {
       case 1: estadoUno();break;
       case 2: estadoCuatro(); break;
       case 3: estadoDos(); break;
-      case 4: estadoTres(); break; // En el estado 4 no hacemos nada especial al "entrar" 
+      case 4: estadoTres(); break;
+      case 5: estadoCinco(); break;
+      case 6: estadoSeis(); break;
     }
     forzarRedibujado = false;
   }
@@ -127,13 +151,24 @@ void ejecutarCuidado() {
     ledcWrite(pines.bomba.CAN, pines.bomba.OFF);
 
     // LUZ UV
-    if ( temperatura < calibracion.luz.RANGO ) {
-      ledcWrite(pines.ultravioleta.A.CAN, pines.ultravioleta.ON);
-      ledcWrite(pines.ultravioleta.B.CAN, pines.ultravioleta.ON);
-    } else {
-      ledcWrite(pines.ultravioleta.A.CAN, pines.ultravioleta.OFF);
-      ledcWrite(pines.ultravioleta.B.CAN, pines.ultravioleta.OFF);
-    }
+    unsigned long tiempoActual = millis();
+    unsigned long cicloTotal = tiempoEncendido * 3;
+
+    if (tiempoActual - tiempoReferenciaLuz < tiempoEncendido) { // FASE DE ENCENDIDO
+      if (!lucesActivas) {
+        ledcWrite(pines.ultravioleta.A.CAN, pines.ultravioleta.ON);
+        ledcWrite(pines.ultravioleta.B.CAN, pines.ultravioleta.ON);
+        lucesActivas = true;
+      }
+    } 
+    else if (tiempoActual - tiempoReferenciaLuz < cicloTotal) { // FASE DE APAGADO (Dura el doble)
+      if (lucesActivas) {
+        ledcWrite(pines.ultravioleta.A.CAN, pines.ultravioleta.OFF);
+        ledcWrite(pines.ultravioleta.B.CAN, pines.ultravioleta.OFF);
+        lucesActivas = false;
+      }
+    } 
+    else { tiempoReferenciaLuz = tiempoActual; } // REINICIO DEL CICLO
   }
 }
 
@@ -156,9 +191,13 @@ float leerUltrasonido() {
   #################################*/
 void actualizarSensores() {
   static unsigned long ultimaActualizacionSensores = 0;
+  float tempHumedadAire = 0;
+  float tempTemperatura = 0;
   if (millis() - ultimaActualizacionSensores > 2000) {
-    if ( !std::isnan(dht.readHumidity()) ) { humedadAire = dht.readHumidity(); } // HUMEDAD DEL AIRE
-    if ( !std::isnan(dht.readTemperature()) ) { temperatura = dht.readTemperature(); } // TEMPERATURA AMBIENTE
+    tempHumedadAire = dht.readHumidity();
+    tempTemperatura = dht.readTemperature();
+    if ( !std::isnan(tempHumedadAire) ) { humedadAire = tempHumedadAire; } // HUMEDAD DEL AIRE
+    if ( !std::isnan(tempTemperatura) ) { temperatura = tempTemperatura; } // TEMPERATURA AMBIENTE
 
     // TEMPERATURA DEL ESP32 (POR SEGURIDAD)
     sensores.requestTemperatures(); 
@@ -306,6 +345,27 @@ void estadoCuatro() {
   tft.drawArc(x, y + 30, 70, 60, 270, 90, TFT_WHITE, TFT_BLACK, true); // Sonrisa XL
 }
 
+/*################
+  ### ESTADO 5 ###
+  ########################################################
+  # HACE GIRAR EL MOTOR PASO A PASO A SENTIDO DEL RELOJ  #
+  ########################################################*/
+void estadoCinco() {
+  gui.icono.ganchoDerecha();
+  //gancho.step(pines.step.ADD90);
+  delay(1000);
+}
+
+/*################
+  ### ESTADO 6 ###
+  ########################################################
+  # HACE GIRAR EL MOTOR PASO A PASO A SENTIDO DEL RELOJ  #
+  ########################################################*/
+void estadoSeis() {
+  gui.icono.ganchoIzquierda();
+  //gancho.step(pines.step.SUS90);
+  delay(1000);
+}
 
 // Función para limpiar valores NaN antes de enviarlos por JSON
 String validarDato(float valor) { if (isnan(valor)) {return "0.0"; } return String(valor, 1); }
@@ -325,21 +385,24 @@ void ServidorWeb(void* p) {
     server.send(200, "text/html", monitor.WEBPAGE);
   });
 
-  /* // API de Calibracion 
-  > ¡IMPORTANTE! PENDIENTE POR ADAPTAR PARA USO MEJOR
+  // Modificar Configuracion de Luces
   server.on("/config", []() {
-    if (server.hasArg("hum")) { umbralHumedadRiego = server.arg("hum").toFloat(); }
-    if (server.hasArg("temp")) { umbralTempLuces = server.arg("temp").toFloat(); }
-
-    // Guardar en memoria persistente
-    prefs.begin("gh-settings", false);
-    prefs.putFloat("uHum", umbralHumedadRiego);
-    prefs.putFloat("uTemp", umbralTempLuces);
-    prefs.end();
-
-    server.send(200, "text/plain", "OK: Umbrales actualizados");
+    if (server.hasArg("time")) {
+      float nuevoTime = server.arg("time").toFloat();
+      if (nuevoTime > 0) {
+        tiempoEncendido = nuevoTime; // Variable global 
+        
+        // Persistencia
+        prefs.begin("gh-settings", false);
+        prefs.putFloat("uTime", tiempoEncendido);
+        prefs.end();
+        
+        // Reiniciar ciclo de luces
+        tiempoReferenciaLuz = millis();
+        server.send(200, "text/plain", "OK");
+      }
+    }
   });
-  */
 
   // API de Datos de Sensores
   server.on("/data", []() {
