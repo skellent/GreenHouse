@@ -48,11 +48,22 @@ struct ConfiguracionPines {
     const int FRQ = 5000;
     const int ON  = 200;
     const int OFF = 255;
+    const float TIME = 2000;
   } ultravioleta;
 
   struct {
-    const int TEMP = 23; // THIS IS NOT THE CORRECT (MAYBE)
+    const int TEMP = 26; // THIS IS NOT THE CORRECT (MAYBE)
   } esp32;
+
+  struct {
+    const int IN1 = 21;
+    const int IN2 = 28;
+    const int IN3 = 24;
+    const int IN4 = 8;
+    const int RNG = 2048;
+    const int ADD90 = 512;
+    const int SUS90 = -512;
+  } step;
 };
 
 struct Calibracion {

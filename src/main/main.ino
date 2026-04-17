@@ -5,11 +5,7 @@
   ### - Robert Rodríguez "Skellent" ###
   ###    - Christopher Ramirez      ###
   ###     - Fabiana Hernandez       ###
-  ######################################################################
-  #
-  #  <Breve texto informativo o descripcion del proyecto>
-  #
-  ###################################################################################################*/
+  #####################################*/
 
 
 /*#################################################
@@ -64,6 +60,9 @@ unsigned long tiempoReferenciaLuz = 0;
 bool lucesActivas = false;
 // VARIABLES PARA EL TANQUE DE AGUA
 float rangoHumedad = calibracion.riego.RANGO;
+float uvON  = pines.ultravioleta.ON;
+// VARIABLE DE PRESENTACION
+bool presentar = true;
 
 /*##################################
   ### CONFIGURACION DEL PROGRAMA ###
@@ -101,9 +100,6 @@ void setup() {
   ledcAttachPin(pines.bomba.PIN, pines.bomba.CAN);
   ledcWrite(pines.bomba.CAN, pines.bomba.OFF); // Encendida
 
-  // Motor Paso a Paso
-  //gancho.setSpeed(10);
-
   Serial.println("Lanzando WebServer en Core 0... ");
   xTaskCreatePinnedToCore(ServidorWeb, "WebSrv", 10000, NULL, 1, NULL, 0); 
 
@@ -112,6 +108,7 @@ void setup() {
   // Si no existe "uTime", usa el valor por defecto de CONFIG.h
   tiempoEncendido = prefs.getFloat("uTime", pines.ultravioleta.TIME);
   rangoHumedad    = prefs.getFloat("uHum", calibracion.riego.RANGO);
+  uvON            = prefs.getFloat("uvON", pines.ultravioleta.ON);
   prefs.end();
   tiempoReferenciaLuz = millis(); // Iniciar cronómetro de luces
 }
@@ -121,10 +118,6 @@ void setup() {
   ### BUCLE PRINCIPAL DEL PROGRAMA ###
   ####################################*/
 void loop() {
-  actualizarSensores(); // MANTIENE ACTUALIZADO LOS SENSORES POR CADA ITERACION
-  manejarTouch(); // GESTIONA LA PARTE TACTIL DE LA PANTALLA
-  ejecutarCuidado(); // CUIDADO AUTONOMO
-  
   if (forzarRedibujado) {
     tft.fillScreen(TFT_BLACK);
     switch (estado) {
@@ -132,11 +125,20 @@ void loop() {
       case 2: estadoCuatro(); break;
       case 3: estadoDos(); break;
       case 4: estadoTres(); break;
-      case 5: estadoCinco(); break;
-      case 6: estadoSeis(); break;
+      //case 5: estadoCinco(); break;
+      //case 6: estadoSeis(); break;
     }
     forzarRedibujado = false;
   }
+
+  if (presentar) {
+    presentacion();
+    presentar = false;
+  }
+
+  actualizarSensores(); // MANTIENE ACTUALIZADO LOS SENSORES POR CADA ITERACION
+  manejarTouch(); // GESTIONA LA PARTE TACTIL DE LA PANTALLA
+  ejecutarCuidado(); // CUIDADO AUTONOMO
 
   if (estado == 1 && (millis() - ultimaActualizacion) > 1000) { // SE ENCARGA DE ACTUALIZAR LOS VALORES PERIODICAMENTE
     actualizarValoresPantalla();
@@ -159,8 +161,8 @@ void ejecutarCuidado() {
     unsigned long cicloTotal = tiempoEncendido * 3;  // 1 parte encendido, 2 partes apagado
 
     if (tiempoTranscurrido < tiempoEncendido) { // FASE DE ENCENDIDO
-      ledcWrite(pines.ultravioleta.A.CAN, pines.ultravioleta.ON);
-      ledcWrite(pines.ultravioleta.B.CAN, pines.ultravioleta.ON);
+      ledcWrite(pines.ultravioleta.A.CAN, uvON);
+      ledcWrite(pines.ultravioleta.B.CAN, uvON);
     } 
     else if (tiempoTranscurrido < cicloTotal) { // FASE DE APAGADO (Dura el doble)
       ledcWrite(pines.ultravioleta.A.CAN, pines.ultravioleta.OFF);
@@ -206,8 +208,7 @@ void actualizarSensores() {
     if (humedadTierra > 100) { humedadTierra = 100; } 
 
     // LITROS DE AGUA DISPONIBLES EN TANQUE
-      int lecturaTanque = analogRead(pines.agua.TANQUE);
-    Serial.printf("Tanque ADC: %d\n", lecturaTanque);
+    int lecturaTanque = analogRead(pines.agua.TANQUE);
     litrosAgua = map(lecturaTanque, calibracion.tanque.SECO, calibracion.tanque.MOJA, 0, 100);
     litrosAgua = constrain(litrosAgua, 0, 100);  // Mejor que el if manual
 
@@ -226,7 +227,7 @@ void manejarTouch() {
   uint16_t x, y;
   if (tft.getTouch(&x, &y)) {
     if (millis() - ultimoToque > debounceTime) {
-      estado = (estado % 6) + 1;
+      estado = (estado % 4) + 1; // remplazar por estado % 6 para usar estados de Step
       forzarRedibujado = true;
       ultimoToque = millis();
     printf("Pantalla Tocada!");
@@ -274,10 +275,6 @@ void estadoUno() {
   gui.icono.tierra();
   gui.icono.agua();
   actualizarValoresPantalla();
-  if ((millis() - ultimaActualizacion) > 2000) { // SE ENCARGA DE ACTUALIZAR LOS VALORES PERIODICAMENTE
-    actualizarValoresPantalla();
-    ultimaActualizacion = millis();
-  }
 }
 
 
@@ -364,6 +361,36 @@ void estadoSeis() {
   gui.icono.ganchoIzquierda();
 }
 
+/*#####################################
+### PRESENTACION DE FUNCIONALIDADES ###
+#####################################*/
+void presentacion() {
+  estado = 2;
+  forzarRedibujado = true;
+  ultimoToque = millis();
+  for (int i = 0; i < 4; i++) {
+    for (int i = 256; i > 0; i--) {
+      ledcWrite(pines.ultravioleta.A.CAN, i);
+      ledcWrite(pines.ultravioleta.B.CAN, i);
+      delay(10);
+    }
+    for (int i = 0; i < 256; i++) {
+      ledcWrite(pines.ultravioleta.A.CAN, i);
+      ledcWrite(pines.ultravioleta.B.CAN, i);
+      delay(10);
+    }
+  }
+  for (int i = 0; i < 4; i++) {
+    ledcWrite(pines.bomba.CAN, pines.bomba.ON);
+    delay(1000);
+    ledcWrite(pines.bomba.CAN, pines.bomba.OFF);
+    delay(1000);
+  }
+  estado = 1;
+  forzarRedibujado = true;
+  ultimoToque = millis();
+}
+
 // Función para limpiar valores NaN antes de enviarlos por JSON
 String validarDato(float valor) { if (isnan(valor)) {return "0.0"; } return String(valor, 1); }
 
@@ -406,6 +433,18 @@ void ServidorWeb(void* p) {
         server.send(200, "text/plain", "UMBRAL DE HUMEDAD MODIFICADO EXITOSAMENTE");
       } else { server.send(400, "text/plain", "Valor fuera de rango (0-100)"); }
     }
+
+    if (server.hasArg("uv")) {
+      float nuevoUVon = server.arg("uv").toFloat();
+      if (nuevoUVon >= 0 && nuevoUVon <= 255) {
+        uvON = nuevoUVon;
+        prefs.begin("gh-settings", false);
+        prefs.putFloat("uvON", uvON);
+        prefs.end();
+        server.send(200, "text/plain", "POTENCIA DE LA LUZ UV MODIFICADA EXITOSAMENTE");
+      } else { server.send(400, "text/plain", "Valor fuera de rango (0-255)"); }
+    }
+
   });
 
   // API de Datos de Sensores
