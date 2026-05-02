@@ -1,0 +1,30 @@
+[project]
+name = "greenhouse"
+version = "0.1.0"
+description = ""
+readme = "README.md"
+requires-python = ">=3.10"
+authors = [
+    { name = "skellent", email = "skellent@outlook.com" }
+]
+dependencies = [
+    "flet>=0.84.0",
+    "requests>=2.28.0",
+]
+
+[dependency-groups]
+dev = [
+    "flet-cli>=0.84.0",
+    "flet-desktop>=0.84.0",
+    "flet-web>=0.84.0",
+    "flask>=3.0.0",
+]
+
+[tool.flet]
+org = "dev.skellent"
+product = "greenhouse"
+company = "GreenHouse"
+copyright = "Copyright (C) 2023-2026 by Flet"
+
+[tool.flet.app]
+path = "src"

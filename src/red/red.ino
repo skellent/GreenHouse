@@ -46,11 +46,16 @@ void loop() {
   // === PASO A: NORMALIZACIÓN TOTAL (Indispensable) ===
   // Usamos la fórmula: (valor - min) / (max - min)
   // AJUSTA LOS MIN/MAX SEGÚN TU DATASET DE PYTHON
-  input->data.f[0] = (t_real - 0.0) / (50.0 - 0.0);    // Temp (0 a 50)
+  /* input->data.f[0] = (t_real - 0.0) / (50.0 - 0.0);    // Temp (0 a 50)
   input->data.f[1] = (h_real - 0.0) / (100.0 - 0.0);   // Hum Aire (0 a 100)
   input->data.f[2] = (s_real - 0.0) / (4095.0 - 0.0);  // Hum Suelo (0 a 4095)
   input->data.f[3] = (l_real - 0.0) / (4095.0 - 0.0);  // Luz (0 a 4095)
-  input->data.f[4] = (n_real - 0.0) / (4095.0 - 0.0);  // Tanque (0 a 4095)
+  input->data.f[4] = (n_real - 0.0) / (4095.0 - 0.0);  // Tanque (0 a 4095)*/
+  input->data.f[0] = 0.6;
+  input->data.f[1] = 0.5;
+  input->data.f[2] = 0.1;
+  input->data.f[3] = 0.0;
+  input->data.f[4] = 0.9;
 
   // === PASO B: Inferencia ===
   if (interpreter->Invoke() != kTfLiteOk) {
