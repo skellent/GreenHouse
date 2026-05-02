@@ -1,5 +1,5 @@
 /*###############################
-  ### SKELL'S GREENHOUSE V1.0 ###
+  ### SKELL'S GREENHOUSE V2.0 ###
   #####################################
   ###          Developed By:        ###
   ### - Robert Rodríguez "Skellent" ###

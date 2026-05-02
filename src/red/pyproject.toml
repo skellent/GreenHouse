@@ -1,0 +1,14 @@
+[project]
+name = "greenhouse-core"
+version = "0.1.0"
+description = "Red neuronal para Skell's GreenHouse"
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [
+    "jupyter>=1.1.1",
+    "matplotlib>=3.10.9",
+    "numpy>=2.4.4",
+    "pandas>=3.0.2",
+    "scikit-learn>=1.8.0",
+    "tensorflow>=2.21.0",
+]

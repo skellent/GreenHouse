@@ -22,7 +22,8 @@ struct Iconos {
 struct GUI {
   void iniciar();
   void marco();
-
+ 
+ 
   // Sub-grupos
   Iconos icono;
 };
