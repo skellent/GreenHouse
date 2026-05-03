@@ -1,9 +1,3 @@
-/* ╔ ║ ╚ ═ ╗ ╝ */
-
-/*╔══╗
-  ║  ║
-  ╚══╝*/
-
 /*╔═════════════════════════════════╗
   ║  SKELL'S GREENHOUSE V2.0        ║
   ╠═════════════════════════════════╣
@@ -53,51 +47,54 @@ WebServer server(red.PUERTO);
 Preferences prefs;
 
 
-/*##################################################################
-  ### MEMORIA Y PUNTEROS PARA LA RED NEURONAL                    ###
-  ##################################################################*/
-tflite::ErrorReporter*    error_reporter = nullptr;
-const tflite::Model*      model          = nullptr;
-tflite::MicroInterpreter* interpreter    = nullptr;
-TfLiteTensor* input  = nullptr;
-TfLiteTensor* output = nullptr;
+/*╔═════════════════════════════════════════╗
+  ║ MEMORIA Y PUNTEROS PARA LA RED NEURONAL ║
+  ╚═════════════════════════════════════════╝*/
+tflite::ErrorReporter*    error_reporter = nullptr;   // Reportero de Errores
+const tflite::Model*      model          = nullptr;  // Variable para el Modelo
+tflite::MicroInterpreter* interpreter    = nullptr; // Interprete del Modelo
 
-constexpr int kTensorArenaSize = 16 * 1024;
-alignas(16) uint8_t tensor_arena[kTensorArenaSize];
+TfLiteTensor* input  = nullptr;  // INPUTS de datos (sensores)
+TfLiteTensor* output = nullptr; // OUTPUTS de datos (actuadores)
+
+constexpr int kTensorArenaSize = 16 * 1024;          // Memoria Reservada para el Modelo
+alignas(16) uint8_t tensor_arena[kTensorArenaSize]; // Asignación en Memoria
 
 
-/*##########################
-  ### VARIABLES GLOBALES ###
-  ##########################*/
-String ipAddress = red.ESCUCHA;
+/*╔════════════════════╗
+  ║ VARIABLES GLOBALES ║
+  ╚════════════════════╝*/
+String ipAddress = red.ESCUCHA; // IP por defecto de Acceso
 
-float sen_humedadAire      = 0.0;
-float sen_humedadTierra    = 0.0;
-float sen_litrosAgua       = 0.0;
-float sen_alturaPlanta     = 0.0;
-float sen_temperatura      = 0.0;
-float sen_temperaturaEsp32 = 0.0;
-float sen_temperaturaAgua  = 0.0;
-float sen_luz              = 0.0;
+/* SENSORES */
+float sen_humedadAire      = 0.0;        // Humedad del Aire (DHT11)
+float sen_humedadTierra    = 0.0;       // Humedad de la Tierra (Sensor)
+float sen_litrosAgua       = 0.0;      // Agua Disponible (Sensor)
+float sen_alturaPlanta     = 0.0;     // Altura de Planta (Ultrasonido)
+float sen_temperatura      = 0.0;    // Temperatura Ambiente (DHT11)
+float sen_temperaturaEsp32 = 0.0;   // Temperatura ESP32 (Sensor)
+float sen_temperaturaAgua  = 0.0;  // Temperatura del Agua (Sensor)
+float sen_luz              = 0.0; // Humedad del Aire (DHT11)
 
-float uv    = 0.0;
-float bomba = 0.0;
-
+/* SENSORES (FORMATEADOS) */
 float raw_temperatura   = 0.0;
 float raw_humedadAire   = 0.0;
 float raw_humedadTierra = 0.0;
 float raw_luz           = 0.0;
 float raw_litrosAgua    = 0.0;
 
-bool camaraOk = false;
+/* ACTUADORES */
+float uv    = 0.0; 
+float bomba = 0.0;
+bool camaraOk = false; // Estado de la Camara
 
 
-/*══════════════════════════════════════════
-  ║              CAMARA                   ║
-  ╚══════════════════════════════════════*/
+/*╔═════════════════╗
+  ║ SETUP DE CÁMARA ║
+  ╚═════════════════╝*/
 bool iniciarCamara() {
-  camera_config_t cfg;
-
+  // CONFIGURACIÓN DE PINES
+  camera_config_t cfg; 
   cfg.pin_pwdn      = pines.cam.PWDN_GPIO_NUM;
   cfg.pin_reset     = pines.cam.RESET_GPIO_NUM;
   cfg.pin_xclk      = pines.cam.XCLK_GPIO_NUM;
@@ -115,23 +112,24 @@ bool iniciarCamara() {
   cfg.pin_href      = pines.cam.HREF_GPIO_NUM;
   cfg.pin_pclk      = pines.cam.PCLK_GPIO_NUM;
 
-  cfg.xclk_freq_hz  = 20000000;
-  cfg.ledc_timer    = LEDC_TIMER_1;    // TIMER_0 reservado para actuadores
-  cfg.ledc_channel  = LEDC_CHANNEL_3; // Canales 0-2 usados por bomba/UV
+  /* ACTUADORES */
+  cfg.xclk_freq_hz  = 20000000;         // Frecuencia del Reloj
+  cfg.ledc_timer    = LEDC_TIMER_1;    // TIMER_0 reservado para actuadores de la Cámara
+  cfg.ledc_channel  = LEDC_CHANNEL_3; // Canal 3 (Canales 0-2 usados por bomba/UV)
 
+  /* FORMATO DE IMÁGEN */
   cfg.pixel_format  = PIXFORMAT_JPEG;
-  cfg.frame_size    = FRAMESIZE_VGA;  // 640x480; cambia a QVGA si hay poca RAM
+  cfg.frame_size    = FRAMESIZE_VGA;  // 640x480
   cfg.jpeg_quality  = 12;
   cfg.fb_count      = 1;
   cfg.fb_location   = CAMERA_FB_IN_DRAM;
   cfg.grab_mode     = CAMERA_GRAB_LATEST;
 
+  /* MANEJO DE ERRORES DE INICIO */
   esp_err_t err = esp_camera_init(&cfg);
-  if (err != ESP_OK) {
-    Serial.printf("[CAM] Error al inicializar: 0x%x\n", err);
-    return false;
-  }
-
+  if (err != ESP_OK) { Serial.printf("[CAM] Error al inicializar: 0x%x\n", err); return false; }
+  
+  /* RETORNO FUNCIONAL DE LA CÁMARA CONFIGURADA */
   Serial.println("[CAM] OV2640 lista");
   sensor_t* s = esp_camera_sensor_get();
   if (s) Serial.printf("[CAM] Sensor PID: 0x%02X (OV2640=0x26)\n", s->id.PID);
@@ -139,9 +137,9 @@ bool iniciarCamara() {
 }
 
 
-/*══════════════════════════════════════════
-  ║           SETUP                       ║
-  ╚══════════════════════════════════════*/
+/*╔═══════════════╗
+  ║ SETUP GENERAL ║
+  ╚═══════════════╝*/
 void setup() {
   Serial.begin(115200);
   delay(1000);
@@ -152,6 +150,7 @@ void setup() {
   pinMode(pines.ultrasonido.TRIG, OUTPUT);
   pinMode(pines.ultrasonido.ECHO, INPUT);
 
+  /* ACTUADORES */
   // UV-A
   ledcSetup(pines.ultravioleta.A.CAN, pines.ultravioleta.FRQ, pines.ultravioleta.RES);
   ledcAttachPin(pines.ultravioleta.A.PIN, pines.ultravioleta.A.CAN);
@@ -164,21 +163,21 @@ void setup() {
   ledcSetup(pines.bomba.CAN, pines.bomba.FRQ, pines.bomba.RES);
   ledcAttachPin(pines.bomba.PIN, pines.bomba.CAN);
   ledcWrite(pines.bomba.CAN, pines.bomba.OFF);
-
   /* CAMARA — inicializar antes del WiFi para evitar conflictos de heap */
   camaraOk = iniciarCamara();
 
   /* RED NEURONAL */
+  // Reportero de Errores
   static tflite::MicroErrorReporter micro_error_reporter;
   error_reporter = &micro_error_reporter;
-
+  // Modelo Seleccionado
   model = tflite::GetModel(aigis);
-
+  // Interprete Estático Operativo
   static tflite::AllOpsResolver resolver;
   static tflite::MicroInterpreter static_interpreter(
     model, resolver, tensor_arena, kTensorArenaSize, error_reporter);
   interpreter = &static_interpreter;
-
+  // Configuración de Entradas y Salidas
   interpreter->AllocateTensors();
   input  = interpreter->input(0);
   output = interpreter->output(0);
@@ -188,38 +187,45 @@ void setup() {
 }
 
 
-/*══════════════════════════════════════════
-  ║           LOOP PRINCIPAL              ║
-  ╚══════════════════════════════════════*/
+/*╔═══════════════════════════════╗
+  ║ BÚCLE PRINCIPAL DE EJECUCIÓN  ║
+  ╚═══════════════════════════════╝*/
 void loop() {
+  neopixelWrite(48, 255, 255, 255); // LUZ BLANCA = INICIO DE ITERACIÓN
+
+  // ACTIVACIÓN DE INPUTS Y OUTPUTS
   input  = interpreter->input(0);
   output = interpreter->output(0);
 
+  // ACTUALIZACIÓN Y FORMATEO DE DATOS
   actualizarSensores();
   formatearSensores();
 
+  // INSERCIÓN DE DATOS FORMATEADOS AL MODELO
   input->data.f[0] = raw_temperatura;
   input->data.f[1] = raw_humedadAire;
   input->data.f[2] = raw_humedadTierra;
   input->data.f[3] = raw_luz;
   input->data.f[4] = raw_litrosAgua;
 
+  // EJECUCIÓN DE INTÉRPRETE CON MANEJO DE ERROR
   if (interpreter->Invoke() == kTfLiteOk) {
-    neopixelWrite(48, random(0, 255), random(0, 255), random(0, 255));
-    bomba = output->data.f[0];
-    uv    = output->data.f[1];
+    neopixelWrite(48, 0, 255, 0); // LUZ VERDE = EXITO
+    bomba = output->data.f[0];  // OUTPUT DE BOMBA I/O
+    uv    = output->data.f[1]; // OUTPUT DE INTENSIDAD PWM
   } else {
+    neopixelWrite(48, 255, 0, 0); // LUZ ROJA = ERROR
     Serial.println("❌ ERROR CRÍTICO: La IA falló al procesar los datos.");
   }
 
-  log(true);
+  log(calibracion.LOGGIN);
   delay(1000);
 }
 
 
-/*══════════════════════════════════════════
-  ║              SENSORES                 ║
-  ╚══════════════════════════════════════*/
+/*╔════════════════════════╗
+  ║ LECTURA DE ULTRASONIDO ║
+  ╚════════════════════════╝*/
 float leerUltrasonido() {
   digitalWrite(pines.ultrasonido.TRIG, LOW);
   delayMicroseconds(2);
@@ -232,27 +238,39 @@ float leerUltrasonido() {
   return distancia;
 }
 
+
+/*╔═══════════════════════════╗
+  ║ ACTUALIZACIÓN DE SENSORES ║
+  ╚═══════════════════════════╝*/
 void actualizarSensores() {
-  float h = dht.readHumidity();
-  float t = dht.readTemperature();
-  if (!std::isnan(h)) sen_humedadAire = h;
-  if (!std::isnan(t)) sen_temperatura = t;
+  float h = dht.readHumidity(); float t = dht.readTemperature();
+  if (!std::isnan(h)) sen_humedadAire = h;  // HUMEDAD DEL AIRE
+  if (!std::isnan(t)) sen_temperatura = t; // TEMPERATURA AMBIENTE
 
   sensores.requestTemperatures();
-  sen_temperaturaEsp32 = sensores.getTempCByIndex(0);
+  sen_temperaturaEsp32 = sensores.getTempCByIndex(0); // TEMPERATURA DEL ESP32
 
+  // HUMEDAD DE TIERRA EN LA MACETA DE LA PLANTA
   sen_humedadTierra = constrain(
     map(analogRead(pines.agua.TIERRA), calibracion.tierra.SECO, calibracion.tierra.MOJA, 0, 100),
     0, 100);
 
+  // LITROS DE AGUA DISPONIBLE EN EL TANQUE
   sen_litrosAgua = constrain(
     map(analogRead(pines.agua.TANQUE), calibracion.tanque.SECO, calibracion.tanque.MOJA, 0, 100),
     0, 100);
 
+  // ALTURA DE LA PLANTA CON EL ULTRASONIDO
   sen_alturaPlanta = leerUltrasonido();
+
+  // LUZ DEL AMBIENTE CON FOTORESISTENCIA
   sen_luz = (float)(analogRead(pines.fotoresistencia.PIN));
 }
 
+
+/*╔══════════════════════╗
+  ║ FORMATEO DE SENSORES ║
+  ╚══════════════════════╝*/
 void formatearSensores() {
   raw_temperatura   = sen_temperatura   / 50.0;
   raw_humedadAire   = sen_humedadAire   / 100.0;
@@ -261,15 +279,16 @@ void formatearSensores() {
   raw_litrosAgua    = sen_litrosAgua    / 100.0;
 }
 
-String validarDato(float valor) {
-  if (isnan(valor)) return "0.0";
-  return String(valor, 1);
-}
+
+/*╔═══════════════════════════╗
+  ║ VALIDACIÓN DE DATOS NULOS ║
+  ╚═══════════════════════════╝*/
+String validarDato(float valor) { if (isnan(valor)) return "0.0"; return String(valor, 4); }
 
 
-/*══════════════════════════════════════════
-  ║               LOG SERIAL              ║
-  ╚══════════════════════════════════════*/
+/*╔══════════════════╗
+  ║ MONITOREO SERIAL ║
+  ╚══════════════════╝*/
 void log(bool activo) {
   if (!activo) return;
   Serial.println("#[SKELL-LOG]> Sensores");
@@ -304,12 +323,12 @@ void log(bool activo) {
 }
 
 
-/*══════════════════════════════════════════
-  ║   SERVIDOR WEB ÚNICO — Núcleo 0       ║
-  ║                                       ║
-  ║  GET /data  → JSON con sensores       ║
-  ║  GET /cam   → foto JPEG de la planta  ║
-  ╚══════════════════════════════════════*/
+/*╔═══════════════════════════════╗
+  ║   SERVIDOR WEB ( DELEGADO )   ║
+  ║ GET / => 404                  ║
+  ║ GET /data => .json (sensores) ║
+  ║ GET /cam => foto JPEG         ║
+  ╚═══════════════════════════════╝*/
 void ServidorWeb(void* p) {
   WiFi.begin(red.NOMBRE, red.CLAVE);
   while (WiFi.status() != WL_CONNECTED) vTaskDelay(pdMS_TO_TICKS(500));
@@ -336,7 +355,7 @@ void ServidorWeb(void* p) {
     server.send(200, "application/json", json);
   });
 
-  /* ── GET /cam ── foto JPEG estática */
+  /* ── GET /cam ── foto JPEG  */
   server.on("/cam", []() {
     if (!camaraOk) {
       server.send(503, "application/json", "{\"error\":\"camara no disponible\"}");
