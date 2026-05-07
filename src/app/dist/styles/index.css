@@ -1,0 +1,171 @@
+:root {
+    /* Tema Oscuro (Default) */
+    --bg-color: #050307;
+    --gradient: radial-gradient(circle at 50% -20%, #4b1b7d, #050307);
+    --card-bg: rgba(255, 255, 255, 0.05);
+    --text-primary: #ffffff;
+    --text-secondary: rgba(255, 255, 255, 0.5);
+    --accent: #a855f7;
+    --border: rgba(255, 255, 255, 0.1);
+}
+
+@media (prefers-color-scheme: light) {
+    :root {
+        --bg-color: #f5f3f7;
+        --gradient: radial-gradient(circle at 50% -20%, #e9d5ff, #f5f3f7);
+        --card-bg: rgba(255, 255, 255, 0.8);
+        --text-primary: #1e1b4b;
+        --text-secondary: #4338ca;
+        --accent: #7c3aed;
+        --border: rgba(124, 58, 237, 0.2);
+    }
+}
+
+* { 
+    box-sizing: border-box; 
+    margin: 0; padding: 0; 
+    -webkit-tap-highlight-color: transparent; 
+}
+
+body {
+    font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    background: var(--bg-color);
+    background-image: var(--gradient);
+    color: var(--text-primary);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+header {
+    padding: 2.5vh 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: var(--accent);
+    font-weight: 900;
+    font-size: 1.2em;
+    letter-spacing: 1px;
+}
+
+.icon-btn {
+    background: none; border: none;
+    width: 32px; height: 32px;
+    fill: var(--accent);
+    cursor: pointer;
+}
+
+.global-container {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    padding: 15px;
+    gap: 15px;
+}
+
+.row { display: flex; gap: 15px; width: 100%; flex: 1; }
+
+.card {
+    flex: 1;
+    background: var(--card-bg);
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+    border-radius: 50px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid var(--border);
+    padding: 15px;
+}
+
+.label {
+    font-size: 0.75em;
+    text-transform: uppercase;
+    color: var(--text-secondary);
+    margin-bottom: 8px;
+    font-weight: 700;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+}
+
+.icon {
+    width: 24px; height: 24px;
+    fill: currentColor; /* El SVG hereda el color del texto del sensor */
+}
+
+.val-container { display: flex; align-items: baseline; }
+.value { font-size: 2.5em; font-weight: 900; transition: 0.3s ease; }
+.unit { font-size: 1em; margin-left: 4px; opacity: 0.6; }
+
+/* Colores de sensores */
+#humedad-tierra { color: #22c55e; }
+#temperatura-ambiente { color: #ef4444; }
+#tanque { color: #3b82f6; }
+#altura-planta { color: #f59e0b; }
+#uv { color: #a855f7; }
+#bomba { color: #06b6d4; }
+
+/* Botones */
+.action-btn {
+    flex: 1;
+    background: var(--accent);
+    color: white;
+    border: none;
+    padding: 18px;
+    border-radius: 50px;
+    font-weight: 900;
+    font-size: 1em;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 12px;
+    transition: transform 0.2s;
+}
+
+.action-btn svg { width: 20px; fill: white; }
+.action-btn:active { transform: scale(0.96); opacity: 0.9; }
+
+/* Modales */
+.modal {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.7);
+    backdrop-filter: blur(8px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    z-index: 1000;
+    transition: opacity 0.3s;
+}
+
+.modal.hidden { opacity: 0; pointer-events: none; }
+
+.modal-card {
+    background: var(--bg-color);
+    border: 1px solid var(--border);
+    border-radius: 28px;
+    padding: 25px;
+    width: 100%;
+    max-width: 400px;
+    text-align: center;
+}
+
+.modal-card h2 { margin-bottom: 10px; color: var(--accent); }
+.separator { height: 2px; background: var(--border); margin: 15px 0; }
+.role { font-weight: bold; margin-bottom: 10px; opacity: 0.7; }
+ul { list-style: none; margin-bottom: 25px; line-height: 1.8; }
+
+.full-w { max-width: 500px; }
+#foto { width: 100%; border-radius: 18px; }
+.close { background: #64748b; margin-top: 10px; }
+.mt-10 { margin-top: 10px; }
+
+/* Animación de cambio de datos */
+.upd { animation: pulse 0.5s ease; }
+@keyframes pulse { 
+    50% { transform: scale(1.1); filter: brightness(1.5); } 
+}
