@@ -1,129 +1,133 @@
-#include "esp_camera.h"
 #include <WiFi.h>
-#include "esp_http_server.h"
+#include <WebServer.h>
+#include <ArduinoJson.h>
+#include "esp_camera.h"
+
 
 #include "config.h"
+#include "sensors.h"
+#include "cam.h"
 
-// Variables del Servidor Web
-httpd_handle_t stream_httpd = NULL;
 
-// Constantes para el protocolo de streaming (MJPEG)
-#define PART_BOUNDARY "123456789000000000000987654321"
-static const char* _STREAM_CONTENT_TYPE = "multipart/x-mixed-replace;boundary=" PART_BOUNDARY;
-static const char* _STREAM_BOUNDARY = "\r\n--" PART_BOUNDARY "\r\n";
-static const char* _STREAM_PART = "Content-Type: image/jpeg\r\nContent-Length: %u\r\n\r\n";
+Sensores          sensores;
+SemaphoreHandle_t mutexDatos;
+WebServer         server(80);
 
-// Función que maneja el envío continuo de fotos (El video)
-esp_err_t stream_handler(httpd_req_t *req) {
-  camera_fb_t * fb = NULL;
-  esp_err_t res = ESP_OK;
-  char part_buf[64];
 
-  // Configurar el tipo de respuesta como "streaming continuo"
-  res = httpd_resp_set_type(req, _STREAM_CONTENT_TYPE);
-  if(res != ESP_OK) return res;
+void serverAPI(void *pvParameters);
 
-  // Bucle infinito: Tomar foto -> Enviar -> Repetir
-  while(true){
-    fb = esp_camera_fb_get(); // Tomar la foto
-    if (!fb) {
-      Serial.println("Error al capturar la imagen");
-      res = ESP_FAIL;
-      break;
-    }
-
-    // Enviar las cabeceras de la parte actual del video
-    res = httpd_resp_send_chunk(req, _STREAM_BOUNDARY, strlen(_STREAM_BOUNDARY));
-    if(res == ESP_OK){
-      size_t hlen = snprintf(part_buf, 64, _STREAM_PART, fb->len);
-      res = httpd_resp_send_chunk(req, (const char *)part_buf, hlen);
-    }
-    // Enviar los datos binarios de la imagen JPEG
-    if(res == ESP_OK){
-      res = httpd_resp_send_chunk(req, (const char *)fb->buf, fb->len);
-    }
-
-    // Limpiar la memoria para la siguiente foto
-    esp_camera_fb_return(fb);
-    fb = NULL;
-
-    // Si el usuario cierra el navegador, salir del bucle
-    if(res != ESP_OK) break;
-  }
-  return res;
-}
-
-// Iniciar el Servidor
-void startCameraServer(){
-  httpd_config_t config = HTTPD_DEFAULT_CONFIG();
-  config.server_port = 80;
-
-  httpd_uri_t index_uri = {
-    .uri       = "/",
-    .method    = HTTP_GET,
-    .handler   = stream_handler,
-    .user_ctx  = NULL
-  };
-
-  if (httpd_start(&stream_httpd, &config) == ESP_OK) {
-    httpd_register_uri_handler(stream_httpd, &index_uri);
-  }
-}
 
 void setup() {
   Serial.begin(115200);
+
+
+  mutexDatos = xSemaphoreCreateMutex();
   
-  // 1. Conectar al WiFi
+
+  if (!initCamara()) {
+    Serial.println("El sistema continuará sin funciones de video.");
+  }
+
+
+  Serial.printf("Conectando a la red: %s \n", WIFI_RED);
   WiFi.begin(WIFI_RED, WIFI_PSW);
-  Serial.print("Conectando al WiFi");
-  while (WiFi.status() != WL_CONNECTED) {
+
+
+  int intentos = 0;
+  while (WiFi.status() != WL_CONNECTED && intentos < 20) {
     delay(500);
     Serial.print(".");
-  }
-  Serial.println("\nWiFi conectado!");
-
-  // 2. Configurar la Cámara
-  camera_config_t config;
-  config.ledc_channel = LEDC_CHANNEL_0;
-  config.ledc_timer   = LEDC_TIMER_0;
-  config.pin_d0       = CAM_Y2;
-  config.pin_d1       = CAM_Y3;
-  config.pin_d2       = CAM_Y4;
-  config.pin_d3       = CAM_Y5;
-  config.pin_d4       = CAM_Y6;
-  config.pin_d5       = CAM_Y7;
-  config.pin_d6       = CAM_Y8;
-  config.pin_d7       = CAM_Y9;
-  config.pin_xclk     = CAM_XCLK;
-  config.pin_pclk     = CAM_PCLK;
-  config.pin_vsync    = CAM_VSYNC;
-  config.pin_href     = CAM_HREF;
-  config.pin_sccb_sda = CAM_SIOD;
-  config.pin_sccb_scl = CAM_SIOC;
-  config.pin_pwdn     = CAM_PWDN;
-  config.pin_reset    = CAM_RESET;
-  config.xclk_freq_hz = 20000000;
-  config.frame_size   = FRAMESIZE_VGA;      // Resolución 640x480
-  config.pixel_format = PIXFORMAT_JPEG;     // Formato de salida JPEG
-  config.grab_mode    = CAMERA_GRAB_LATEST; // Siempre agarrar la imagen más reciente
-  config.fb_location  = CAMERA_FB_IN_PSRAM; // Guardar en memoria PSRAM
-  config.jpeg_quality = 10;                 // Calidad de 0 a 63 (menor es mejor calidad)
-  config.fb_count     = 2;                  // Usar 2 buffers en PSRAM para mayor fluidez
-
-  // 3. Inicializar la Cámara
-  esp_err_t err = esp_camera_init(&config);
-  if (err != ESP_OK) {
-    Serial.printf("Error inicializando la cámara: 0x%x", err);
-    return;
+    intentos++;
   }
 
-  // 4. Arrancar el servidor web
-  startCameraServer();
-  Serial.print("¡Cámara lista! Abre en tu navegador: http://");
-  Serial.println(WiFi.localIP());
+
+  if (WiFi.status() == WL_CONNECTED) {
+    Serial.println("\n¡Conectado con éxito a la red local!");
+    Serial.print("Dirección IP asignada por el router: ");
+    Serial.println(WiFi.localIP()); // <--- Guarda esta IP para consultar tu API
+  } else {
+    Serial.println("\nNo se pudo conectar a la red. Trabajando en modo local fuera de línea.");
+  }
+
+  // 2. Lanzar la API en el NÚCLEO 0
+  xTaskCreatePinnedToCore(
+    serverAPI,         // Función de la tarea
+    "ServidorWeb",    // Nombre identificador
+    8192,             // Tamaño de pila (RAM asignada)
+    NULL,             // Parámetros de entrada
+    1,                // Prioridad de la tarea
+    NULL,             // Handle
+    0                 // <--- NÚCLEO 0 (PRO_CPU)
+  );
 }
 
 void loop() {
-  // El loop queda vacío. El servidor HTTP se ejecuta en segundo plano.
-  delay(10000);
+
+  if (xSemaphoreTake(mutexDatos, portMAX_DELAY) == pdTRUE) {
+    sensores.sen_temperatura_ambiente = 0;
+    sensores.sen_temperatura_agua     = 0;
+    sensores.sen_humedad_ambiente     = 0;
+    sensores.sen_humedad_suelo        = 0;
+    sensores.sen_intensidad_luz       = 0;
+    sensores.sen_ultrasonido          = 0;
+    sensores.ia_perfilplanta          = 0;
+    sensores.ia_ventilacion           = 0;
+    sensores.ia_intensidad_uv         = 0;
+    sensores.ia_riego                 = 0;
+    sensores.esp32_temperatura        = 0;
+    sensores.esp32_camStatus          = true;
+    xSemaphoreGive(mutexDatos);
+  }
+  
+  vTaskDelay(pdMS_TO_TICKS(100)); // Delay amigable con FreeRTOS
+}
+
+
+void serverAPI(void *pvParameters) {
+  
+  server.on("/api/datos", HTTP_GET, []() {
+    JsonDocument informacion;
+
+    if (xSemaphoreTake(mutexDatos, pdMS_TO_TICKS(50)) == pdTRUE) {
+      informacion["sensores"]["temperatura_ambiente"] = sensores.sen_temperatura_ambiente;
+      informacion["sensores"]["temperatura_agua"]     = sensores.sen_temperatura_agua;
+      informacion["sensores"]["humedad_ambiente"]     = sensores.sen_humedad_ambiente;
+      informacion["sensores"]["humedad_suelo"]        = sensores.sen_humedad_suelo;
+      informacion["sensores"]["intensidad_luz"]       = sensores.sen_intensidad_luz;
+      informacion["sensores"]["ultrasonido"]          = sensores.sen_ultrasonido;
+      informacion["esp32"]["temperatura"]       = sensores.esp32_temperatura;
+      informacion["esp32"]["camStatus"]         = sensores.esp32_camStatus;
+      informacion["ia"]["intensidad_uv"] = sensores.ia_intensidad_uv;
+      informacion["ia"]["riego"]         = sensores.ia_riego;
+      informacion["ia"]["ventilacion"]   = sensores.ia_ventilacion;
+      informacion["ia"]["perfil"]        = sensores.ia_perfilplanta;
+
+      xSemaphoreGive(mutexDatos);
+
+      String respuestaJSON;
+      serializeJson(informacion, respuestaJSON);
+      server.send(200, "application/json", respuestaJSON);
+    } else {
+      server.send(503, "application/json", "{\"error\":\"Inferencia en progreso\"}");
+    }
+  });
+
+  server.on("/api/foto", HTTP_GET, []() {
+    camera_fb_t * fb = esp_camera_fb_get();
+    if (!fb) { server.send(500, "text/plain", "Fallo al capturar imagen"); return; }
+    server.send_P(200, "image/jpeg", (const char *)fb->buf, fb->len);
+    esp_camera_fb_return(fb); 
+  });
+
+  if (WiFi.status() == WL_CONNECTED) {
+    server.begin();
+    Serial.println("Servidor API HTTP escuchando peticiones locales.");
+  }
+
+  for (;;) {
+    if (WiFi.status() == WL_CONNECTED) {
+      server.handleClient();
+    }
+    vTaskDelay(pdMS_TO_TICKS(5)); // Mantiene el Watchdog del núcleo 0 en calma
+  }
 }
