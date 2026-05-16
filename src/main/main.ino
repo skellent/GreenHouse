@@ -16,7 +16,6 @@
 #include <OneWire.h>
 #include <DallasTemperature.h>
 #include "DHT.h"
-#include <Preferences.h>
 #include "esp_camera.h"
 
 
@@ -44,7 +43,6 @@ DHT dht(pines.dht.PIN, pines.dht.MODEL);
 OneWire oneWire(pines.esp32.TEMP);
 DallasTemperature sensores(&oneWire);
 WebServer server(red.PUERTO);
-Preferences prefs;
 
 
 /*╔═════════════════════════════════════════╗
@@ -149,20 +147,21 @@ void setup() {
   sensores.begin();
   pinMode(pines.ultrasonido.TRIG, OUTPUT);
   pinMode(pines.ultrasonido.ECHO, INPUT);
+  pinMode(pines.compuerta.PIN, INPUT);
 
   /* ACTUADORES */
-  // UV-A
-  ledcSetup(pines.ultravioleta.A.CAN, pines.ultravioleta.FRQ, pines.ultravioleta.RES);
-  ledcAttachPin(pines.ultravioleta.A.PIN, pines.ultravioleta.A.CAN);
-  ledcWrite(pines.ultravioleta.A.CAN, pines.ultravioleta.OFF);
-  // UV-B
-  ledcSetup(pines.ultravioleta.B.CAN, pines.ultravioleta.FRQ, pines.ultravioleta.RES);
-  ledcAttachPin(pines.ultravioleta.B.PIN, pines.ultravioleta.B.CAN);
-  ledcWrite(pines.ultravioleta.B.CAN, pines.ultravioleta.OFF);
+  // Luces UV
+  ledcSetup(pines.ultravioleta.CAN, pines.ultravioleta.FRQ, pines.ultravioleta.RES);
+  ledcAttachPin(pines.ultravioleta.PIN, pines.ultravioleta.CAN);
+  ledcWrite(pines.ultravioleta.CAN, pines.ultravioleta.OFF);
   // Bomba
   ledcSetup(pines.bomba.CAN, pines.bomba.FRQ, pines.bomba.RES);
   ledcAttachPin(pines.bomba.PIN, pines.bomba.CAN);
   ledcWrite(pines.bomba.CAN, pines.bomba.OFF);
+  // Candelabro
+  ledcSetup(pines.candelabro.CAN, pines.candelabro.FRQ, pines.candelabro.RES);
+  ledcAttachPin(pines.candelabro.PIN, pines.candelabro.CAN);
+  ledcWrite(pines.candelabro.CAN, pines.candelabro.OFF);
   /* CAMARA — inicializar antes del WiFi para evitar conflictos de heap */
   camaraOk = iniciarCamara();
 
@@ -193,32 +192,44 @@ void setup() {
 void loop() {
   neopixelWrite(48, 255, 255, 255); // LUZ BLANCA = INICIO DE ITERACIÓN
 
-  // ACTIVACIÓN DE INPUTS Y OUTPUTS
-  input  = interpreter->input(0);
-  output = interpreter->output(0);
+  if ( digitalRead(pines.compuerta.PIN) ) {
+    // ACTIVACIÓN DE INPUTS Y OUTPUTS
+    input  = interpreter->input(0);
+    output = interpreter->output(0);
 
-  // ACTUALIZACIÓN Y FORMATEO DE DATOS
-  actualizarSensores();
-  formatearSensores();
+    // ACTUALIZACIÓN Y FORMATEO DE DATOS
+    actualizarSensores();
+    formatearSensores();
 
-  // INSERCIÓN DE DATOS FORMATEADOS AL MODELO
-  input->data.f[0] = raw_temperatura;
-  input->data.f[1] = raw_humedadAire;
-  input->data.f[2] = raw_humedadTierra;
-  input->data.f[3] = raw_luz;
-  input->data.f[4] = raw_litrosAgua;
+    // INSERCIÓN DE DATOS FORMATEADOS AL MODELO
+    input->data.f[0] = raw_temperatura;
+    input->data.f[1] = raw_humedadAire;
+    input->data.f[2] = raw_humedadTierra;
+    input->data.f[3] = raw_luz;
+    input->data.f[4] = raw_litrosAgua;
 
-  // EJECUCIÓN DE INTÉRPRETE CON MANEJO DE ERROR
-  if (interpreter->Invoke() == kTfLiteOk) {
-    neopixelWrite(48, 0, 255, 0); // LUZ VERDE = EXITO
-    bomba = output->data.f[0];  // OUTPUT DE BOMBA I/O
-    uv    = output->data.f[1]; // OUTPUT DE INTENSIDAD PWM
+    // EJECUCIÓN DE INTÉRPRETE CON MANEJO DE ERROR
+    if (interpreter->Invoke() == kTfLiteOk) {
+      neopixelWrite(48, 0, 255, 0); // LUZ VERDE = EXITO
+      bomba = output->data.f[0];  // OUTPUT DE BOMBA I/O
+      uv    = output->data.f[1]; // OUTPUT DE INTENSIDAD PWM
+    } else {
+      neopixelWrite(48, 255, 0, 0); // LUZ ROJA = ERROR
+      Serial.println("❌ ERROR CRÍTICO: La IA falló al procesar los datos.");
+    }
+
+    // EJECUCIÓN DE CUIDADO DE LA PLANTA
+    if (bomba >= calibracion.riego.RANGO) {
+      ledcWrite(pines.ultravioleta.CAN, pines.ultravioleta.OFF);
+      ledcWrite(pines.bomba.CAN, pines.bomba.ON);
+    } else {
+      ledcWrite(pines.ultravioleta.CAN, uv);
+    }
+    log(calibracion.LOGGIN);
   } else {
-    neopixelWrite(48, 255, 0, 0); // LUZ ROJA = ERROR
-    Serial.println("❌ ERROR CRÍTICO: La IA falló al procesar los datos.");
+    neopixelWrite(48, 155, 0, 255);
   }
-
-  log(calibracion.LOGGIN);
+  
   delay(1000);
 }
 
