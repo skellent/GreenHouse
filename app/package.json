@@ -1,0 +1,25 @@
+{
+  "name": "skells-greenhouse",
+  "version": "3.0.0",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "dev": "vite --host 0.0.0.0",
+    "build": "tsc --noEmit && vite build",
+    "preview": "vite preview --host 0.0.0.0",
+    "cap:add:android": "bunx cap add android",
+    "cap:sync": "bun run build && bunx cap sync android",
+    "cap:open": "bunx cap open android"
+  },
+  "dependencies": {
+    "@capacitor/android": "latest",
+    "@capacitor/core": "latest",
+    "@capacitor/filesystem": "latest"
+  },
+  "devDependencies": {
+    "@capacitor/cli": "latest",
+    "@types/bun": "latest",
+    "typescript": "^5",
+    "vite": "latest"
+  }
+}

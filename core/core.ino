@@ -14,6 +14,7 @@
 #include <WiFi.h>
 #include <WebServer.h>
 #include <ArduinoJson.h>
+#include <Preferences.h>
 #include "esp_camera.h"
 #include <LiquidCrystal_I2C.h>
 
@@ -21,19 +22,21 @@
 /*╔═════════════════════════════╗
   ║ [ GLOBAL ] Módulos Propios  ║
   ╚═════════════════════════════╝*/
-#include "config.h"  // Configuracion de Pines en General
-#include "sensors.h" // Memoria Reservada en la RAM para la lectura de Sensores y de IA
-#include "cam.h"     // Script de inicialización de Cámara Integrada
-#include "icons.h"   // Iconos para la pantalla LCD
+#include "config.h"
+#include "sensors.h"
+#include "cam.h"
+#include "icons.h"
+
 
 /*╔═══════════════════════════════════╗
   ║ [ GLOBAL ] Instancias Requeridas  ║
   ╚═══════════════════════════════════╝*/
-Sensores          sensores;       // Reescribir Valor de Sensores
-SemaphoreHandle_t mutexDatos;     // Para evitar conflictos entre núcleos
-WebServer         servidor(80);   // Servidor Web
-HardwareSerial    nervios(1);     // Comunicación Serial con ESP32 Común
-LiquidCrystal_I2C lcd(LCD_PROTOCOLO, 16, 2); // Dirección típica 0x27, pantalla 16x2
+Sensores          sensores;
+SemaphoreHandle_t mutexDatos;
+WebServer         servidor(80);
+HardwareSerial    nervios(1);
+LiquidCrystal_I2C lcd(LCD_PROTOCOLO, 16, 2);
+Preferences       prefs;
 
 
 /*╔═══════════════════════════════════════════╗
@@ -41,15 +44,19 @@ LiquidCrystal_I2C lcd(LCD_PROTOCOLO, 16, 2); // Dirección típica 0x27, pantall
   ╚═══════════════════════════════════════════╝*/
 bool    camStatus   = false;
 uint8_t intentos    = 0;
-uint8_t perfil      = 0;
 uint8_t uv          = 0;
 bool    riego       = false;
 uint8_t ventilacion = 0;
 unsigned long lastLCDUpdate = 0;
 
+// Credenciales WiFi activas (cargadas desde NVS o fallback a config.h)
+String wifiRed = WIFI_RED;
+String wifiPsw = WIFI_PSW;
 
-// Declaración anticipada para evitar problemas de compilación
+
+// Declaraciones anticipadas
 void servidorWeb(void *pvParameters);
+bool conectarWiFi(const String& red, const String& psw, uint8_t maxIntentos = 20);
 
 
 /*╔═══════════════════════════════════════╗
@@ -58,25 +65,35 @@ void servidorWeb(void *pvParameters);
 void setup() {
   neopixelWrite(PIN_RGB, 255, 255, 0); // AMARILLO
 
-  /* Comunicación Serial */
   Serial.begin(BAUDIOS);
   nervios.begin(BAUDIOS, SERIAL_8N1, PIN_RX, PIN_TX);
-
-  // [FIX 1] Reducir timeout de readStringUntil() para no bloquear el loop
-  // esperando el '\n' durante 1000ms (valor por defecto)
-  nervios.setTimeout(100);
+  // Sin setTimeout: la lectura en loop() es no bloqueante (byte a byte)
 
   delay(1000);
 
-  mutexDatos = xSemaphoreCreateMutex();
-  camStatus = initCamara();
+  // ── Cargar preferencias persistentes desde NVS ─────────────────────────
+  prefs.begin("greenhouse", false);
 
-  WiFi.begin(WIFI_RED, WIFI_PSW);
-  while (WiFi.status() != WL_CONNECTED && intentos < 20) { delay(500); intentos++; }
+  if (prefs.isKey("wifi_red")) {
+    wifiRed = prefs.getString("wifi_red", WIFI_RED);
+    wifiPsw = prefs.getString("wifi_psw", WIFI_PSW);
+    Serial.println("[NVS] Credenciales WiFi cargadas desde memoria.");
+  }
+
+  // Perfil 1 por defecto si nunca se ha guardado uno
+  sensores.ia_perfilplanta = prefs.getUChar("perfil", 1);
+  Serial.printf("[NVS] Perfil activo: %d\n", sensores.ia_perfilplanta);
+
+  prefs.end();
+
+  // ── Resto del hardware ─────────────────────────────────────────────────
+  mutexDatos = xSemaphoreCreateMutex();
+  camStatus  = initCamara();
+
+  conectarWiFi(wifiRed, wifiPsw);
 
   neopixelWrite(PIN_RGB, 0, 0, 255); // AZUL
 
-  // Configurar I2C
   Wire.begin(LCD_SDA, LCD_SCL);
   lcd.init();
   lcd.backlight();
@@ -85,25 +102,28 @@ void setup() {
   lcd.setCursor(0, 1);
   lcd.print("Skell's GrHs  V3");
 
-  // Crear Iconos en la Memoria de la LCD
   lcd.createChar(0, iconoTemperatura);
   lcd.createChar(1, iconoHumedad);
   lcd.createChar(2, iconoWifi);
   lcd.createChar(3, iconoAltura);
 
   delay(5000);
-
   neopixelWrite(PIN_RGB, 255, 255, 0); // AMARILLO
 
-  xTaskCreatePinnedToCore(
-    servidorWeb,   // Función de la tarea
-    "ServidorWeb", // Nombre identificador
-    8192,          // Tamaño de pila (RAM asignada)
-    NULL,          // Parámetros de entrada
-    1,             // Prioridad de la tarea
-    NULL,          // Handle
-    0              // NÚCLEO 0 (Dedicado a WiFi)
-  );
+  xTaskCreatePinnedToCore(servidorWeb, "ServidorWeb", 8192, NULL, 1, NULL, 0);
+}
+
+
+/*╔══════════════════════════════════╗
+  ║ [ GLOBAL ] Conectar a WiFi       ║
+  ╚══════════════════════════════════╝*/
+bool conectarWiFi(const String& red, const String& psw, uint8_t maxIntentos) {
+  WiFi.disconnect(true);
+  delay(200);
+  WiFi.begin(red.c_str(), psw.c_str());
+  uint8_t i = 0;
+  while (WiFi.status() != WL_CONNECTED && i < maxIntentos) { delay(500); i++; }
+  return WiFi.status() == WL_CONNECTED;
 }
 
 
@@ -114,18 +134,16 @@ void loop() {
   neopixelWrite(PIN_RGB, 255, 255, 255); // BLANCO
   actualizarLCD();
 
-  // ── Variables de estado para lectura no bloqueante ─────────────────────
+  // ── Lectura UART no bloqueante (byte a byte) ───────────────────────────
   static String bufferEntrante = "";
 
-  // ── Recepción de datos del Común (no bloqueante) ────────────────────────
   while (nervios.available()) {
     char c = nervios.read();
     if (c == '\n') {
-      // Línea completa recibida → procesar
       if (bufferEntrante.length() > 0) {
         JsonDocument datos;
         DeserializationError error = deserializeJson(datos, bufferEntrante);
-        bufferEntrante = ""; // Limpiar siempre, haya error o no
+        bufferEntrante = "";
 
         if (!error) {
           if (xSemaphoreTake(mutexDatos, pdMS_TO_TICKS(100)) == pdTRUE) {
@@ -135,12 +153,15 @@ void loop() {
             sensores.sen_humedad_suelo        = datos[3];
             sensores.sen_intensidad_luz       = datos[4];
             sensores.sen_ultrasonido          = datos[5];
-            sensores.ia_perfilplanta          = detectarPerfil();
+            // ia_perfilplanta ya está cargado desde NVS en setup()
+            detectarPerfil();
             xSemaphoreGive(mutexDatos);
           }
 
           /*
             EJECUCIÓN DE LA IA
+            INPUT:  sensores.sen_*  y  sensores.ia_perfilplanta
+            OUTPUT: sensores.ia_ventilacion, ia_intensidad_uv, ia_riego
           */
 
           ejecutarActuadores(150, true, 1);
@@ -151,12 +172,11 @@ void loop() {
       }
     } else {
       bufferEntrante += c;
-      // Protección contra basura infinita sin '\n'
       if (bufferEntrante.length() > 128) bufferEntrante = "";
     }
   }
 
-  vTaskDelay(pdMS_TO_TICKS(200)); // Delay amigable con FreeRTOS
+  vTaskDelay(pdMS_TO_TICKS(200));
 }
 
 
@@ -166,10 +186,9 @@ void loop() {
 void ejecutarActuadores(int uv, bool riego, uint8_t ventilacion) {
   JsonDocument doc;
   JsonArray actuadores = doc.to<JsonArray>();
-  actuadores.add(uv);          // Índice 0 en el nodo receptor
-  actuadores.add(riego);       // Índice 1 en el nodo receptor
-  actuadores.add(ventilacion); // Índice 2 en el nodo receptor
-
+  actuadores.add(uv);
+  actuadores.add(riego);
+  actuadores.add(ventilacion);
   serializeJson(doc, nervios);
   nervios.println();
 }
@@ -178,18 +197,22 @@ void ejecutarActuadores(int uv, bool riego, uint8_t ventilacion) {
 /*╔═════════════════════════════════════════╗
   ║ [ NÚCLEO 1 ] Detector de Maceta/Perfil  ║
   ╚═════════════════════════════════════════╝*/
-uint8_t detectarPerfil() {
-  return 1;
+void detectarPerfil() {
+  // sensores.ia_perfilplanta ya está cargado desde NVS.
+  // Aquí añade lógica visual o de ajuste según el perfil activo.
+  Serial.printf("[Perfil] Perfil activo: %d\n", sensores.ia_perfilplanta);
 }
 
 
+/*╔════════════════════════════╗
+  ║ [ NÚCLEO 1 ] PANTALLA LCD  ║
+  ╚════════════════════════════╝*/
 void actualizarLCD() {
-  if (millis() - lastLCDUpdate < 1000) return; // Solo actualizar cada 1s
+  if (millis() - lastLCDUpdate < 1000) return;
 
   if (xSemaphoreTake(mutexDatos, pdMS_TO_TICKS(50)) == pdTRUE) {
     lcd.clear();
 
-    // Fila 1: Temperatura, Humedad y Altura
     lcd.setCursor(0, 0);
     lcd.write(0);
     lcd.print((int)sensores.sen_temperatura_ambiente);
@@ -201,7 +224,6 @@ void actualizarLCD() {
     lcd.print((int)sensores.sen_ultrasonido);
     lcd.print("cm");
 
-    // Fila 2: Estado WiFi e IP
     lcd.setCursor(0, 1);
     lcd.write(2);
     lcd.print(" ");
@@ -219,29 +241,23 @@ void actualizarLCD() {
 void servidorWeb(void *pvParameters) {
 
   /*╔══════════════════╗
-    ║  Datos Globales  ║
+    ║  GET /api/datos  ║
     ╚══════════════════╝*/
   servidor.on("/api/datos", HTTP_GET, []() {
     JsonDocument informacion;
     if (xSemaphoreTake(mutexDatos, pdMS_TO_TICKS(50)) == pdTRUE) {
-      // Sensores
       informacion["sensores"]["temperatura_ambiente"] = sensores.sen_temperatura_ambiente;
       informacion["sensores"]["temperatura_agua"]     = sensores.sen_temperatura_agua;
       informacion["sensores"]["humedad_ambiente"]     = sensores.sen_humedad_ambiente;
       informacion["sensores"]["humedad_suelo"]        = sensores.sen_humedad_suelo;
       informacion["sensores"]["intensidad_luz"]       = sensores.sen_intensidad_luz;
       informacion["sensores"]["ultrasonido"]          = sensores.sen_ultrasonido;
-
-      // Información del ESP32
-      informacion["esp32"]["temperatura"] = sensores.esp32_temperatura;
-      informacion["esp32"]["camStatus"]   = sensores.esp32_camStatus;
-
-      // Información de la IA
-      informacion["ia"]["intensidad_uv"] = sensores.ia_intensidad_uv;
-      informacion["ia"]["riego"]         = sensores.ia_riego;
-      informacion["ia"]["ventilacion"]   = sensores.ia_ventilacion;
-      informacion["ia"]["perfil"]        = sensores.ia_perfilplanta;
-
+      informacion["esp32"]["temperatura"]             = sensores.esp32_temperatura;
+      informacion["esp32"]["camStatus"]               = sensores.esp32_camStatus;
+      informacion["ia"]["intensidad_uv"]              = sensores.ia_intensidad_uv;
+      informacion["ia"]["riego"]                      = sensores.ia_riego;
+      informacion["ia"]["ventilacion"]                = sensores.ia_ventilacion;
+      informacion["ia"]["perfil"]                     = sensores.ia_perfilplanta;
       xSemaphoreGive(mutexDatos);
 
       String respuestaJSON;
@@ -253,9 +269,9 @@ void servidorWeb(void *pvParameters) {
   });
 
 
-  /*╔══════════════╗
-    ║  Fotografía  ║
-    ╚══════════════╝*/
+  /*╔═══════════════════╗
+    ║  GET  /api/foto   ║
+    ╚═══════════════════╝*/
   servidor.on("/api/foto", HTTP_GET, []() {
     camera_fb_t *fb = esp_camera_fb_get();
     if (!fb) { servidor.send(500, "text/plain", "Fallo al capturar imagen"); return; }
@@ -264,17 +280,85 @@ void servidorWeb(void *pvParameters) {
   });
 
 
-  // [FIX 3] Espera activa dentro de la tarea hasta confirmar conexión WiFi.
-  // Antes: si los 20 intentos del setup() se agotaban sin conexión, el servidor
-  // nunca arrancaba y no había ningún reintento posterior.
-  while (WiFi.status() != WL_CONNECTED) {
-    vTaskDelay(pdMS_TO_TICKS(500));
-  }
-  servidor.begin();
-  Serial.print("[WiFi] Servidor activo en: http://");
-  Serial.println(WiFi.localIP());
+  /*╔══════════════════════╗
+    ║  POST /api/perfil    ║
+    ╚══════════════════════╝*/
+  // Body: número plano 1–3 (ej: "2"). Se clampea si se excede el rango.
+  servidor.on("/api/perfil", HTTP_POST, []() {
+    if (!servidor.hasArg("plain") || servidor.arg("plain").length() == 0) {
+      servidor.send(400, "application/json", "{\"error\":\"Body vacío\"}");
+      return;
+    }
 
-  // Iteraciones infinitas con intervalos de descanso para no saturar al núcleo
+    int nuevoPerfil = servidor.arg("plain").toInt();
+    if (nuevoPerfil < 1) nuevoPerfil = 1;
+    if (nuevoPerfil > 3) nuevoPerfil = 3;
+
+    if (xSemaphoreTake(mutexDatos, pdMS_TO_TICKS(100)) == pdTRUE) {
+      sensores.ia_perfilplanta = (uint8_t)nuevoPerfil;
+      xSemaphoreGive(mutexDatos);
+    }
+
+    prefs.begin("greenhouse", false);
+    prefs.putUChar("perfil", (uint8_t)nuevoPerfil);
+    prefs.end();
+
+    JsonDocument resp;
+    resp["ok"]     = true;
+    resp["perfil"] = nuevoPerfil;
+    String out;
+    serializeJson(resp, out);
+    servidor.send(200, "application/json", out);
+  });
+
+
+  /*╔══════════════════════╗
+    ║  POST /api/wifi      ║
+    ╚══════════════════════╝*/
+  // Body JSON: { "red": "NombreRed", "psw": "Contraseña" }
+  // Intenta conectarse. Si lo logra, guarda en NVS. Si falla, mantiene la
+  // red anterior. Responde ANTES de reconectar para no perder la conexión HTTP.
+  servidor.on("/api/wifi", HTTP_POST, []() {
+    if (!servidor.hasArg("plain") || servidor.arg("plain").length() == 0) {
+      servidor.send(400, "application/json", "{\"error\":\"Body vacío\"}");
+      return;
+    }
+
+    JsonDocument body;
+    DeserializationError err = deserializeJson(body, servidor.arg("plain"));
+    if (err || !body["red"].is<const char*>() || !body["psw"].is<const char*>()) {
+      servidor.send(400, "application/json", "{\"error\":\"JSON inválido o campos faltantes\"}");
+      return;
+    }
+
+    String nuevaRed = body["red"].as<String>();
+    String nuevaPsw = body["psw"].as<String>();
+
+    Serial.printf("[API/WiFi] Intentando conectar a: %s\n", nuevaRed.c_str());
+
+    servidor.send(200, "application/json",
+      "{\"ok\":true,\"mensaje\":\"Reconectando... espera ~15s y consulta la nueva IP en tu router\"}");
+
+    vTaskDelay(pdMS_TO_TICKS(500)); // Dar tiempo a que la respuesta se envíe
+
+    bool exito = conectarWiFi(nuevaRed, nuevaPsw, 20);
+
+    if (exito) {
+      prefs.begin("greenhouse", false);
+      prefs.putString("wifi_red", nuevaRed);
+      prefs.putString("wifi_psw", nuevaPsw);
+      prefs.end();
+      wifiRed = nuevaRed;
+      wifiPsw = nuevaPsw;
+    } else {
+      conectarWiFi(wifiRed, wifiPsw, 20);
+    }
+  });
+
+  // Esperar conexión activa antes de levantar el servidor
+  while (WiFi.status() != WL_CONNECTED) { vTaskDelay(pdMS_TO_TICKS(500)); }
+  servidor.begin();
+
   for (;;) {
     if (WiFi.status() == WL_CONNECTED) { servidor.handleClient(); }
     vTaskDelay(pdMS_TO_TICKS(5));
