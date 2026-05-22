@@ -32,7 +32,7 @@
 Sensores          sensores;       // Reescribir Valor de Sensores
 SemaphoreHandle_t mutexDatos;     // Para evitar conflictos entre núcleos
 WebServer         servidor(80);   // Servidor Web
-HardwareSerial    nervios(1); // Comunicación Serial con ESP32 Comúm
+HardwareSerial    nervios(1);     // Comunicación Serial con ESP32 Común
 LiquidCrystal_I2C lcd(LCD_PROTOCOLO, 16, 2); // Dirección típica 0x27, pantalla 16x2
 
 
@@ -48,7 +48,7 @@ uint8_t ventilacion = 0;
 unsigned long lastLCDUpdate = 0;
 
 
-// Constructor del Servidor Web para Evitar Problemas de Compilación y Llamado de Función
+// Declaración anticipada para evitar problemas de compilación
 void servidorWeb(void *pvParameters);
 
 
@@ -61,8 +61,12 @@ void setup() {
   /* Comunicación Serial */
   Serial.begin(BAUDIOS);
   nervios.begin(BAUDIOS, SERIAL_8N1, PIN_RX, PIN_TX);
-  delay(1000);
 
+  // [FIX 1] Reducir timeout de readStringUntil() para no bloquear el loop
+  // esperando el '\n' durante 1000ms (valor por defecto)
+  nervios.setTimeout(100);
+
+  delay(1000);
 
   mutexDatos = xSemaphoreCreateMutex();
   camStatus = initCamara();
@@ -71,14 +75,14 @@ void setup() {
   while (WiFi.status() != WL_CONNECTED && intentos < 20) { delay(500); intentos++; }
 
   neopixelWrite(PIN_RGB, 0, 0, 255); // AZUL
+
   // Configurar I2C
   Wire.begin(LCD_SDA, LCD_SCL);
   lcd.init();
   lcd.backlight();
-  lcd.setCursor(0,0);
-  // ----SKELLENT----
+  lcd.setCursor(0, 0);
   lcd.print("    SKELLENT    ");
-  lcd.setCursor(0,1);
+  lcd.setCursor(0, 1);
   lcd.print("Skell's GrHs  V3");
 
   // Crear Iconos en la Memoria de la LCD
@@ -108,51 +112,47 @@ void setup() {
   ╚═══════════════════════════════╝*/
 void loop() {
   neopixelWrite(PIN_RGB, 255, 255, 255); // BLANCO
-  
   actualizarLCD();
 
-  if (nervios.available()) { neopixelWrite(PIN_RGB, 0, 0, 255); // AZUL TOTAL
-    String datosEntrantes = nervios.readStringUntil('\n'); 
-    JsonDocument datos;
-    DeserializationError error = deserializeJson(datos, datosEntrantes);
+  // ── Variables de estado para lectura no bloqueante ─────────────────────
+  static String bufferEntrante = "";
 
-    if (!error) {
-      if (xSemaphoreTake(mutexDatos, pdMS_TO_TICKS(100)) == pdTRUE) {
+  // ── Recepción de datos del Común (no bloqueante) ────────────────────────
+  while (nervios.available()) {
+    char c = nervios.read();
+    if (c == '\n') {
+      // Línea completa recibida → procesar
+      if (bufferEntrante.length() > 0) {
+        JsonDocument datos;
+        DeserializationError error = deserializeJson(datos, bufferEntrante);
+        bufferEntrante = ""; // Limpiar siempre, haya error o no
 
-        sensores.sen_temperatura_ambiente = datos[0];
-        sensores.sen_temperatura_agua     = datos[1];
-        sensores.sen_humedad_ambiente     = datos[2];
-        sensores.sen_humedad_suelo        = datos[3];
-        sensores.sen_intensidad_luz       = datos[4];
-        sensores.sen_ultrasonido          = datos[5];
-        
-        neopixelWrite(PIN_RGB, 0, 255, 0); // VERDE
-        sensores.ia_perfilplanta = detectarPerfil();
+        if (!error) {
+          if (xSemaphoreTake(mutexDatos, pdMS_TO_TICKS(100)) == pdTRUE) {
+            sensores.sen_temperatura_ambiente = datos[0];
+            sensores.sen_temperatura_agua     = datos[1];
+            sensores.sen_humedad_ambiente     = datos[2];
+            sensores.sen_humedad_suelo        = datos[3];
+            sensores.sen_intensidad_luz       = datos[4];
+            sensores.sen_ultrasonido          = datos[5];
+            sensores.ia_perfilplanta          = detectarPerfil();
+            xSemaphoreGive(mutexDatos);
+          }
 
-        /*
-        Justo en este espacio va la parte de interpretación de la IA
+          /*
+            EJECUCIÓN DE LA IA
+          */
 
-        // INPUT
-        sensores.sen_temperatura_ambiente;
-        sensores.sen_temperatura_agua;
-        sensores.sen_humedad_ambiente;
-        sensores.sen_humedad_suelo;
-        sensores.sen_intensidad_luz;
-        sensores.sen_ultrasonido;
-        sensores.ia_perfil;
-        
-        // OUTPUT
-        sensores.ia_ventilacion    = 0;
-        sensores.ia_intensidad_uv  = 0;
-        sensores.ia_riego          = 0;
-        sensores.esp32_temperatura = 0;
-        sensores.esp32_camStatus   = camStatus;
-        */
-
-        ejecutarActuadores(150, true, 1);
-
-        xSemaphoreGive(mutexDatos);
+          ejecutarActuadores(150, true, 1);
+        } else {
+          Serial.print("[ERROR] JSON del Común corrupto: ");
+          Serial.println(error.c_str());
+        }
       }
+    } else {
+      bufferEntrante += c;
+      // Protección contra basura infinita sin '\n'
+      if (bufferEntrante.length() > 128) bufferEntrante = "";
     }
   }
 
@@ -164,14 +164,14 @@ void loop() {
   ║ [ NÚCLEO 1 ] Enviar Comandos de Ejecución  ║
   ╚════════════════════════════════════════════╝*/
 void ejecutarActuadores(int uv, bool riego, uint8_t ventilacion) {
-  JsonDocument doc; 
+  JsonDocument doc;
   JsonArray actuadores = doc.to<JsonArray>();
   actuadores.add(uv);          // Índice 0 en el nodo receptor
   actuadores.add(riego);       // Índice 1 en el nodo receptor
   actuadores.add(ventilacion); // Índice 2 en el nodo receptor
 
-  serializeJson(doc, nervios); 
-  nervios.println(); 
+  serializeJson(doc, nervios);
+  nervios.println();
 }
 
 
@@ -183,16 +183,13 @@ uint8_t detectarPerfil() {
 }
 
 
-/*╔════════════════════════════╗
-  ║ [ NÚCLEO 1 ] PANTALLA LCD  ║
-  ╚════════════════════════════╝*/
 void actualizarLCD() {
   if (millis() - lastLCDUpdate < 1000) return; // Solo actualizar cada 1s
-  
+
   if (xSemaphoreTake(mutexDatos, pdMS_TO_TICKS(50)) == pdTRUE) {
     lcd.clear();
-    
-    // Fila 1: Datos críticos
+
+    // Fila 1: Temperatura, Humedad y Altura
     lcd.setCursor(0, 0);
     lcd.write(0);
     lcd.print((int)sensores.sen_temperatura_ambiente);
@@ -202,9 +199,9 @@ void actualizarLCD() {
     lcd.print("% ");
     lcd.write(3);
     lcd.print((int)sensores.sen_ultrasonido);
-    lcd.print("cm ");
+    lcd.print("cm");
 
-    // Fila 2: Estado de IA/Actuador
+    // Fila 2: Estado WiFi e IP
     lcd.setCursor(0, 1);
     lcd.write(2);
     lcd.print(" ");
@@ -220,11 +217,12 @@ void actualizarLCD() {
   ║ [ NÚCLEO 0 ] Servidor Web  ║
   ╚════════════════════════════╝*/
 void servidorWeb(void *pvParameters) {
+
   /*╔══════════════════╗
     ║  Datos Globales  ║
     ╚══════════════════╝*/
   servidor.on("/api/datos", HTTP_GET, []() {
-    JsonDocument informacion; // Creacion del JSON vacio
+    JsonDocument informacion;
     if (xSemaphoreTake(mutexDatos, pdMS_TO_TICKS(50)) == pdTRUE) {
       // Sensores
       informacion["sensores"]["temperatura_ambiente"] = sensores.sen_temperatura_ambiente;
@@ -234,11 +232,11 @@ void servidorWeb(void *pvParameters) {
       informacion["sensores"]["intensidad_luz"]       = sensores.sen_intensidad_luz;
       informacion["sensores"]["ultrasonido"]          = sensores.sen_ultrasonido;
 
-      // Informacion del ESP32
-      informacion["esp32"]["temperatura"]      = sensores.esp32_temperatura;
-      informacion["esp32"]["camStatus"]        = sensores.esp32_camStatus;
+      // Información del ESP32
+      informacion["esp32"]["temperatura"] = sensores.esp32_temperatura;
+      informacion["esp32"]["camStatus"]   = sensores.esp32_camStatus;
 
-      // Informacion de la IA
+      // Información de la IA
       informacion["ia"]["intensidad_uv"] = sensores.ia_intensidad_uv;
       informacion["ia"]["riego"]         = sensores.ia_riego;
       informacion["ia"]["ventilacion"]   = sensores.ia_ventilacion;
@@ -249,7 +247,9 @@ void servidorWeb(void *pvParameters) {
       String respuestaJSON;
       serializeJson(informacion, respuestaJSON);
       servidor.send(200, "application/json", respuestaJSON);
-    } else { servidor.send(503, "application/json", "{\"error\":\"Inferencia en progreso\"}"); }
+    } else {
+      servidor.send(503, "application/json", "{\"error\":\"Inferencia en progreso\"}");
+    }
   });
 
 
@@ -257,17 +257,26 @@ void servidorWeb(void *pvParameters) {
     ║  Fotografía  ║
     ╚══════════════╝*/
   servidor.on("/api/foto", HTTP_GET, []() {
-    camera_fb_t * fb = esp_camera_fb_get();
+    camera_fb_t *fb = esp_camera_fb_get();
     if (!fb) { servidor.send(500, "text/plain", "Fallo al capturar imagen"); return; }
     servidor.send_P(200, "image/jpeg", (const char *)fb->buf, fb->len);
-    esp_camera_fb_return(fb); 
+    esp_camera_fb_return(fb);
   });
 
 
-  // Inicia el Servidor SOLAMENTE cuando está conectado
-  if (WiFi.status() == WL_CONNECTED) { servidor.begin(); }
-
+  // [FIX 3] Espera activa dentro de la tarea hasta confirmar conexión WiFi.
+  // Antes: si los 20 intentos del setup() se agotaban sin conexión, el servidor
+  // nunca arrancaba y no había ningún reintento posterior.
+  while (WiFi.status() != WL_CONNECTED) {
+    vTaskDelay(pdMS_TO_TICKS(500));
+  }
+  servidor.begin();
+  Serial.print("[WiFi] Servidor activo en: http://");
+  Serial.println(WiFi.localIP());
 
   // Iteraciones infinitas con intervalos de descanso para no saturar al núcleo
-  for (;;) { if (WiFi.status() == WL_CONNECTED) { servidor.handleClient(); } vTaskDelay(pdMS_TO_TICKS(5)); }
+  for (;;) {
+    if (WiFi.status() == WL_CONNECTED) { servidor.handleClient(); }
+    vTaskDelay(pdMS_TO_TICKS(5));
+  }
 }

@@ -10,4 +10,7 @@
 /* CONFIGURACION DE LECTURA */
 #define INTERVALO 2
 
+/* LED INTEGRADO */
+#define LED_PIN 2
+
 #endif
