@@ -1,8 +1,8 @@
 import type { CapacitorConfig } from "@capacitor/cli";
 
 const config: CapacitorConfig = {
-  appId: "com.skells.greenhouse",
-  appName: "Skell's GreenHouse",
+  appId: "dev.skellent.greenhouse",
+  appName: "GreenHouse",
   webDir: "dist",
   server: {
     androidScheme: "https",

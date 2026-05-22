@@ -1,4 +1,4 @@
-package com.skells.greenhouse;
+package dev.skellent.greenhouse;
 
 import com.getcapacitor.BridgeActivity;
 

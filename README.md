@@ -12,8 +12,9 @@ Proyecto de invernadero inteligente y autónomo basado en ESP32, sensores ambien
 4. [Flujo del Código](#flujo-del-código)
 5. [Variables y Sensores](#variables-y-sensores)
 6. [Instrucciones de Uso](#instrucciones-de-uso)
-7. [Pantalla TFT y User_Setup.h](#pantalla-tft-y-usersetuph)
-8. [Licencia](#licencia)
+7. [Aplicacion Movil](#aplicacion-movil)
+8. [Pantalla TFT y User_Setup.h](#pantalla-tft-y-usersetuph)
+9. [Licencia](#licencia)
 
 ---
 
@@ -46,6 +47,7 @@ El código está modularizado para facilitar su mantenimiento y extensión:
 ### Estructura de carpetas
 
 - `src/main/`: Código fuente principal y módulos.
+- `app/`: Aplicacion movil Capacitor/Bun para monitoreo, camara, configuracion, historial y perfiles.
 - `Chris/Esquema circuito/`: Esquemas electrónicos en KiCad.
 - `docs/`: Documentación web estática y recursos para GitHub Pages.
 
@@ -99,6 +101,12 @@ Sensores y pines:
 4. **Reemplaza el archivo `User_Setup.h` de la librería TFT_eSPI por el de `src/User_Setup.h`** para asegurar la correcta configuración de la pantalla.
 5. Compila y sube el firmware al ESP32.
 6. Accede al servidor web desde la IP mostrada en la pantalla TFT.
+
+## Aplicacion Movil
+
+La aplicacion movil esta en [`app/`](app/). Incluye monitoreo automatico configurable cada 1 o 2 segundos, historial local bajo demanda, captura/descarga de foto, configuracion WiFi, perfiles `Desertico`, `Tropical` y `Alpino`, temas claro/oscuro/sistema e idiomas Español, English, Русский, Deutsch y 中文.
+
+Consulta el manual completo en [`app/README.md`](app/README.md).
 
 ## Pantalla TFT y User_Setup.h
 
