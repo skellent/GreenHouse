@@ -65,6 +65,8 @@ bool conectarWiFi(const String& red, const String& psw, uint8_t maxIntentos = 20
 void setup() {
   neopixelWrite(PIN_RGB, 255, 255, 0); // AMARILLO
 
+  //pinMode(PIN_BUZZER, OUTPUT);
+
   Serial.begin(BAUDIOS);
   nervios.begin(BAUDIOS, SERIAL_8N1, PIN_RX, PIN_TX);
   // Sin setTimeout: la lectura en loop() es no bloqueante (byte a byte)
@@ -133,11 +135,15 @@ bool conectarWiFi(const String& red, const String& psw, uint8_t maxIntentos) {
 void loop() {
   neopixelWrite(PIN_RGB, 255, 255, 255); // BLANCO
   actualizarLCD();
+  //tone(PIN_BUZZER, random(100, 1000), 500);
 
   // ── Lectura UART no bloqueante (byte a byte) ───────────────────────────
   static String bufferEntrante = "";
 
   while (nervios.available()) {
+    // noTone(PIN_BUZZER);
+    // neopixelWrite(PIN_RGB, 0, 0, 255); // AZUL
+
     char c = nervios.read();
     if (c == '\n') {
       if (bufferEntrante.length() > 0) {

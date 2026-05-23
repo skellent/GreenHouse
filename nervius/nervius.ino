@@ -7,6 +7,7 @@
   ║ [ GLOBAL ] Librerías Importadas  ║
   ╚══════════════════════════════════╝*/
 #include <ArduinoJson.h>
+#include <DHT.h>
 
 
 /*╔═════════════════════════════╗
@@ -19,6 +20,7 @@
   ║ [ GLOBAL ] Instancias ║
   ╚═══════════════════════╝*/
 HardwareSerial core(2);
+DHT dht(DHT_PIN, DHT_MODEL);
 
 
 /*╔══════════════════════════╗
@@ -28,9 +30,9 @@ HardwareSerial core(2);
 /*╔═══════════════════════════════════════════╗
   ║ [ GLOBAL ] Variables Globales/Temporales  ║
   ╚═══════════════════════════════════════════╝*/
-float temperatura_ambiente = 24.5;
+float temperatura_ambiente = 0;
 float temperatura_agua     = 22.0;
-float humedad_ambiente     = 60.5;
+float humedad_ambiente     = 0;
 float humedad_suelo        = 45.2;
 int   intensidad_luz       = 1024;
 int   ultrasonido          = 150;
@@ -45,14 +47,16 @@ const long intervalo = INTERVALO * 1000;
 
 void setup() {
   Serial.begin(BAUDIOS);
-  core.begin(BAUDIOS, SERIAL_8N1, RX_PIN, TX_PIN);
 
-  // [FIX 1] Reducir timeout de readStringUntil() a 100ms.
-  // El valor por defecto es 1000ms: si el S3 tarda en responder,
-  // el loop queda bloqueado un segundo completo en cada iteración.
+  core.begin(BAUDIOS, SERIAL_8N1, RX_PIN, TX_PIN);
   core.setTimeout(100);
 
-  pinMode(LED_PIN, OUTPUT);
+  pinMode(LED_PIN, OUTPUT); // Led Azul Integrado
+  pinMode(FC28_PIN, INPUT); // FC-28
+  pinMode(FTRT_PIN, INPUT); // FOTORESISTENCIA
+
+  dht.begin();
+
   delay(1000);
   Serial.println("[OK] Nodo sensores listo.");
 }
@@ -66,14 +70,23 @@ void loop() {
     digitalWrite(LED_PIN, HIGH);
     tiempoAnterior = tiempoActual;
 
-    /*
-      LECTURA DE SENSORES AQUÍ
-    */
-    temperatura_ambiente = random(16, 30);
+    // LECTURA DEL DHT22
+    float h = dht.readHumidity(); float t = dht.readTemperature();
+    if (!std::isnan(h)) humedad_ambiente     = h;
+    if (!std::isnan(t)) temperatura_ambiente = t;
+
+    // LECTURA DEL FC-28
+    int valorCrudo = analogRead(FC28_PIN);
+    int porcentaje = map(valorCrudo, FC28_LOW, FC28_HIGH, 0, 100);
+    humedad_suelo  = constrain(porcentaje, 0, 100);
+    
+    // LECTURA DE LA FOTORESISTENCIA
+    valorCrudo = analogRead(FTRT_PIN);
+    Serial.println(valorCrudo);
+    porcentaje = map(valorCrudo, FTRT_LOW, FTRT_HIGH, 0, 100);
+    intensidad_luz  = constrain(porcentaje, 0, 100);
+    
     temperatura_agua     = random(16, 30);
-    humedad_ambiente     = random(65, 98);
-    humedad_suelo        = random(20, 90);
-    intensidad_luz       = random(0, 4028);
     ultrasonido          = random(5, 20);
 
     JsonDocument doc;

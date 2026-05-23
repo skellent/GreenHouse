@@ -18,5 +18,7 @@
 #define LCD_SCL 40
 #define LCD_PROTOCOLO 0x27
 
+/* BUZZER */
+#define PIN_BUZZER 38
 
 #endif
