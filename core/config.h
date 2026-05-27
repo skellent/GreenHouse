@@ -17,7 +17,7 @@
 #define LCD_SDA 39
 #define LCD_SCL 40
 #define LCD_PROTOCOLO 0x27
-#define LCD_BOTON 41
+#define LCD_BOTON 19
 
 /* BUZZER */
 #define PIN_BUZZER 38

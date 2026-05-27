@@ -33,7 +33,7 @@ import csv
 # ── Validación temprana de dependencias ─────────────────────────────────────
 try:
     import tensorflow as tf
-    from tensorflow import keras
+    import keras
 except ImportError:
     print("ERROR: TensorFlow no está instalado.")
     print("       Ejecuta: pip install -r requirements.txt")
@@ -218,11 +218,8 @@ def main():
 
     # 6. Guardar modelo
     print("\nGuardando modelo...")
-    os.makedirs("alicia_saved", exist_ok=True)
-    modelo.save("alicia_saved")
     modelo.save("alicia.keras")
-    print("  alicia_saved/   → formato SavedModel (para convertir a TFLite)")
-    print("  alicia.keras    → formato Keras nativo (para re-entrenar)")
+    print("  alicia.keras    -> formato Keras nativo (para re-entrenar y convertir a TFLite)")
 
     # 7. Gráfica (opcional)
     try:

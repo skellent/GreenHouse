@@ -4,7 +4,7 @@
 ║  Skell's GreenHouse V3.0                             ║
 ╚══════════════════════════════════════════════════════╝
 
-Convierte el modelo entrenado (alicia_saved/) a formato
+Convierte el modelo entrenado (alicia.keras) a formato
 TensorFlow Lite (.tflite) y luego genera el archivo C
 header (.h) que se incluye directamente en el sketch de
 Arduino del ESP32-S3.
@@ -35,14 +35,15 @@ except ImportError:
 # ═══════════════════════════════════════════════════════════════
 
 def convertir_a_tflite(ruta_modelo: str, ruta_salida: str) -> bytes:
-    """Convierte SavedModel → TFLite con optimización por defecto."""
-    if not os.path.isdir(ruta_modelo):
+    """Convierte modelo Keras (.keras) → TFLite con optimización por defecto."""
+    if not os.path.isfile(ruta_modelo):
         print(f"ERROR: No se encontró el modelo en '{ruta_modelo}'")
         print("       Ejecuta primero: python entrenar_alicia.py")
         sys.exit(1)
 
     print(f"Cargando modelo desde: {ruta_modelo}")
-    converter = tf.lite.TFLiteConverter.from_saved_model(ruta_modelo)
+    keras_model = tf.keras.models.load_model(ruta_modelo)
+    converter = tf.lite.TFLiteConverter.from_keras_model(keras_model)
 
     # Optimización DEFAULT:
     # - Comprime pesos de float32 a int8 (cuantización dinámica).
@@ -169,7 +170,7 @@ def main():
     print("=" * 58)
     print()
 
-    tflite_bytes = convertir_a_tflite("alicia_saved", "alicia.tflite")
+    tflite_bytes = convertir_a_tflite("alicia.keras", "alicia.tflite")
     generar_header(tflite_bytes, "alicia_model.h")
     verificar_modelo(tflite_bytes)
 
