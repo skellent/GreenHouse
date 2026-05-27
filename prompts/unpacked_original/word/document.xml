@@ -1,0 +1,3495 @@
+<?xml version="1.0" encoding="UTF-8"?><w:document xmlns:wpc="http://schemas.microsoft.com/office/word/2010/wordprocessingCanvas" xmlns:cx="http://schemas.microsoft.com/office/drawing/2014/chartex" xmlns:cx1="http://schemas.microsoft.com/office/drawing/2015/9/8/chartex" xmlns:cx2="http://schemas.microsoft.com/office/drawing/2015/10/21/chartex" xmlns:cx3="http://schemas.microsoft.com/office/drawing/2016/5/9/chartex" xmlns:cx4="http://schemas.microsoft.com/office/drawing/2016/5/10/chartex" xmlns:cx5="http://schemas.microsoft.com/office/drawing/2016/5/11/chartex" xmlns:cx6="http://schemas.microsoft.com/office/drawing/2016/5/12/chartex" xmlns:cx7="http://schemas.microsoft.com/office/drawing/2016/5/13/chartex" xmlns:cx8="http://schemas.microsoft.com/office/drawing/2016/5/14/chartex" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:aink="http://schemas.microsoft.com/office/drawing/2016/ink" xmlns:am3d="http://schemas.microsoft.com/office/drawing/2017/model3d" xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:oel="http://schemas.microsoft.com/office/2019/extlst" xmlns:r="http://schemas.openxmlformats.org/officeDocument/2006/relationships" xmlns:m="http://schemas.openxmlformats.org/officeDocument/2006/math" xmlns:v="urn:schemas-microsoft-com:vml" xmlns:wp14="http://schemas.microsoft.com/office/word/2010/wordprocessingDrawing" xmlns:wp="http://schemas.openxmlformats.org/drawingml/2006/wordprocessingDrawing" xmlns:w10="urn:schemas-microsoft-com:office:word" xmlns:w="http://schemas.openxmlformats.org/wordprocessingml/2006/main" xmlns:w14="http://schemas.microsoft.com/office/word/2010/wordml" xmlns:w15="http://schemas.microsoft.com/office/word/2012/wordml" xmlns:w16cex="http://schemas.microsoft.com/office/word/2018/wordml/cex" xmlns:w16cid="http://schemas.microsoft.com/office/word/2016/wordml/cid" xmlns:w16="http://schemas.microsoft.com/office/word/2018/wordml" xmlns:w16sdtdh="http://schemas.microsoft.com/office/word/2020/wordml/sdtdatahash" xmlns:w16se="http://schemas.microsoft.com/office/word/2015/wordml/symex" xmlns:wpg="http://schemas.microsoft.com/office/word/2010/wordprocessingGroup" xmlns:wpi="http://schemas.microsoft.com/office/word/2010/wordprocessingInk" xmlns:wne="http://schemas.microsoft.com/office/word/2006/wordml" xmlns:wps="http://schemas.microsoft.com/office/word/2010/wordprocessingShape" mc:Ignorable="w14 w15 w16se w16cid w16 w16cex w16sdtdh wp14">
+  <w:body>
+    <w:p w14:paraId="449725D0" w14:textId="77777777" w:rsidR="00917BB2" w:rsidRDefault="00000000">
+      <w:pPr>
+        <w:jc w:val="center"/>
+      </w:pPr>
+      <w:r>
+        <w:rPr>
+          <w:b/>
+          <w:bCs/>
+        </w:rPr>
+        <w:t>Olimpiadas de Robótica Creativa (ORC)</w:t>
+      </w:r>
+    </w:p>
+    <w:p w14:paraId="75926684" w14:textId="77777777" w:rsidR="00917BB2" w:rsidRDefault="00000000">
+      <w:pPr>
+        <w:jc w:val="center"/>
+        <w:rPr>
+          <w:b/>
+          <w:bCs/>
+        </w:rPr>
+      </w:pPr>
+      <w:r>
+        <w:rPr>
+          <w:b/>
+          <w:bCs/>
+        </w:rPr>
+        <w:t>COMPETENCIA INGENIO CREATIVO</w:t>
+      </w:r>
+    </w:p>
+    <w:p w14:paraId="0C73BA83" w14:textId="77777777" w:rsidR="00917BB2" w:rsidRDefault="00000000">
+      <w:pPr>
+        <w:jc w:val="center"/>
+      </w:pPr>
+      <w:r>
+        <w:rPr>
+          <w:b/>
+          <w:bCs/>
+        </w:rPr>
+        <w:t xml:space="preserve">INFORME TÉCNICO </w:t>
+      </w:r>
+    </w:p>
+    <w:p w14:paraId="4EC6DE13" w14:textId="77777777" w:rsidR="00917BB2" w:rsidRDefault="00917BB2">
+      <w:pPr>
+        <w:jc w:val="left"/>
+      </w:pPr>
+    </w:p>
+    <w:p w14:paraId="3E42585E" w14:textId="77777777" w:rsidR="00917BB2" w:rsidRDefault="00917BB2">
+      <w:pPr>
+        <w:jc w:val="left"/>
+        <w:rPr>
+          <w:color w:val="FF0000"/>
+        </w:rPr>
+      </w:pPr>
+    </w:p>
+    <w:p w14:paraId="1244E358" w14:textId="77777777" w:rsidR="00917BB2" w:rsidRDefault="00917BB2">
+      <w:pPr>
+        <w:jc w:val="left"/>
+        <w:rPr>
+          <w:color w:val="FF0000"/>
+        </w:rPr>
+      </w:pPr>
+    </w:p>
+    <w:p w14:paraId="77D26E99" w14:textId="77777777" w:rsidR="00917BB2" w:rsidRDefault="00000000">
+      <w:pPr>
+        <w:jc w:val="center"/>
+        <w:rPr>
+          <w:b/>
+          <w:bCs/>
+        </w:rPr>
+      </w:pPr>
+      <w:r>
+        <w:rPr>
+          <w:b/>
+          <w:bCs/>
+          <w:noProof/>
+        </w:rPr>
+        <w:drawing>
+          <wp:inline distT="114300" distB="114300" distL="114300" distR="114300" wp14:anchorId="390C7D67" wp14:editId="2F33B119">
+            <wp:extent cx="782475" cy="776008"/>
+            <wp:effectExtent l="0" t="0" r="0" b="0"/>
+            <wp:docPr id="6" name="image7.png"/>
+            <wp:cNvGraphicFramePr/>
+            <a:graphic xmlns:a="http://schemas.openxmlformats.org/drawingml/2006/main">
+              <a:graphicData uri="http://schemas.openxmlformats.org/drawingml/2006/picture">
+                <pic:pic xmlns:pic="http://schemas.openxmlformats.org/drawingml/2006/picture">
+                  <pic:nvPicPr>
+                    <pic:cNvPr id="0" name="image7.png"/>
+                    <pic:cNvPicPr preferRelativeResize="0"/>
+                  </pic:nvPicPr>
+                  <pic:blipFill>
+                    <a:blip r:embed="rId7"/>
+                    <a:srcRect/>
+                    <a:stretch>
+                      <a:fillRect/>
+                    </a:stretch>
+                  </pic:blipFill>
+                  <pic:spPr>
+                    <a:xfrm>
+                      <a:off x="0" y="0"/>
+                      <a:ext cx="782475" cy="776008"/>
+                    </a:xfrm>
+                    <a:prstGeom prst="rect">
+                      <a:avLst/>
+                    </a:prstGeom>
+                    <a:ln/>
+                  </pic:spPr>
+                </pic:pic>
+              </a:graphicData>
+            </a:graphic>
+          </wp:inline>
+        </w:drawing>
+      </w:r>
+    </w:p>
+    <w:p w14:paraId="5EE9D64C" w14:textId="77777777" w:rsidR="00917BB2" w:rsidRDefault="00000000">
+      <w:pPr>
+        <w:jc w:val="center"/>
+        <w:rPr>
+          <w:b/>
+          <w:bCs/>
+        </w:rPr>
+      </w:pPr>
+      <w:r>
+        <w:rPr>
+          <w:b/>
+          <w:bCs/>
+        </w:rPr>
+        <w:t>Skellent</w:t>
+      </w:r>
+    </w:p>
+    <w:p w14:paraId="4BCEFF0B" w14:textId="77777777" w:rsidR="00917BB2" w:rsidRDefault="00000000">
+      <w:pPr>
+        <w:jc w:val="center"/>
+      </w:pPr>
+      <w:r>
+        <w:rPr>
+          <w:b/>
+          <w:bCs/>
+        </w:rPr>
+        <w:t>Skell&#x2019;s GreenHouse</w:t>
+      </w:r>
+    </w:p>
+    <w:p w14:paraId="5F1B363D" w14:textId="77777777" w:rsidR="00917BB2" w:rsidRDefault="00917BB2">
+      <w:pPr>
+        <w:jc w:val="left"/>
+      </w:pPr>
+    </w:p>
+    <w:p w14:paraId="31FCBBEB" w14:textId="77777777" w:rsidR="00917BB2" w:rsidRDefault="00917BB2">
+      <w:pPr>
+        <w:jc w:val="left"/>
+      </w:pPr>
+    </w:p>
+    <w:p w14:paraId="47C20694" w14:textId="77777777" w:rsidR="00917BB2" w:rsidRDefault="00917BB2">
+      <w:pPr>
+        <w:jc w:val="left"/>
+      </w:pPr>
+    </w:p>
+    <w:p w14:paraId="79833E4B" w14:textId="77777777" w:rsidR="00917BB2" w:rsidRDefault="00000000">
+      <w:pPr>
+        <w:jc w:val="right"/>
+        <w:rPr>
+          <w:color w:val="FFFFFF"/>
+        </w:rPr>
+      </w:pPr>
+      <w:r>
+        <w:rPr>
+          <w:b/>
+          <w:bCs/>
+        </w:rPr>
+        <w:t>Integrantes:</w:t>
+      </w:r>
+      <w:r>
+        <w:rPr>
+          <w:color w:val="FFFFFF"/>
+        </w:rPr>
+        <w:t>------------------------------------------------</w:t>
+      </w:r>
+    </w:p>
+    <w:p w14:paraId="3AF9BDFB" w14:textId="77777777" w:rsidR="00917BB2" w:rsidRDefault="00000000">
+      <w:pPr>
+        <w:numPr>
+          <w:ilvl w:val="0"/>
+          <w:numId w:val="11"/>
+        </w:numPr>
+        <w:jc w:val="right"/>
+      </w:pPr>
+      <w:r>
+        <w:t>Robert Rodríguez, V-32.942.787, 17 Años.</w:t>
+      </w:r>
+      <w:r>
+        <w:rPr>
+          <w:color w:val="FFFFFF"/>
+        </w:rPr>
+        <w:t>----</w:t>
+      </w:r>
+    </w:p>
+    <w:p w14:paraId="19FA0E0B" w14:textId="2C1BF910" w:rsidR="00917BB2" w:rsidRDefault="00000000">
+      <w:pPr>
+        <w:numPr>
+          <w:ilvl w:val="0"/>
+          <w:numId w:val="11"/>
+        </w:numPr>
+        <w:jc w:val="right"/>
+      </w:pPr>
+      <w:r>
+        <w:t>Christopher Ramírez, V-33.499.939, 16 Años.</w:t>
+      </w:r>
+      
+      
+    </w:p>
+    <w:p w14:paraId="28F976E4" w14:textId="77777777" w:rsidR="00917BB2" w:rsidRDefault="00000000">
+      <w:pPr>
+        <w:numPr>
+          <w:ilvl w:val="0"/>
+          <w:numId w:val="11"/>
+        </w:numPr>
+        <w:jc w:val="right"/>
+      </w:pPr>
+      <w:r>
+        <w:t>Fabiana Hernández, V-34.648.529, 14 Años.</w:t>
+      </w:r>
+      <w:r>
+        <w:rPr>
+          <w:color w:val="FFFFFF"/>
+        </w:rPr>
+        <w:t>-</w:t>
+      </w:r>
+    </w:p>
+    <w:p w14:paraId="0552D9D4" w14:textId="77777777" w:rsidR="00917BB2" w:rsidRDefault="00000000">
+      <w:pPr>
+        <w:ind w:left="4820" w:firstLine="282"/>
+        <w:jc w:val="right"/>
+      </w:pPr>
+      <w:r>
+        <w:rPr>
+          <w:b/>
+          <w:bCs/>
+        </w:rPr>
+        <w:t>Tutor:</w:t>
+      </w:r>
+      <w:r>
+        <w:t xml:space="preserve"> Jesús Pérez, V-30.759.313</w:t>
+      </w:r>
+    </w:p>
+    <w:p w14:paraId="567B5B0D" w14:textId="77777777" w:rsidR="00917BB2" w:rsidRDefault="00917BB2">
+      <w:pPr>
+        <w:jc w:val="left"/>
+      </w:pPr>
+    </w:p>
+    <w:p w14:paraId="5560F509" w14:textId="525F1377" w:rsidR="00917BB2" w:rsidRDefault="00000000">
+      <w:pPr>
+        <w:jc w:val="center"/>
+      </w:pPr>
+      <w:r>
+        <w:t>Barquisimeto, Mayo 2026</w:t>
+      <w:br w:type="page"/></w:r>
+      
+      
+      
+    </w:p>
+    <w:p w14:paraId="03A54904" w14:textId="77777777" w:rsidR="00917BB2" w:rsidRDefault="00000000">
+      <w:pPr>
+        <w:jc w:val="center"/>
+        <w:rPr>
+          <w:b/>
+          <w:bCs/>
+        </w:rPr>
+      </w:pPr>
+      <w:r>
+        <w:rPr>
+          <w:b/>
+          <w:bCs/>
+        </w:rPr>
+        <w:lastRenderedPageBreak/>
+        <w:t>ÍNDICE</w:t>
+      </w:r>
+    </w:p>
+    <w:sdt>
+      <w:sdtPr>
+        <w:id w:val="387005718"/>
+        <w:docPartObj>
+          <w:docPartGallery w:val="Table of Contents"/>
+          <w:docPartUnique/>
+        </w:docPartObj>
+      </w:sdtPr>
+      <w:sdtContent>
+        <w:p w14:paraId="76EEE3C2" w14:textId="77777777" w:rsidR="00917BB2" w:rsidRDefault="00000000">
+          <w:pPr>
+            <w:widowControl w:val="0"/>
+            <w:tabs>
+              <w:tab w:val="right" w:pos="12000"/>
+            </w:tabs>
+            <w:spacing w:line="240" w:lineRule="auto"/>
+            <w:jc w:val="left"/>
+            <w:rPr>
+              <w:sz w:val="22"/>
+              <w:szCs w:val="22"/>
+              <w:u w:val="single"/>
+            </w:rPr>
+          </w:pPr>
+          <w:r>
+            <w:fldChar w:fldCharType="begin"/>
+          <w:instrText xml:space="preserve"> TOC \h \u \z \t "Heading 1,1,Heading 2,2,Heading 3,3,Heading 4,4,Heading 5,5,Heading 6,6,"</w:instrText><w:fldChar w:fldCharType="separate"/></w:r>
+          
+          
+          <w:hyperlink w:anchor="_1oq95r273pug">
+            <w:r>
+              <w:rPr>
+                <w:u w:val="single"/>
+              </w:rPr>
+              <w:t>RESÚMEN DE LA IDEA DE PROYECTO</w:t>
+            <w:tab/><w:t>2</w:t></w:r>
+            
+          </w:hyperlink>
+        </w:p>
+        <w:p w14:paraId="45A48A5A" w14:textId="77777777" w:rsidR="00917BB2" w:rsidRDefault="00000000">
+          <w:pPr>
+            <w:widowControl w:val="0"/>
+            <w:tabs>
+              <w:tab w:val="right" w:pos="12000"/>
+            </w:tabs>
+            <w:spacing w:line="240" w:lineRule="auto"/>
+            <w:jc w:val="left"/>
+            <w:rPr>
+              <w:sz w:val="22"/>
+              <w:szCs w:val="22"/>
+              <w:u w:val="single"/>
+            </w:rPr>
+          </w:pPr>
+          <w:hyperlink w:anchor="_2tq02bbnn12v">
+            <w:r>
+              <w:rPr>
+                <w:sz w:val="22"/>
+                <w:szCs w:val="22"/>
+                <w:u w:val="single"/>
+              </w:rPr>
+              <w:t>INTEGRANTES DEL EQUIPO DE PROYECTO</w:t>
+            <w:tab/><w:t>2</w:t></w:r>
+            
+          </w:hyperlink>
+        </w:p>
+        <w:p w14:paraId="545C88B8" w14:textId="77777777" w:rsidR="00917BB2" w:rsidRDefault="00000000">
+          <w:pPr>
+            <w:widowControl w:val="0"/>
+            <w:tabs>
+              <w:tab w:val="right" w:pos="12000"/>
+            </w:tabs>
+            <w:spacing w:line="240" w:lineRule="auto"/>
+            <w:jc w:val="left"/>
+            <w:rPr>
+              <w:sz w:val="22"/>
+              <w:szCs w:val="22"/>
+              <w:u w:val="single"/>
+            </w:rPr>
+          </w:pPr>
+          <w:hyperlink w:anchor="_fkuxj9h820r7">
+            <w:r>
+              <w:rPr>
+                <w:sz w:val="22"/>
+                <w:szCs w:val="22"/>
+                <w:u w:val="single"/>
+              </w:rPr>
+              <w:t>IMPLEMENTACIÓN DEL PROYECTO</w:t>
+            <w:tab/><w:t>3</w:t></w:r>
+            
+          </w:hyperlink>
+        </w:p>
+        <w:p w14:paraId="7CF5D581" w14:textId="77777777" w:rsidR="00917BB2" w:rsidRDefault="00000000">
+          <w:pPr>
+            <w:widowControl w:val="0"/>
+            <w:tabs>
+              <w:tab w:val="right" w:pos="12000"/>
+            </w:tabs>
+            <w:spacing w:line="240" w:lineRule="auto"/>
+            <w:ind w:left="360"/>
+            <w:jc w:val="left"/>
+            <w:rPr>
+              <w:sz w:val="22"/>
+              <w:szCs w:val="22"/>
+              <w:u w:val="single"/>
+            </w:rPr>
+          </w:pPr>
+          <w:hyperlink w:anchor="_h9lgjlygeio9">
+            <w:r>
+              <w:rPr>
+                <w:sz w:val="22"/>
+                <w:szCs w:val="22"/>
+                <w:u w:val="single"/>
+              </w:rPr>
+              <w:t>INICIO</w:t>
+            <w:tab/><w:t>3</w:t></w:r>
+            
+          </w:hyperlink>
+        </w:p>
+        <w:p w14:paraId="7E0CADD2" w14:textId="77777777" w:rsidR="00917BB2" w:rsidRDefault="00000000">
+          <w:pPr>
+            <w:widowControl w:val="0"/>
+            <w:tabs>
+              <w:tab w:val="right" w:pos="12000"/>
+            </w:tabs>
+            <w:spacing w:line="240" w:lineRule="auto"/>
+            <w:ind w:left="360"/>
+            <w:jc w:val="left"/>
+            <w:rPr>
+              <w:sz w:val="22"/>
+              <w:szCs w:val="22"/>
+              <w:u w:val="single"/>
+            </w:rPr>
+          </w:pPr>
+          <w:hyperlink w:anchor="_d7h6jttmyimz">
+            <w:r>
+              <w:rPr>
+                <w:sz w:val="22"/>
+                <w:szCs w:val="22"/>
+                <w:u w:val="single"/>
+              </w:rPr>
+              <w:t>DESARROLLO</w:t>
+            <w:tab/><w:t>4</w:t></w:r>
+            
+          </w:hyperlink>
+        </w:p>
+        <w:p w14:paraId="47754A26" w14:textId="77777777" w:rsidR="00917BB2" w:rsidRDefault="00000000">
+          <w:pPr>
+            <w:widowControl w:val="0"/>
+            <w:tabs>
+              <w:tab w:val="right" w:pos="12000"/>
+            </w:tabs>
+            <w:spacing w:line="240" w:lineRule="auto"/>
+            <w:ind w:left="720"/>
+            <w:jc w:val="left"/>
+            <w:rPr>
+              <w:sz w:val="22"/>
+              <w:szCs w:val="22"/>
+              <w:u w:val="single"/>
+            </w:rPr>
+          </w:pPr>
+          <w:hyperlink w:anchor="_o8cvdpj0lh7">
+            <w:r>
+              <w:rPr>
+                <w:sz w:val="22"/>
+                <w:szCs w:val="22"/>
+                <w:u w:val="single"/>
+              </w:rPr>
+              <w:t>PRINCIPALES DIFICULTADES Y SOLUCIONES</w:t>
+            <w:tab/><w:t>4</w:t></w:r>
+            
+          </w:hyperlink>
+        </w:p>
+        <w:p w14:paraId="79AA6D31" w14:textId="77777777" w:rsidR="00917BB2" w:rsidRDefault="00000000">
+          <w:pPr>
+            <w:widowControl w:val="0"/>
+            <w:tabs>
+              <w:tab w:val="right" w:pos="12000"/>
+            </w:tabs>
+            <w:spacing w:line="240" w:lineRule="auto"/>
+            <w:ind w:left="720"/>
+            <w:jc w:val="left"/>
+            <w:rPr>
+              <w:sz w:val="22"/>
+              <w:szCs w:val="22"/>
+              <w:u w:val="single"/>
+            </w:rPr>
+          </w:pPr>
+          <w:hyperlink w:anchor="_c5zlbbaqgdl0">
+            <w:r>
+              <w:rPr>
+                <w:sz w:val="22"/>
+                <w:szCs w:val="22"/>
+                <w:u w:val="single"/>
+              </w:rPr>
+              <w:t>MATERIALES DEFINITIVOS</w:t>
+            <w:tab/><w:t>4</w:t></w:r>
+            
+          </w:hyperlink>
+        </w:p>
+        <w:p w14:paraId="1A2BE564" w14:textId="77777777" w:rsidR="00917BB2" w:rsidRDefault="00000000">
+          <w:pPr>
+            <w:widowControl w:val="0"/>
+            <w:tabs>
+              <w:tab w:val="right" w:pos="12000"/>
+            </w:tabs>
+            <w:spacing w:line="240" w:lineRule="auto"/>
+            <w:ind w:left="720"/>
+            <w:jc w:val="left"/>
+            <w:rPr>
+              <w:sz w:val="22"/>
+              <w:szCs w:val="22"/>
+              <w:u w:val="single"/>
+            </w:rPr>
+          </w:pPr>
+          <w:hyperlink w:anchor="_tjx9f8v14grn">
+            <w:r>
+              <w:rPr>
+                <w:sz w:val="22"/>
+                <w:szCs w:val="22"/>
+                <w:u w:val="single"/>
+              </w:rPr>
+              <w:t>PROGRAMACIÓN</w:t>
+            <w:tab/><w:t>5</w:t></w:r>
+            
+          </w:hyperlink>
+        </w:p>
+        <w:p w14:paraId="210BF915" w14:textId="77777777" w:rsidR="00917BB2" w:rsidRDefault="00000000">
+          <w:pPr>
+            <w:widowControl w:val="0"/>
+            <w:tabs>
+              <w:tab w:val="right" w:pos="12000"/>
+            </w:tabs>
+            <w:spacing w:line="240" w:lineRule="auto"/>
+            <w:ind w:left="720"/>
+            <w:jc w:val="left"/>
+            <w:rPr>
+              <w:sz w:val="22"/>
+              <w:szCs w:val="22"/>
+              <w:u w:val="single"/>
+            </w:rPr>
+          </w:pPr>
+          <w:hyperlink w:anchor="_1krt9x2864dx">
+            <w:r>
+              <w:rPr>
+                <w:sz w:val="22"/>
+                <w:szCs w:val="22"/>
+                <w:u w:val="single"/>
+              </w:rPr>
+              <w:t>ASPECTOS MECÁNICOS Y FUNCIONAMIENTO</w:t>
+            <w:tab/><w:t>5</w:t></w:r>
+            
+          </w:hyperlink>
+        </w:p>
+        <w:p w14:paraId="635F669B" w14:textId="77777777" w:rsidR="00917BB2" w:rsidRDefault="00000000">
+          <w:pPr>
+            <w:widowControl w:val="0"/>
+            <w:tabs>
+              <w:tab w:val="right" w:pos="12000"/>
+            </w:tabs>
+            <w:spacing w:line="240" w:lineRule="auto"/>
+            <w:ind w:left="720"/>
+            <w:jc w:val="left"/>
+            <w:rPr>
+              <w:sz w:val="22"/>
+              <w:szCs w:val="22"/>
+              <w:u w:val="single"/>
+            </w:rPr>
+          </w:pPr>
+          <w:hyperlink w:anchor="_6ztse7bzpxne">
+            <w:r>
+              <w:rPr>
+                <w:sz w:val="22"/>
+                <w:szCs w:val="22"/>
+                <w:u w:val="single"/>
+              </w:rPr>
+              <w:t>ALGORITMO DE CONTROL</w:t>
+            <w:tab/><w:t>5</w:t></w:r>
+            
+          </w:hyperlink>
+        </w:p>
+        <w:p w14:paraId="5DF02930" w14:textId="77777777" w:rsidR="00917BB2" w:rsidRDefault="00000000">
+          <w:pPr>
+            <w:widowControl w:val="0"/>
+            <w:tabs>
+              <w:tab w:val="right" w:pos="12000"/>
+            </w:tabs>
+            <w:spacing w:line="240" w:lineRule="auto"/>
+            <w:ind w:left="720"/>
+            <w:jc w:val="left"/>
+            <w:rPr>
+              <w:sz w:val="22"/>
+              <w:szCs w:val="22"/>
+              <w:u w:val="single"/>
+            </w:rPr>
+          </w:pPr>
+          <w:hyperlink w:anchor="_6yea6vx0m0ss">
+            <w:r>
+              <w:rPr>
+                <w:sz w:val="22"/>
+                <w:szCs w:val="22"/>
+                <w:u w:val="single"/>
+              </w:rPr>
+              <w:t>ESTRUCTURA DEL CÓDIGO</w:t>
+            <w:tab/><w:t>6</w:t></w:r>
+            
+          </w:hyperlink>
+        </w:p>
+        <w:p w14:paraId="61691151" w14:textId="77777777" w:rsidR="00917BB2" w:rsidRDefault="00000000">
+          <w:pPr>
+            <w:widowControl w:val="0"/>
+            <w:tabs>
+              <w:tab w:val="right" w:pos="12000"/>
+            </w:tabs>
+            <w:spacing w:line="240" w:lineRule="auto"/>
+            <w:ind w:left="360"/>
+            <w:jc w:val="left"/>
+            <w:rPr>
+              <w:sz w:val="22"/>
+              <w:szCs w:val="22"/>
+              <w:u w:val="single"/>
+            </w:rPr>
+          </w:pPr>
+          <w:hyperlink w:anchor="_wqy9s1iv3emn">
+            <w:r>
+              <w:rPr>
+                <w:sz w:val="22"/>
+                <w:szCs w:val="22"/>
+                <w:u w:val="single"/>
+              </w:rPr>
+              <w:t>EJECUCIÓN</w:t>
+            <w:tab/><w:t>6</w:t></w:r>
+            
+          </w:hyperlink>
+        </w:p>
+        <w:p w14:paraId="16CA4C6F" w14:textId="77777777" w:rsidR="00917BB2" w:rsidRDefault="00000000">
+          <w:pPr>
+            <w:widowControl w:val="0"/>
+            <w:tabs>
+              <w:tab w:val="right" w:pos="12000"/>
+            </w:tabs>
+            <w:spacing w:line="240" w:lineRule="auto"/>
+            <w:ind w:left="720"/>
+            <w:jc w:val="left"/>
+            <w:rPr>
+              <w:sz w:val="22"/>
+              <w:szCs w:val="22"/>
+              <w:u w:val="single"/>
+            </w:rPr>
+          </w:pPr>
+          <w:hyperlink w:anchor="_o0zeav1w2427">
+            <w:r>
+              <w:rPr>
+                <w:sz w:val="22"/>
+                <w:szCs w:val="22"/>
+                <w:u w:val="single"/>
+              </w:rPr>
+              <w:t>EVALUACIÓN DEL DESEMPEÑO</w:t>
+            <w:tab/><w:t>6</w:t></w:r>
+            
+          </w:hyperlink>
+        </w:p>
+        <w:p w14:paraId="69E30966" w14:textId="77777777" w:rsidR="00917BB2" w:rsidRDefault="00000000">
+          <w:pPr>
+            <w:widowControl w:val="0"/>
+            <w:tabs>
+              <w:tab w:val="right" w:pos="12000"/>
+            </w:tabs>
+            <w:spacing w:line="240" w:lineRule="auto"/>
+            <w:ind w:left="720"/>
+            <w:jc w:val="left"/>
+            <w:rPr>
+              <w:sz w:val="22"/>
+              <w:szCs w:val="22"/>
+              <w:u w:val="single"/>
+            </w:rPr>
+          </w:pPr>
+          <w:hyperlink w:anchor="_nnnnxkveyhfw">
+            <w:r>
+              <w:rPr>
+                <w:sz w:val="22"/>
+                <w:szCs w:val="22"/>
+                <w:u w:val="single"/>
+              </w:rPr>
+              <w:t>FORTALEZAS DEL SISTEMA</w:t>
+            <w:tab/><w:t>7</w:t></w:r>
+            
+          </w:hyperlink>
+        </w:p>
+        <w:p w14:paraId="45EC8E68" w14:textId="77777777" w:rsidR="00917BB2" w:rsidRDefault="00000000">
+          <w:pPr>
+            <w:widowControl w:val="0"/>
+            <w:tabs>
+              <w:tab w:val="right" w:pos="12000"/>
+            </w:tabs>
+            <w:spacing w:line="240" w:lineRule="auto"/>
+            <w:ind w:left="720"/>
+            <w:jc w:val="left"/>
+            <w:rPr>
+              <w:sz w:val="22"/>
+              <w:szCs w:val="22"/>
+              <w:u w:val="single"/>
+            </w:rPr>
+          </w:pPr>
+          <w:hyperlink w:anchor="_5vy8sbii1poc">
+            <w:r>
+              <w:rPr>
+                <w:sz w:val="22"/>
+                <w:szCs w:val="22"/>
+                <w:u w:val="single"/>
+              </w:rPr>
+              <w:t>OPORTUNIDADES DE MEJORA</w:t>
+            <w:tab/><w:t>7</w:t></w:r>
+            
+          </w:hyperlink>
+        </w:p>
+        <w:p w14:paraId="1F200B64" w14:textId="77777777" w:rsidR="00917BB2" w:rsidRDefault="00000000">
+          <w:pPr>
+            <w:widowControl w:val="0"/>
+            <w:tabs>
+              <w:tab w:val="right" w:pos="12000"/>
+            </w:tabs>
+            <w:spacing w:line="240" w:lineRule="auto"/>
+            <w:jc w:val="left"/>
+            <w:rPr>
+              <w:sz w:val="22"/>
+              <w:szCs w:val="22"/>
+              <w:u w:val="single"/>
+            </w:rPr>
+          </w:pPr>
+          <w:hyperlink w:anchor="_z8h35a3a65p0">
+            <w:r>
+              <w:rPr>
+                <w:sz w:val="22"/>
+                <w:szCs w:val="22"/>
+                <w:u w:val="single"/>
+              </w:rPr>
+              <w:t>EVALUACIÓN Y ANÁLISIS DEL PROYECTO</w:t>
+            <w:tab/><w:t>7</w:t></w:r>
+            
+          </w:hyperlink>
+        </w:p>
+        <w:p w14:paraId="2B61CC7A" w14:textId="77777777" w:rsidR="00917BB2" w:rsidRDefault="00000000">
+          <w:pPr>
+            <w:widowControl w:val="0"/>
+            <w:tabs>
+              <w:tab w:val="right" w:pos="12000"/>
+            </w:tabs>
+            <w:spacing w:line="240" w:lineRule="auto"/>
+            <w:ind w:left="360"/>
+            <w:jc w:val="left"/>
+            <w:rPr>
+              <w:sz w:val="22"/>
+              <w:szCs w:val="22"/>
+              <w:u w:val="single"/>
+            </w:rPr>
+          </w:pPr>
+          <w:hyperlink w:anchor="_p647krcb255d">
+            <w:r>
+              <w:rPr>
+                <w:sz w:val="22"/>
+                <w:szCs w:val="22"/>
+                <w:u w:val="single"/>
+              </w:rPr>
+              <w:t>LOGROS OBTENIDOS</w:t>
+            <w:tab/><w:t>7</w:t></w:r>
+            
+          </w:hyperlink>
+        </w:p>
+        <w:p w14:paraId="61EE334B" w14:textId="77777777" w:rsidR="00917BB2" w:rsidRDefault="00000000">
+          <w:pPr>
+            <w:widowControl w:val="0"/>
+            <w:tabs>
+              <w:tab w:val="right" w:pos="12000"/>
+            </w:tabs>
+            <w:spacing w:line="240" w:lineRule="auto"/>
+            <w:ind w:left="360"/>
+            <w:jc w:val="left"/>
+            <w:rPr>
+              <w:sz w:val="22"/>
+              <w:szCs w:val="22"/>
+              <w:u w:val="single"/>
+            </w:rPr>
+          </w:pPr>
+          <w:hyperlink w:anchor="_qeso3i5qgmms">
+            <w:r>
+              <w:rPr>
+                <w:sz w:val="22"/>
+                <w:szCs w:val="22"/>
+                <w:u w:val="single"/>
+              </w:rPr>
+              <w:t>APRENDIZAJES</w:t>
+            <w:tab/><w:t>8</w:t></w:r>
+            
+          </w:hyperlink>
+        </w:p>
+        <w:p w14:paraId="0A32AF52" w14:textId="77777777" w:rsidR="00917BB2" w:rsidRDefault="00000000">
+          <w:pPr>
+            <w:widowControl w:val="0"/>
+            <w:tabs>
+              <w:tab w:val="right" w:pos="12000"/>
+            </w:tabs>
+            <w:spacing w:line="240" w:lineRule="auto"/>
+            <w:ind w:left="360"/>
+            <w:jc w:val="left"/>
+            <w:rPr>
+              <w:sz w:val="22"/>
+              <w:szCs w:val="22"/>
+              <w:u w:val="single"/>
+            </w:rPr>
+          </w:pPr>
+          <w:hyperlink w:anchor="_tc6e77ynaxtt">
+            <w:r>
+              <w:rPr>
+                <w:sz w:val="22"/>
+                <w:szCs w:val="22"/>
+                <w:u w:val="single"/>
+              </w:rPr>
+              <w:t>ESCENARIOS DE ESCALADO</w:t>
+            <w:tab/><w:t>8</w:t></w:r>
+            
+          </w:hyperlink>
+        </w:p>
+        <w:p w14:paraId="557CA5EB" w14:textId="77777777" w:rsidR="00917BB2" w:rsidRDefault="00000000">
+          <w:pPr>
+            <w:widowControl w:val="0"/>
+            <w:tabs>
+              <w:tab w:val="right" w:pos="12000"/>
+            </w:tabs>
+            <w:spacing w:line="240" w:lineRule="auto"/>
+            <w:jc w:val="left"/>
+            <w:rPr>
+              <w:sz w:val="22"/>
+              <w:szCs w:val="22"/>
+              <w:u w:val="single"/>
+            </w:rPr>
+          </w:pPr>
+          <w:hyperlink w:anchor="_3ujcscjk2ibs">
+            <w:r>
+              <w:rPr>
+                <w:sz w:val="22"/>
+                <w:szCs w:val="22"/>
+                <w:u w:val="single"/>
+              </w:rPr>
+              <w:t>ESQUEMA ELECTRÓNICO</w:t>
+            <w:tab/><w:t>8</w:t></w:r>
+            
+          </w:hyperlink>
+        </w:p>
+        <w:p w14:paraId="29F60D00" w14:textId="77777777" w:rsidR="00917BB2" w:rsidRDefault="00000000">
+          <w:pPr>
+            <w:widowControl w:val="0"/>
+            <w:tabs>
+              <w:tab w:val="right" w:pos="12000"/>
+            </w:tabs>
+            <w:spacing w:line="240" w:lineRule="auto"/>
+            <w:jc w:val="left"/>
+            <w:rPr>
+              <w:sz w:val="22"/>
+              <w:szCs w:val="22"/>
+              <w:u w:val="single"/>
+            </w:rPr>
+          </w:pPr>
+          <w:hyperlink w:anchor="_ole1wr1or33k">
+            <w:r>
+              <w:rPr>
+                <w:sz w:val="22"/>
+                <w:szCs w:val="22"/>
+                <w:u w:val="single"/>
+              </w:rPr>
+              <w:t>ESQUEMA DE FLUJO ELÉCTRICO</w:t>
+            <w:tab/><w:t>8</w:t></w:r>
+            
+          </w:hyperlink>
+        </w:p>
+        <w:p w14:paraId="5F5D90AA" w14:textId="77777777" w:rsidR="00917BB2" w:rsidRDefault="00000000">
+          <w:pPr>
+            <w:widowControl w:val="0"/>
+            <w:tabs>
+              <w:tab w:val="right" w:pos="12000"/>
+            </w:tabs>
+            <w:spacing w:line="240" w:lineRule="auto"/>
+            <w:jc w:val="left"/>
+            <w:rPr>
+              <w:sz w:val="22"/>
+              <w:szCs w:val="22"/>
+              <w:u w:val="single"/>
+            </w:rPr>
+          </w:pPr>
+          <w:hyperlink w:anchor="_1wkbfiln9xmn">
+            <w:r>
+              <w:rPr>
+                <w:sz w:val="22"/>
+                <w:szCs w:val="22"/>
+                <w:u w:val="single"/>
+              </w:rPr>
+              <w:t>REFERENCIAS BIBLIOGRÁFICAS</w:t>
+            <w:tab/><w:t>8</w:t></w:r>
+            
+          </w:hyperlink>
+        </w:p>
+        <w:p w14:paraId="2383B788" w14:textId="77777777" w:rsidR="00917BB2" w:rsidRDefault="00000000">
+          <w:pPr>
+            <w:widowControl w:val="0"/>
+            <w:tabs>
+              <w:tab w:val="right" w:pos="12000"/>
+            </w:tabs>
+            <w:spacing w:line="240" w:lineRule="auto"/>
+            <w:jc w:val="left"/>
+            <w:rPr>
+              <w:sz w:val="22"/>
+              <w:szCs w:val="22"/>
+              <w:u w:val="single"/>
+            </w:rPr>
+          </w:pPr>
+          <w:hyperlink w:anchor="_nkexupbos96">
+            <w:r>
+              <w:rPr>
+                <w:sz w:val="22"/>
+                <w:szCs w:val="22"/>
+                <w:u w:val="single"/>
+              </w:rPr>
+              <w:t>FOTOGRAFÍAS</w:t>
+            <w:tab/><w:t>8</w:t></w:r>
+            
+          </w:hyperlink>
+          <w:r>
+            <w:fldChar w:fldCharType="end"/>
+          </w:r>
+        </w:p>
+      </w:sdtContent>
+    </w:sdt>
+    <w:p w14:paraId="0F2493DB" w14:textId="77777777" w:rsidR="00917BB2" w:rsidRDefault="00917BB2"/>
+    <w:p w14:paraId="0948FBEC" w14:textId="77777777" w:rsidR="00917BB2" w:rsidRDefault="00000000">
+      <w:r>
+        <w:br w:type="page"/>
+      </w:r>
+    </w:p>
+    <w:p w14:paraId="4FF54B86" w14:textId="77777777" w:rsidR="00917BB2" w:rsidRDefault="00000000">
+      <w:pPr>
+        <w:pStyle w:val="Ttulo1"/>
+      </w:pPr>
+      <w:bookmarkStart w:id="0" w:name="_1oq95r273pug" w:colFirst="0" w:colLast="0"/>
+      <w:bookmarkEnd w:id="0"/>
+      <w:r>
+        <w:lastRenderedPageBreak/>
+        <w:t>RESÚMEN DE LA IDEA DE PROYECTO</w:t>
+      </w:r>
+    </w:p>
+    <w:p w14:paraId="105F35C4" w14:textId="77777777" w:rsidR="00917BB2" w:rsidRDefault="00000000" w:rsidP="009E0B6B">
+      <w:r>
+        <w:t>Skell&#x2019;s GreenHouse es un sistema de invernadero autónomo, portátil y modular, diseñado para facilitar el cultivo de hortalizas de pequeño porte como cebollín y zanahoria o plantas que requieran de un cuidado preciso, como flores. Su propósito es resolver la dificultad que enfrentan muchas personas al intentar mantener plantas durante su germinación y crecimiento, especialmente en espacios domésticos y educativos.</w:t>
+      </w:r>
+    </w:p>
+    <w:p w14:paraId="2F9E4AC4" w14:textId="77777777" w:rsidR="00917BB2" w:rsidRDefault="00000000" w:rsidP="009E0B6B">
+      <w:r>
+        <w:t xml:space="preserve">El prototipo integra un microcontrolador ESP32, sensores de humedad de tierra, temperatura ambiente, nivel de agua, y una bomba de riego, contando también con un servomotor para el posicionamiento adecuado del sensor de humedad de tierra. Además, cuenta con luces UV para suplementar la fotosíntesis y una aplicación que muestra en tiempo real las condiciones del cultivo. Una de sus características innovadoras es la integración de una IA en la ESP32, entrenada para identificar del tipo de cultivo así como el cuidado y mantenimiento del mismo, permitiendo el monitoreo remoto desde cualquier dispositivo conectado a la misma red.  (Una de las actualizaciones realizadas al prototipo para la Fase Regional, fue la eliminación de la Pantalla TFT 2´8, el reemplazo de la página web por la aplicación móvil y la integración de la IA) </w:t>
+      </w:r>
+    </w:p>
+    <w:p w14:paraId="66A6FB45" w14:textId="77777777" w:rsidR="00917BB2" w:rsidRDefault="00000000" w:rsidP="009E0B6B">
+      <w:r>
+        <w:t>El proyecto se enmarca en el Motor Agroalimentario del estado Lara, contribuyendo a la producción de alimentos a pequeña escala y fomentando la educación agrícola en escuelas y hogares. Su diseño modular permite intercambiar macetas fácilmente, adaptándose a distintas especies.</w:t>
+      </w:r>
+    </w:p>
+    <w:p w14:paraId="2F027D81" w14:textId="130231A7" w:rsidR="00917BB2" w:rsidRDefault="00000000" w:rsidP="009E0B6B">
+      <w:r>
+        <w:t>Las pruebas realizadas en el hogar de uno los integrantes demostraron un crecimiento saludable y continuo del cebollín, con un sistema de riego preciso y notificaciones claras en la aplicación. De esta forma, Skell&#x2019;s GreenHouse no solo automatiza el cuidado de las plantas, sino que también democratiza el acceso a la tecnología agrícola, promoviendo la soberanía alimentaria desde el ámbito local.</w:t>
+      </w:r>
+      
+      
+    </w:p>
+    <w:p w14:paraId="0D9585DF" w14:textId="77777777" w:rsidR="00917BB2" w:rsidRDefault="00000000">
+      <w:pPr>
+        <w:pStyle w:val="Ttulo1"/>
+      </w:pPr>
+      <w:bookmarkStart w:id="1" w:name="_2tq02bbnn12v" w:colFirst="0" w:colLast="0"/>
+      <w:bookmarkEnd w:id="1"/>
+      <w:r>
+        <w:t>INTEGRANTES DEL EQUIPO DE PROYECTO</w:t>
+      </w:r>
+    </w:p>
+    <w:p w14:paraId="3C3D84D8" w14:textId="14035302" w:rsidR="00917BB2" w:rsidRDefault="00000000">
+      <w:r>
+        <w:t xml:space="preserve">El equipo Skellent se formó a partir de la amistad y el interés compartido por la robótica y la electrónica. Los integrantes Robert y Christopher se conocían por </w:t>
+      <w:lastRenderedPageBreak/><w:t>proyectos previos elaborados en conjunto, y al momento de considerar elaborar el proyecto, decidieron incorporar a Fabiana; Robert y Fabiana se conocen por estudiar en el mismo colegio, mientras que Christopher estudia en otro, pero eso no fue una limitante y en conjunto decidimos unir nuestras habilidades para abordar un problema real observado en sus hogares: el olvido del riego y la falta de control ambiental para plantas pequeñas. Cada miembro asumió roles específicos basados en sus fortalezas:</w:t></w:r>
+      
+      
+      
+    </w:p>
+    <w:p w14:paraId="1F1E1B3A" w14:textId="37B876D5" w:rsidR="00917BB2" w:rsidRDefault="00000000">
+      <w:pPr>
+        <w:numPr>
+          <w:ilvl w:val="0"/>
+          <w:numId w:val="6"/>
+        </w:numPr>
+        <w:spacing w:before="0" w:after="0"/>
+      </w:pPr>
+      <w:r>
+        <w:rPr>
+          <w:b/>
+          <w:bCs/>
+        </w:rPr>
+        <w:t>Robert Rodríguez (17 años):</w:t>
+      </w:r>
+      <w:r>
+        <w:t xml:space="preserve"> Responsable de la programación del ESP32, creación de la aplicación y entrenamiento de la IA </w:t>
+      </w:r>
+      
+      
+    </w:p>
+    <w:p w14:paraId="610741DB" w14:textId="14A11A06" w:rsidR="00917BB2" w:rsidRDefault="00000000">
+      <w:pPr>
+        <w:numPr>
+          <w:ilvl w:val="0"/>
+          <w:numId w:val="6"/>
+        </w:numPr>
+        <w:spacing w:before="0" w:after="0"/>
+      </w:pPr>
+      <w:r>
+        <w:rPr>
+          <w:b/>
+          <w:bCs/>
+        </w:rPr>
+        <w:t>Christopher Ramírez (16 años):</w:t>
+      </w:r>
+      <w:r>
+        <w:t xml:space="preserve"> Diseño mecánico, electrónico y estructural. Encargado del diseño de la carcasa, el sistema modular de macetas y la impresión 3D de los componentes.</w:t>
+      </w:r>
+      
+      
+    </w:p>
+    <w:p w14:paraId="6E765AD4" w14:textId="77777777" w:rsidR="00917BB2" w:rsidRDefault="00000000">
+      <w:pPr>
+        <w:numPr>
+          <w:ilvl w:val="0"/>
+          <w:numId w:val="6"/>
+        </w:numPr>
+        <w:spacing w:before="0" w:after="0"/>
+      </w:pPr>
+      <w:r>
+        <w:rPr>
+          <w:b/>
+          <w:bCs/>
+        </w:rPr>
+        <w:t>Fabiana Hernández (14 años):</w:t>
+      </w:r>
+      <w:r>
+        <w:t xml:space="preserve"> Electrónica y documentación. Supervisó el conexionado de sensores, actuadores y la fuente de alimentación, además de gestionar las pruebas y el registro fotográfico.</w:t>
+      </w:r>
+    </w:p>
+    <w:p w14:paraId="4D8762E9" w14:textId="77777777" w:rsidR="00917BB2" w:rsidRDefault="00000000">
+      <w:pPr>
+        <w:pStyle w:val="Ttulo1"/>
+      </w:pPr>
+      <w:bookmarkStart w:id="2" w:name="_fkuxj9h820r7" w:colFirst="0" w:colLast="0"/>
+      <w:bookmarkEnd w:id="2"/>
+      <w:r>
+        <w:t>IMPLEMENTACIÓN DEL PROYECTO</w:t>
+      </w:r>
+    </w:p>
+    <w:p w14:paraId="5DEA7410" w14:textId="77777777" w:rsidR="00917BB2" w:rsidRDefault="00000000">
+      <w:pPr>
+        <w:pStyle w:val="Ttulo2"/>
+      </w:pPr>
+      <w:bookmarkStart w:id="3" w:name="_h9lgjlygeio9" w:colFirst="0" w:colLast="0"/>
+      <w:bookmarkEnd w:id="3"/>
+      <w:r>
+        <w:t>INICIO</w:t>
+      </w:r>
+    </w:p>
+    <w:p w14:paraId="0673677A" w14:textId="77777777" w:rsidR="00917BB2" w:rsidRDefault="00000000">
+      <w:r>
+        <w:t>La idea de Skell&#x2019;s GreenHouse nació de experiencias previas con un proyecto anterior a menor escala: un medidor de datos de una maceta. Al observar que muchas plantas en sus hogares morían por falta de atención durante viajes o por condiciones ambientales desfavorables, los integrantes decidieron ampliar el concepto para crear un sistema autónomo que no solo monitoreara, sino que también actuara para mantener las plantas saludables.</w:t>
+      </w:r>
+    </w:p>
+    <w:p w14:paraId="145568BF" w14:textId="77777777" w:rsidR="00917BB2" w:rsidRDefault="00000000">
+      <w:r>
+        <w:t>Antes de iniciar, investigaron productos comerciales como sistemas de riego automático e invernaderos domésticos. Encontraron que la mayoría eran costosos, no permitían la portabilidad y no ofrecían opciones de monitoreo remoto. También revisaron trabajos académicos sobre agricultura de precisión a pequeña escala, que inspiraban el uso de sensores asequibles y microcontroladores como el ESP32.</w:t>
+      </w:r>
+    </w:p>
+    <w:p w14:paraId="2BA02E6C" w14:textId="77777777" w:rsidR="00917BB2" w:rsidRDefault="00000000">
+      <w:r>
+        <w:t>Al inicio del proyecto, los materiales disponibles eran limitados: una placa ESP32, algunos sensores, una bomba de agua y cartón para estructurar el primer boceto.</w:t>
+      </w:r>
+    </w:p>
+    <w:p w14:paraId="3B21A034" w14:textId="77777777" w:rsidR="00917BB2" w:rsidRDefault="00000000">
+      <w:pPr>
+        <w:pStyle w:val="Ttulo2"/>
+      </w:pPr>
+      <w:bookmarkStart w:id="4" w:name="_d7h6jttmyimz" w:colFirst="0" w:colLast="0"/>
+      <w:bookmarkEnd w:id="4"/>
+      <w:r>
+        <w:lastRenderedPageBreak/>
+        <w:t>DESARROLLO</w:t>
+      </w:r>
+    </w:p>
+    <w:p w14:paraId="140BC2DC" w14:textId="77777777" w:rsidR="00917BB2" w:rsidRDefault="00000000">
+      <w:r>
+        <w:t>El desarrollo se organizó en fases:</w:t>
+      </w:r>
+    </w:p>
+    <w:p w14:paraId="223F2ED7" w14:textId="77777777" w:rsidR="00917BB2" w:rsidRDefault="00000000">
+      <w:pPr>
+        <w:numPr>
+          <w:ilvl w:val="0"/>
+          <w:numId w:val="8"/>
+        </w:numPr>
+        <w:spacing w:before="0" w:after="0"/>
+        <w:rPr>
+          <w:b/>
+          <w:bCs/>
+        </w:rPr>
+      </w:pPr>
+      <w:r>
+        <w:rPr>
+          <w:b/>
+          <w:bCs/>
+        </w:rPr>
+        <w:t>Definición de requerimientos.</w:t>
+      </w:r>
+    </w:p>
+    <w:p w14:paraId="6CF4BB6E" w14:textId="77777777" w:rsidR="00917BB2" w:rsidRDefault="00000000">
+      <w:pPr>
+        <w:numPr>
+          <w:ilvl w:val="0"/>
+          <w:numId w:val="8"/>
+        </w:numPr>
+        <w:spacing w:before="0" w:after="0"/>
+        <w:rPr>
+          <w:b/>
+          <w:bCs/>
+        </w:rPr>
+      </w:pPr>
+      <w:r>
+        <w:rPr>
+          <w:b/>
+          <w:bCs/>
+        </w:rPr>
+        <w:t>Diseño conceptual.</w:t>
+      </w:r>
+    </w:p>
+    <w:p w14:paraId="03C75630" w14:textId="77777777" w:rsidR="00917BB2" w:rsidRDefault="00000000">
+      <w:pPr>
+        <w:numPr>
+          <w:ilvl w:val="0"/>
+          <w:numId w:val="8"/>
+        </w:numPr>
+        <w:spacing w:before="0" w:after="0"/>
+        <w:rPr>
+          <w:b/>
+          <w:bCs/>
+        </w:rPr>
+      </w:pPr>
+      <w:r>
+        <w:rPr>
+          <w:b/>
+          <w:bCs/>
+        </w:rPr>
+        <w:t>Prototipado electrónico.</w:t>
+      </w:r>
+    </w:p>
+    <w:p w14:paraId="11422038" w14:textId="77777777" w:rsidR="00917BB2" w:rsidRDefault="00000000">
+      <w:pPr>
+        <w:numPr>
+          <w:ilvl w:val="0"/>
+          <w:numId w:val="8"/>
+        </w:numPr>
+        <w:spacing w:before="0" w:after="0"/>
+        <w:rPr>
+          <w:b/>
+          <w:bCs/>
+        </w:rPr>
+      </w:pPr>
+      <w:r>
+        <w:rPr>
+          <w:b/>
+          <w:bCs/>
+        </w:rPr>
+        <w:t>Construcción mecánica.</w:t>
+      </w:r>
+    </w:p>
+    <w:p w14:paraId="30DAC156" w14:textId="77777777" w:rsidR="00917BB2" w:rsidRDefault="00000000">
+      <w:pPr>
+        <w:numPr>
+          <w:ilvl w:val="0"/>
+          <w:numId w:val="8"/>
+        </w:numPr>
+        <w:spacing w:before="0" w:after="0"/>
+        <w:rPr>
+          <w:b/>
+          <w:bCs/>
+        </w:rPr>
+      </w:pPr>
+      <w:r>
+        <w:rPr>
+          <w:b/>
+          <w:bCs/>
+        </w:rPr>
+        <w:t>Programación y pruebas.</w:t>
+      </w:r>
+    </w:p>
+    <w:p w14:paraId="5337D489" w14:textId="77777777" w:rsidR="00917BB2" w:rsidRDefault="00000000">
+      <w:pPr>
+        <w:numPr>
+          <w:ilvl w:val="0"/>
+          <w:numId w:val="8"/>
+        </w:numPr>
+        <w:spacing w:before="0" w:after="0"/>
+        <w:rPr>
+          <w:b/>
+          <w:bCs/>
+        </w:rPr>
+      </w:pPr>
+      <w:r>
+        <w:rPr>
+          <w:b/>
+          <w:bCs/>
+        </w:rPr>
+        <w:t>Iteración final.</w:t>
+      </w:r>
+    </w:p>
+    <w:p w14:paraId="1FE172E0" w14:textId="77777777" w:rsidR="00917BB2" w:rsidRDefault="00000000">
+      <w:pPr>
+        <w:numPr>
+          <w:ilvl w:val="0"/>
+          <w:numId w:val="8"/>
+        </w:numPr>
+        <w:spacing w:before="0" w:after="0"/>
+        <w:rPr>
+          <w:b/>
+          <w:bCs/>
+        </w:rPr>
+      </w:pPr>
+      <w:r>
+        <w:rPr>
+          <w:b/>
+          <w:bCs/>
+        </w:rPr>
+        <w:t>Mejoras</w:t>
+      </w:r>
+    </w:p>
+    <w:p w14:paraId="2700AC74" w14:textId="77777777" w:rsidR="00917BB2" w:rsidRDefault="00000000">
+      <w:r>
+        <w:t>Aunque es el primer prototipo funcional, se realizaron dos iteraciones internas: una versión con estructura de cartón para validar la estructura y sus medidas, y la versión final con PVC expandido y marcos de aluminio.</w:t>
+      </w:r>
+    </w:p>
+    <w:p w14:paraId="5FE4B701" w14:textId="77777777" w:rsidR="00917BB2" w:rsidRDefault="00000000">
+      <w:pPr>
+        <w:pStyle w:val="Ttulo3"/>
+      </w:pPr>
+      <w:bookmarkStart w:id="5" w:name="_o8cvdpj0lh7" w:colFirst="0" w:colLast="0"/>
+      <w:bookmarkEnd w:id="5"/>
+      <w:r>
+        <w:t>PRINCIPALES DIFICULTADES Y SOLUCIONES</w:t>
+      </w:r>
+    </w:p>
+    <w:p w14:paraId="644D8B89" w14:textId="77AE4C43" w:rsidR="00917BB2" w:rsidRDefault="00000000">
+      <w:pPr>
+        <w:numPr>
+          <w:ilvl w:val="0"/>
+          <w:numId w:val="5"/>
+        </w:numPr>
+        <w:spacing w:before="0" w:after="0"/>
+      </w:pPr>
+      <w:r>
+        <w:rPr>
+          <w:b/>
+          <w:bCs/>
+        </w:rPr>
+        <w:t>Configuración de la IA:</w:t>
+      </w:r>
+      <w:r>
+        <w:t xml:space="preserve"> Se utilizo la librería del Tensor Flow Lite ESP32 para la creación de la IA , para lo cual fue necesario realizar múltiples pruebas para  se logró estabilización y correcta interacción.</w:t>
+      </w:r>
+      
+      
+      
+      
+      
+      
+      
+      
+    </w:p>
+    <w:p w14:paraId="0DEEEF5F" w14:textId="77777777" w:rsidR="00917BB2" w:rsidRDefault="00000000">
+      <w:pPr>
+        <w:numPr>
+          <w:ilvl w:val="0"/>
+          <w:numId w:val="5"/>
+        </w:numPr>
+        <w:spacing w:before="0" w:after="0"/>
+      </w:pPr>
+      <w:r>
+        <w:rPr>
+          <w:b/>
+          <w:bCs/>
+        </w:rPr>
+        <w:t>Suministro de Agua:</w:t>
+      </w:r>
+      <w:r>
+        <w:t xml:space="preserve"> Inicialmente la bomba no alcanzaba a succionar el agua desde el tanque. Se aumentó la altura de la manguera y se colocó la bomba en la parte baja del tanque.</w:t>
+      </w:r>
+    </w:p>
+    <w:p w14:paraId="2261D8DE" w14:textId="7519BE00" w:rsidR="00917BB2" w:rsidRDefault="00000000">
+      <w:pPr>
+        <w:numPr>
+          <w:ilvl w:val="0"/>
+          <w:numId w:val="5"/>
+        </w:numPr>
+        <w:spacing w:before="0" w:after="0"/>
+      </w:pPr>
+      <w:r>
+        <w:rPr>
+          <w:b/>
+          <w:bCs/>
+        </w:rPr>
+        <w:t>Modularidad:</w:t>
+      </w:r>
+      <w:r>
+        <w:t xml:space="preserve"> Cada pieza del invernadero (tanto estructurales como electrónicas) están hechas para ser de fácil acceso y fácil recambio en caso de ser necesario. Así como con la ayuda de un motor paso a paso se realiza la inserción del sensor de humedad de tierra, permitiendo un fácil intercambio de macetas</w:t>
+      </w:r>
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+    </w:p>
+    <w:p w14:paraId="1EC98FD2" w14:textId="77777777" w:rsidR="00917BB2" w:rsidRDefault="00000000">
+      <w:pPr>
+        <w:pStyle w:val="Ttulo3"/>
+      </w:pPr>
+      <w:bookmarkStart w:id="6" w:name="_c5zlbbaqgdl0" w:colFirst="0" w:colLast="0"/>
+      <w:bookmarkEnd w:id="6"/>
+      <w:r>
+        <w:t>MATERIALES DEFINITIVOS</w:t>
+      </w:r>
+    </w:p>
+    <w:p w14:paraId="359F3698" w14:textId="77777777" w:rsidR="00917BB2" w:rsidRDefault="00000000">
+      <w:pPr>
+        <w:numPr>
+          <w:ilvl w:val="0"/>
+          <w:numId w:val="13"/>
+        </w:numPr>
+        <w:spacing w:before="0" w:after="0"/>
+      </w:pPr>
+      <w:r>
+        <w:rPr>
+          <w:b/>
+          <w:bCs/>
+        </w:rPr>
+        <w:t>Estructura:</w:t>
+      </w:r>
+      <w:r>
+        <w:t xml:space="preserve"> láminas de PVC expandido, marcos de aluminio, piezas impresas en 3D (PLA-PETG).</w:t>
+      </w:r>
+    </w:p>
+    <w:p w14:paraId="37FE2DC0" w14:textId="2B584CE3" w:rsidR="00917BB2" w:rsidRDefault="00000000">
+      <w:pPr>
+        <w:numPr>
+          <w:ilvl w:val="0"/>
+          <w:numId w:val="13"/>
+        </w:numPr>
+        <w:spacing w:before="0" w:after="0"/>
+      </w:pPr>
+      <w:r>
+        <w:rPr>
+          <w:b/>
+          <w:bCs/>
+        </w:rPr>
+        <w:t>Electrónica:</w:t>
+      </w:r>
+      <w:r>
+        <w:t xml:space="preserve"> ESP32, sensor de humedad de suelo (Fc-28), sensor de temperatura y humedad DHT22, sensor de nivel de agua (genérico), bomba de agua DC 5V, motor paso a paso 28byj-48, sensores de temperatura DS18B20, </w:t>
+      <w:lastRenderedPageBreak/><w:t>fuente conmutada 5V 5A, resistencias, transistores, luces UV, Botón, Baquelita, modulo reductor de voltaje step down LM2596 y fotoresistencia (Para esta fase fue añadida la fotoresistencia , las luces Led, Sensores de temperatura DS18B20)</w:t></w:r>
+      
+      
+      
+      
+      
+      
+      
+    </w:p>
+    <w:p w14:paraId="2D2DF1FF" w14:textId="54084F92" w:rsidR="00917BB2" w:rsidRDefault="00000000">
+      <w:pPr>
+        <w:numPr>
+          <w:ilvl w:val="0"/>
+          <w:numId w:val="13"/>
+        </w:numPr>
+        <w:spacing w:before="0" w:after="0"/>
+      </w:pPr>
+      <w:r>
+        <w:rPr>
+          <w:b/>
+          <w:bCs/>
+        </w:rPr>
+        <w:t>Conexiones:</w:t>
+      </w:r>
+      <w:r>
+        <w:t xml:space="preserve"> cables DuPont, conectores terminales para partes de alto consumo.</w:t>
+      </w:r>
+      
+      
+      
+      
+    </w:p>
+    <w:p w14:paraId="56A995E8" w14:textId="77777777" w:rsidR="00917BB2" w:rsidRDefault="00000000">
+      <w:pPr>
+        <w:pStyle w:val="Ttulo3"/>
+      </w:pPr>
+      <w:bookmarkStart w:id="7" w:name="_tjx9f8v14grn" w:colFirst="0" w:colLast="0"/>
+      <w:bookmarkEnd w:id="7"/>
+      <w:r>
+        <w:t>PROGRAMACIÓN</w:t>
+      </w:r>
+    </w:p>
+    <w:p w14:paraId="42E8D00E" w14:textId="77777777" w:rsidR="00917BB2" w:rsidRDefault="00000000">
+      <w:r>
+        <w:t xml:space="preserve">Se utilizó Arduino C++ en el Arduino IDE debido a la gran cantidad de librerías disponibles (WiFi, Tensor Flow Lite ESP32, DHT, etc.) que aceleraron el desarrollo. </w:t>
+      </w:r>
+    </w:p>
+    <w:p w14:paraId="78827CB4" w14:textId="1CC818D0" w:rsidR="00917BB2" w:rsidRDefault="00000000">
+      <w:r>
+        <w:t>Para desarrollar la aplicación de monitoreo se utilizó el lenguaje Java Script ya que permite una amplia optimización y mejor estética.</w:t>
+      </w:r>
+      
+      
+      
+      
+      
+      
+      
+      
+    </w:p>
+    <w:p w14:paraId="40F6FA81" w14:textId="77777777" w:rsidR="00917BB2" w:rsidRDefault="00000000">
+      <w:r>
+        <w:t>(La aplicación se agrego para la Fase Regional)</w:t>
+      </w:r>
+    </w:p>
+    <w:p w14:paraId="5DF4FD1B" w14:textId="77777777" w:rsidR="00917BB2" w:rsidRDefault="00000000">
+      <w:pPr>
+        <w:pStyle w:val="Ttulo3"/>
+      </w:pPr>
+      <w:bookmarkStart w:id="8" w:name="_1krt9x2864dx" w:colFirst="0" w:colLast="0"/>
+      <w:bookmarkEnd w:id="8"/>
+      <w:r>
+        <w:t>ASPECTOS MECÁNICOS Y FUNCIONAMIENTO</w:t>
+      </w:r>
+    </w:p>
+    <w:p w14:paraId="1A9ED146" w14:textId="1E6EF0BC" w:rsidR="00917BB2" w:rsidRDefault="00000000">
+      <w:pPr>
+        <w:rPr>
+          <w:b/>
+          <w:bCs/>
+        </w:rPr>
+      </w:pPr>
+      <w:r>
+        <w:rPr>
+          <w:b/>
+          <w:bCs/>
+        </w:rPr>
+        <w:t>El sistema se divide electrónicamente en:</w:t>
+      </w:r>
+      
+      
+    </w:p>
+    <w:p w14:paraId="59CF2373" w14:textId="77777777" w:rsidR="00917BB2" w:rsidRDefault="00000000">
+      <w:pPr>
+        <w:numPr>
+          <w:ilvl w:val="0"/>
+          <w:numId w:val="3"/>
+        </w:numPr>
+        <w:spacing w:before="0" w:after="0"/>
+      </w:pPr>
+      <w:r>
+        <w:rPr>
+          <w:b/>
+          <w:bCs/>
+        </w:rPr>
+        <w:t xml:space="preserve">Placa principal: </w:t>
+      </w:r>
+      <w:r>
+        <w:t>Es la que tiene el esp32 y se encarga del manejo de sensores y actuadores</w:t>
+      </w:r>
+    </w:p>
+    <w:p w14:paraId="7A8FD561" w14:textId="19EC2EC6" w:rsidR="00917BB2" w:rsidRDefault="00000000">
+      <w:pPr>
+        <w:numPr>
+          <w:ilvl w:val="0"/>
+          <w:numId w:val="3"/>
+        </w:numPr>
+        <w:spacing w:before="0" w:after="0"/>
+      </w:pPr>
+      <w:r>
+        <w:rPr>
+          <w:b/>
+          <w:bCs/>
+        </w:rPr>
+        <w:t xml:space="preserve">Placas Secundarias: </w:t>
+      </w:r>
+      <w:r>
+        <w:t>módulos como el Fc-28, las luces UV, etc requieren de placas adicionales para su correcto funcionamiento, las cuales están conectadas a la principal de tal manera que permitan una fácil manipulación y reemplazo en caso de ser necesario.</w:t>
+      </w:r>
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+    </w:p>
+    <w:p w14:paraId="7AF9EBF0" w14:textId="77777777" w:rsidR="00917BB2" w:rsidRDefault="00000000">
+      <w:pPr>
+        <w:spacing w:before="0" w:after="0"/>
+        <w:rPr>
+          <w:b/>
+          <w:bCs/>
+        </w:rPr>
+      </w:pPr>
+      <w:r>
+        <w:rPr>
+          <w:b/>
+          <w:bCs/>
+        </w:rPr>
+        <w:t>Mecánica-estructuralmente se divide en:</w:t>
+      </w:r>
+    </w:p>
+    <w:p w14:paraId="60DD4036" w14:textId="77777777" w:rsidR="00917BB2" w:rsidRDefault="00000000">
+      <w:pPr>
+        <w:numPr>
+          <w:ilvl w:val="0"/>
+          <w:numId w:val="3"/>
+        </w:numPr>
+        <w:spacing w:before="0" w:after="0"/>
+      </w:pPr>
+      <w:r>
+        <w:rPr>
+          <w:b/>
+          <w:bCs/>
+        </w:rPr>
+        <w:t>Marco de aluminio</w:t>
+      </w:r>
+      <w:r>
+        <w:t>: Es la estructura base que le da fuerza y estabilidad</w:t>
+      </w:r>
+    </w:p>
+    <w:p w14:paraId="22F5325C" w14:textId="4751C64B" w:rsidR="00917BB2" w:rsidRDefault="00000000">
+      <w:pPr>
+        <w:numPr>
+          <w:ilvl w:val="0"/>
+          <w:numId w:val="3"/>
+        </w:numPr>
+        <w:spacing w:before="0" w:after="0"/>
+        <w:rPr>
+          <w:b/>
+          <w:bCs/>
+        </w:rPr>
+      </w:pPr>
+      <w:r>
+        <w:rPr>
+          <w:b/>
+          <w:bCs/>
+        </w:rPr>
+        <w:t>Placas de PVC expandido</w:t>
+      </w:r>
+      <w:r>
+        <w:t>: Estas aíslan a los componentes y la planta del exterior, protegiéndolos del agua, luz, calor, etc.</w:t>
+      </w:r>
+      
+      
+      
+      
+      
+    </w:p>
+    <w:p w14:paraId="3399A5A0" w14:textId="0361ABDB" w:rsidR="00917BB2" w:rsidRDefault="00000000">
+      <w:pPr>
+        <w:numPr>
+          <w:ilvl w:val="0"/>
+          <w:numId w:val="3"/>
+        </w:numPr>
+        <w:spacing w:before="0" w:after="0"/>
+      </w:pPr>
+      <w:r>
+        <w:t>Puerta para la observación de la planta, con sistema de imanes</w:t>
+      </w:r>
+      
+      
+      
+      
+    </w:p>
+    <w:p w14:paraId="2873B96D" w14:textId="77777777" w:rsidR="00917BB2" w:rsidRDefault="00000000">
+      <w:pPr>
+        <w:pStyle w:val="Ttulo2"/>
+        <w:keepNext w:val="0"/>
+        <w:keepLines w:val="0"/>
+        <w:spacing w:before="360" w:after="80"/>
+        <w:ind w:left="720" w:hanging="360"/>
+        <w:jc w:val="both"/>
+      </w:pPr>
+      <w:bookmarkStart w:id="9" w:name="_btbaw2ui12uo" w:colFirst="0" w:colLast="0"/>
+      <w:bookmarkEnd w:id="9"/>
+      <w:r>
+        <w:t>ALGORITMO DE CONTROL</w:t>
+      </w:r>
+    </w:p>
+    <w:p w14:paraId="7A9D5D51" w14:textId="77777777" w:rsidR="00917BB2" w:rsidRDefault="00000000">
+      <w:pPr>
+        <w:numPr>
+          <w:ilvl w:val="0"/>
+          <w:numId w:val="16"/>
+        </w:numPr>
+        <w:spacing w:before="240" w:after="0"/>
+        <w:jc w:val="left"/>
+      </w:pPr>
+      <w:r>
+        <w:rPr>
+          <w:b/>
+          <w:bCs/>
+        </w:rPr>
+        <w:t>El ESP32 ejecuta un bucle principal (Core 1) que:</w:t>
+      </w:r>
+    </w:p>
+    <w:p w14:paraId="0211DAA6" w14:textId="77777777" w:rsidR="00917BB2" w:rsidRDefault="00000000">
+      <w:pPr>
+        <w:numPr>
+          <w:ilvl w:val="1"/>
+          <w:numId w:val="16"/>
+        </w:numPr>
+        <w:spacing w:before="0" w:after="0"/>
+        <w:jc w:val="left"/>
+      </w:pPr>
+      <w:r>
+        <w:lastRenderedPageBreak/>
+        <w:t>Se encarga de la gestión de la inteligencia artificial y el flujo lógico de los actuadores.</w:t>
+      </w:r>
+    </w:p>
+    <w:p w14:paraId="01FDCD47" w14:textId="77777777" w:rsidR="00917BB2" w:rsidRDefault="00000000">
+      <w:pPr>
+        <w:numPr>
+          <w:ilvl w:val="1"/>
+          <w:numId w:val="16"/>
+        </w:numPr>
+        <w:spacing w:before="0" w:after="0"/>
+        <w:jc w:val="left"/>
+      </w:pPr>
+      <w:r>
+        <w:t>Coordina la lectura de periféricos y el formateo de datos para la red neuronal.</w:t>
+      </w:r>
+    </w:p>
+    <w:p w14:paraId="00B8CE67" w14:textId="77777777" w:rsidR="00917BB2" w:rsidRDefault="00000000">
+      <w:pPr>
+        <w:numPr>
+          <w:ilvl w:val="1"/>
+          <w:numId w:val="16"/>
+        </w:numPr>
+        <w:spacing w:before="0" w:after="0"/>
+        <w:jc w:val="left"/>
+      </w:pPr>
+      <w:r>
+        <w:t>Proporciona retroalimentación visual del estado del sistema mediante un LED Neopixel (Blanco: Inicio, Verde: Éxito IA, Rojo: Error IA).</w:t>
+      </w:r>
+    </w:p>
+    <w:p w14:paraId="4CD2F2F8" w14:textId="77777777" w:rsidR="00917BB2" w:rsidRDefault="00000000">
+      <w:pPr>
+        <w:numPr>
+          <w:ilvl w:val="0"/>
+          <w:numId w:val="16"/>
+        </w:numPr>
+        <w:spacing w:before="0" w:after="0"/>
+        <w:jc w:val="left"/>
+      </w:pPr>
+      <w:r>
+        <w:rPr>
+          <w:b/>
+          <w:bCs/>
+        </w:rPr>
+        <w:t>Se ejecuta el proceso de actualización de sensores:</w:t>
+      </w:r>
+    </w:p>
+    <w:p w14:paraId="53BFF717" w14:textId="77777777" w:rsidR="00917BB2" w:rsidRDefault="00000000">
+      <w:pPr>
+        <w:numPr>
+          <w:ilvl w:val="1"/>
+          <w:numId w:val="16"/>
+        </w:numPr>
+        <w:spacing w:before="0" w:after="0"/>
+        <w:jc w:val="left"/>
+      </w:pPr>
+      <w:r>
+        <w:t>Se leen los datos físicos (DHT, Ultrasonido, Humedad de suelo, Nivel de agua, Fotoresistencia).</w:t>
+      </w:r>
+    </w:p>
+    <w:p w14:paraId="06770134" w14:textId="77777777" w:rsidR="00917BB2" w:rsidRDefault="00000000">
+      <w:pPr>
+        <w:numPr>
+          <w:ilvl w:val="1"/>
+          <w:numId w:val="16"/>
+        </w:numPr>
+        <w:spacing w:before="0" w:after="0"/>
+        <w:jc w:val="left"/>
+      </w:pPr>
+      <w:r>
+        <w:t>Se actualizan las variables globales con los valores del entorno en tiempo real.</w:t>
+      </w:r>
+    </w:p>
+    <w:p w14:paraId="1E75E52F" w14:textId="77777777" w:rsidR="00917BB2" w:rsidRDefault="00000000">
+      <w:pPr>
+        <w:numPr>
+          <w:ilvl w:val="0"/>
+          <w:numId w:val="16"/>
+        </w:numPr>
+        <w:spacing w:before="0" w:after="0"/>
+        <w:jc w:val="left"/>
+      </w:pPr>
+      <w:r>
+        <w:rPr>
+          <w:b/>
+          <w:bCs/>
+        </w:rPr>
+        <w:t>La Red Neuronal (IA) procesa los datos:</w:t>
+      </w:r>
+    </w:p>
+    <w:p w14:paraId="2BE605E1" w14:textId="77777777" w:rsidR="00917BB2" w:rsidRDefault="00000000">
+      <w:pPr>
+        <w:numPr>
+          <w:ilvl w:val="1"/>
+          <w:numId w:val="16"/>
+        </w:numPr>
+        <w:spacing w:before="0" w:after="0"/>
+        <w:jc w:val="left"/>
+      </w:pPr>
+      <w:r>
+        <w:rPr>
+          <w:b/>
+          <w:bCs/>
+        </w:rPr>
+        <w:t>Formateo:</w:t>
+      </w:r>
+      <w:r>
+        <w:t xml:space="preserve"> Los datos crudos se normalizan (escala de 0.0 a 1.0) para ser digeribles por el modelo.</w:t>
+      </w:r>
+    </w:p>
+    <w:p w14:paraId="327C5F5B" w14:textId="77777777" w:rsidR="00917BB2" w:rsidRDefault="00000000">
+      <w:pPr>
+        <w:numPr>
+          <w:ilvl w:val="1"/>
+          <w:numId w:val="16"/>
+        </w:numPr>
+        <w:spacing w:before="0" w:after="0"/>
+        <w:jc w:val="left"/>
+      </w:pPr>
+      <w:r>
+        <w:rPr>
+          <w:b/>
+          <w:bCs/>
+        </w:rPr>
+        <w:t>Inferencia:</w:t>
+      </w:r>
+      <w:r>
+        <w:t xml:space="preserve"> El intérprete de TensorFlow Lite analiza los datos de entrada.</w:t>
+      </w:r>
+    </w:p>
+    <w:p w14:paraId="6862FEFF" w14:textId="77777777" w:rsidR="00917BB2" w:rsidRDefault="00000000">
+      <w:pPr>
+        <w:numPr>
+          <w:ilvl w:val="1"/>
+          <w:numId w:val="16"/>
+        </w:numPr>
+        <w:spacing w:before="0" w:after="0"/>
+        <w:jc w:val="left"/>
+      </w:pPr>
+      <w:r>
+        <w:rPr>
+          <w:b/>
+          <w:bCs/>
+        </w:rPr>
+        <w:t>Control de Actuadores:</w:t>
+      </w:r>
+      <w:r>
+        <w:t xml:space="preserve"> Se actualizan las variables de salida (</w:t>
+      </w:r>
+      <w:r>
+        <w:rPr>
+          <w:rFonts w:ascii="Roboto Mono" w:eastAsia="Roboto Mono" w:hAnsi="Roboto Mono" w:cs="Roboto Mono"/>
+          <w:color w:val="188038"/>
+        </w:rPr>
+        <w:t>uv</w:t>
+      </w:r>
+      <w:r>
+        <w:t xml:space="preserve">, </w:t>
+      </w:r>
+      <w:r>
+        <w:rPr>
+          <w:rFonts w:ascii="Roboto Mono" w:eastAsia="Roboto Mono" w:hAnsi="Roboto Mono" w:cs="Roboto Mono"/>
+          <w:color w:val="188038"/>
+        </w:rPr>
+        <w:t>bomba</w:t>
+      </w:r>
+      <w:r>
+        <w:t>) según la decisión de la IA.</w:t>
+      </w:r>
+    </w:p>
+    <w:p w14:paraId="38DD6DC7" w14:textId="77777777" w:rsidR="00917BB2" w:rsidRDefault="00000000">
+      <w:pPr>
+        <w:numPr>
+          <w:ilvl w:val="0"/>
+          <w:numId w:val="16"/>
+        </w:numPr>
+        <w:spacing w:before="0" w:after="0"/>
+        <w:jc w:val="left"/>
+      </w:pPr>
+      <w:r>
+        <w:rPr>
+          <w:b/>
+          <w:bCs/>
+        </w:rPr>
+        <w:t>El Servidor Web es delegado al procesador secundario (Core 0):</w:t>
+      </w:r>
+    </w:p>
+    <w:p w14:paraId="21C94FC6" w14:textId="77777777" w:rsidR="00917BB2" w:rsidRDefault="00000000">
+      <w:pPr>
+        <w:numPr>
+          <w:ilvl w:val="1"/>
+          <w:numId w:val="16"/>
+        </w:numPr>
+        <w:spacing w:before="0" w:after="0"/>
+        <w:jc w:val="left"/>
+      </w:pPr>
+      <w:r>
+        <w:t>Gestiona la conexión WiFi de forma independiente para no interrumpir el ciclo de la IA.</w:t>
+      </w:r>
+    </w:p>
+    <w:p w14:paraId="430628A9" w14:textId="77777777" w:rsidR="00917BB2" w:rsidRDefault="00000000">
+      <w:pPr>
+        <w:numPr>
+          <w:ilvl w:val="1"/>
+          <w:numId w:val="16"/>
+        </w:numPr>
+        <w:spacing w:before="0" w:after="240"/>
+        <w:jc w:val="left"/>
+      </w:pPr>
+      <w:r>
+        <w:t>Expone una API JSON con los datos de los sensores y sirve capturas en tiempo real de la cámara OV2640.</w:t>
+      </w:r>
+    </w:p>
+    <w:p w14:paraId="5E52AB0B" w14:textId="77777777" w:rsidR="00917BB2" w:rsidRDefault="00000000">
+      <w:pPr>
+        <w:pStyle w:val="Ttulo2"/>
+        <w:keepNext w:val="0"/>
+        <w:keepLines w:val="0"/>
+        <w:spacing w:before="360" w:after="80"/>
+        <w:ind w:left="720" w:hanging="360"/>
+        <w:jc w:val="both"/>
+      </w:pPr>
+      <w:bookmarkStart w:id="10" w:name="_2jymq7b3ldk8" w:colFirst="0" w:colLast="0"/>
+      <w:bookmarkEnd w:id="10"/>
+      <w:r>
+        <w:t>ESTRUCTURA DEL CÓDIGO</w:t>
+      </w:r>
+    </w:p>
+    <w:p w14:paraId="2478A20F" w14:textId="77777777" w:rsidR="00917BB2" w:rsidRDefault="00000000">
+      <w:pPr>
+        <w:numPr>
+          <w:ilvl w:val="0"/>
+          <w:numId w:val="4"/>
+        </w:numPr>
+        <w:spacing w:before="240" w:after="0"/>
+        <w:jc w:val="left"/>
+      </w:pPr>
+      <w:r>
+        <w:rPr>
+          <w:b/>
+          <w:bCs/>
+        </w:rPr>
+        <w:t>Setup():</w:t>
+      </w:r>
+    </w:p>
+    <w:p w14:paraId="42EDE3DA" w14:textId="77777777" w:rsidR="00917BB2" w:rsidRDefault="00000000">
+      <w:pPr>
+        <w:numPr>
+          <w:ilvl w:val="1"/>
+          <w:numId w:val="4"/>
+        </w:numPr>
+        <w:spacing w:before="0" w:after="0"/>
+        <w:jc w:val="left"/>
+      </w:pPr>
+      <w:r>
+        <w:t>Inicializa la comunicación Serial y los sensores (DHT, OneWire, Ultrasonido).</w:t>
+      </w:r>
+    </w:p>
+    <w:p w14:paraId="3B4B0A32" w14:textId="77777777" w:rsidR="00917BB2" w:rsidRDefault="00000000">
+      <w:pPr>
+        <w:numPr>
+          <w:ilvl w:val="1"/>
+          <w:numId w:val="4"/>
+        </w:numPr>
+        <w:spacing w:before="0" w:after="0"/>
+        <w:jc w:val="left"/>
+      </w:pPr>
+      <w:r>
+        <w:t>Configura los canales PWM (LEDC) para los actuadores (Bombas y luces UV).</w:t>
+      </w:r>
+    </w:p>
+    <w:p w14:paraId="48D2FE80" w14:textId="77777777" w:rsidR="00917BB2" w:rsidRDefault="00000000">
+      <w:pPr>
+        <w:numPr>
+          <w:ilvl w:val="1"/>
+          <w:numId w:val="4"/>
+        </w:numPr>
+        <w:spacing w:before="0" w:after="0"/>
+        <w:jc w:val="left"/>
+      </w:pPr>
+      <w:r>
+        <w:t>Inicia la cámara OV2640 gestionando la memoria DRAM.</w:t>
+      </w:r>
+    </w:p>
+    <w:p w14:paraId="617A4246" w14:textId="77777777" w:rsidR="00917BB2" w:rsidRDefault="00000000">
+      <w:pPr>
+        <w:numPr>
+          <w:ilvl w:val="1"/>
+          <w:numId w:val="4"/>
+        </w:numPr>
+        <w:spacing w:before="0" w:after="0"/>
+        <w:jc w:val="left"/>
+      </w:pPr>
+      <w:r>
+        <w:lastRenderedPageBreak/>
+        <w:t xml:space="preserve">Carga el modelo de IA en la </w:t>
+      </w:r>
+      <w:r>
+        <w:rPr>
+          <w:rFonts w:ascii="Roboto Mono" w:eastAsia="Roboto Mono" w:hAnsi="Roboto Mono" w:cs="Roboto Mono"/>
+          <w:color w:val="188038"/>
+        </w:rPr>
+        <w:t>tensor_arena</w:t>
+      </w:r>
+      <w:r>
+        <w:t xml:space="preserve"> y prepara los tensores de entrada/salida.</w:t>
+      </w:r>
+    </w:p>
+    <w:p w14:paraId="2A4D661A" w14:textId="77777777" w:rsidR="00917BB2" w:rsidRDefault="00000000">
+      <w:pPr>
+        <w:numPr>
+          <w:ilvl w:val="1"/>
+          <w:numId w:val="4"/>
+        </w:numPr>
+        <w:spacing w:before="0" w:after="0"/>
+        <w:jc w:val="left"/>
+      </w:pPr>
+      <w:r>
+        <w:t xml:space="preserve">Crea la tarea del Servidor Web asignándola específicamente al núcleo 0 con </w:t>
+      </w:r>
+      <w:r>
+        <w:rPr>
+          <w:rFonts w:ascii="Roboto Mono" w:eastAsia="Roboto Mono" w:hAnsi="Roboto Mono" w:cs="Roboto Mono"/>
+          <w:color w:val="188038"/>
+        </w:rPr>
+        <w:t>xTaskCreatePinnedToCore</w:t>
+      </w:r>
+      <w:r>
+        <w:t>.</w:t>
+      </w:r>
+    </w:p>
+    <w:p w14:paraId="7652B1C8" w14:textId="77777777" w:rsidR="00917BB2" w:rsidRDefault="00000000">
+      <w:pPr>
+        <w:numPr>
+          <w:ilvl w:val="0"/>
+          <w:numId w:val="4"/>
+        </w:numPr>
+        <w:spacing w:before="0" w:after="0"/>
+        <w:jc w:val="left"/>
+      </w:pPr>
+      <w:r>
+        <w:rPr>
+          <w:b/>
+          <w:bCs/>
+        </w:rPr>
+        <w:t>Loop():</w:t>
+      </w:r>
+    </w:p>
+    <w:p w14:paraId="5D7B4AA7" w14:textId="77777777" w:rsidR="00917BB2" w:rsidRDefault="00000000">
+      <w:pPr>
+        <w:numPr>
+          <w:ilvl w:val="1"/>
+          <w:numId w:val="4"/>
+        </w:numPr>
+        <w:spacing w:before="0" w:after="0"/>
+        <w:jc w:val="left"/>
+      </w:pPr>
+      <w:r>
+        <w:t>Indica el inicio de la iteración con el Neopixel.</w:t>
+      </w:r>
+    </w:p>
+    <w:p w14:paraId="5DEBD264" w14:textId="77777777" w:rsidR="00917BB2" w:rsidRDefault="00000000">
+      <w:pPr>
+        <w:numPr>
+          <w:ilvl w:val="1"/>
+          <w:numId w:val="4"/>
+        </w:numPr>
+        <w:spacing w:before="0" w:after="0"/>
+        <w:jc w:val="left"/>
+      </w:pPr>
+      <w:r>
+        <w:t xml:space="preserve">Llama a </w:t>
+      </w:r>
+      <w:r>
+        <w:rPr>
+          <w:rFonts w:ascii="Roboto Mono" w:eastAsia="Roboto Mono" w:hAnsi="Roboto Mono" w:cs="Roboto Mono"/>
+          <w:color w:val="188038"/>
+        </w:rPr>
+        <w:t>actualizarSensores()</w:t>
+      </w:r>
+      <w:r>
+        <w:t xml:space="preserve"> para refrescar las variables globales.</w:t>
+      </w:r>
+    </w:p>
+    <w:p w14:paraId="3AF32B7B" w14:textId="77777777" w:rsidR="00917BB2" w:rsidRDefault="00000000">
+      <w:pPr>
+        <w:numPr>
+          <w:ilvl w:val="1"/>
+          <w:numId w:val="4"/>
+        </w:numPr>
+        <w:spacing w:before="0" w:after="0"/>
+        <w:jc w:val="left"/>
+      </w:pPr>
+      <w:r>
+        <w:t xml:space="preserve">Ejecuta </w:t>
+      </w:r>
+      <w:r>
+        <w:rPr>
+          <w:rFonts w:ascii="Roboto Mono" w:eastAsia="Roboto Mono" w:hAnsi="Roboto Mono" w:cs="Roboto Mono"/>
+          <w:color w:val="188038"/>
+        </w:rPr>
+        <w:t>formatearSensores()</w:t>
+      </w:r>
+      <w:r>
+        <w:t xml:space="preserve"> para normalizar los valores.</w:t>
+      </w:r>
+    </w:p>
+    <w:p w14:paraId="1DD7EFC4" w14:textId="77777777" w:rsidR="00917BB2" w:rsidRDefault="00000000">
+      <w:pPr>
+        <w:numPr>
+          <w:ilvl w:val="1"/>
+          <w:numId w:val="4"/>
+        </w:numPr>
+        <w:spacing w:before="0" w:after="0"/>
+        <w:jc w:val="left"/>
+      </w:pPr>
+      <w:r>
+        <w:t xml:space="preserve">Inserta los datos en el modelo de IA y ejecuta el </w:t>
+      </w:r>
+      <w:r>
+        <w:rPr>
+          <w:rFonts w:ascii="Roboto Mono" w:eastAsia="Roboto Mono" w:hAnsi="Roboto Mono" w:cs="Roboto Mono"/>
+          <w:color w:val="188038"/>
+        </w:rPr>
+        <w:t>interpreter-&gt;Invoke()</w:t>
+      </w:r>
+      <w:r>
+        <w:t>.</w:t>
+      </w:r>
+    </w:p>
+    <w:p w14:paraId="00160321" w14:textId="77777777" w:rsidR="00917BB2" w:rsidRDefault="00000000">
+      <w:pPr>
+        <w:numPr>
+          <w:ilvl w:val="1"/>
+          <w:numId w:val="4"/>
+        </w:numPr>
+        <w:spacing w:before="0" w:after="0"/>
+        <w:jc w:val="left"/>
+      </w:pPr>
+      <w:r>
+        <w:t>En base al éxito o error de la IA, actualiza el estado de los actuadores y el color del LED.</w:t>
+      </w:r>
+    </w:p>
+    <w:p w14:paraId="6782C30E" w14:textId="77777777" w:rsidR="00917BB2" w:rsidRDefault="00000000">
+      <w:pPr>
+        <w:numPr>
+          <w:ilvl w:val="1"/>
+          <w:numId w:val="4"/>
+        </w:numPr>
+        <w:spacing w:before="0" w:after="0"/>
+        <w:jc w:val="left"/>
+      </w:pPr>
+      <w:r>
+        <w:t xml:space="preserve">Genera un reporte de monitoreo mediante la función </w:t>
+      </w:r>
+      <w:r>
+        <w:rPr>
+          <w:rFonts w:ascii="Roboto Mono" w:eastAsia="Roboto Mono" w:hAnsi="Roboto Mono" w:cs="Roboto Mono"/>
+          <w:color w:val="188038"/>
+        </w:rPr>
+        <w:t>log()</w:t>
+      </w:r>
+      <w:r>
+        <w:t>.</w:t>
+      </w:r>
+    </w:p>
+    <w:p w14:paraId="1E81E786" w14:textId="77777777" w:rsidR="00917BB2" w:rsidRDefault="00000000">
+      <w:pPr>
+        <w:numPr>
+          <w:ilvl w:val="0"/>
+          <w:numId w:val="4"/>
+        </w:numPr>
+        <w:spacing w:before="0" w:after="0"/>
+        <w:jc w:val="left"/>
+      </w:pPr>
+      <w:r>
+        <w:rPr>
+          <w:b/>
+          <w:bCs/>
+        </w:rPr>
+        <w:t>Funciones Secundarias:</w:t>
+      </w:r>
+    </w:p>
+    <w:p w14:paraId="789BD552" w14:textId="77777777" w:rsidR="00917BB2" w:rsidRDefault="00000000">
+      <w:pPr>
+        <w:numPr>
+          <w:ilvl w:val="1"/>
+          <w:numId w:val="4"/>
+        </w:numPr>
+        <w:spacing w:before="0" w:after="0"/>
+        <w:jc w:val="left"/>
+      </w:pPr>
+      <w:r>
+        <w:rPr>
+          <w:b/>
+          <w:bCs/>
+        </w:rPr>
+        <w:t>actualizarSensores():</w:t>
+      </w:r>
+      <w:r>
+        <w:t xml:space="preserve"> Lee pines analógicos y digitales, aplicando </w:t>
+      </w:r>
+      <w:r>
+        <w:rPr>
+          <w:rFonts w:ascii="Roboto Mono" w:eastAsia="Roboto Mono" w:hAnsi="Roboto Mono" w:cs="Roboto Mono"/>
+          <w:color w:val="188038"/>
+        </w:rPr>
+        <w:t>map</w:t>
+      </w:r>
+      <w:r>
+        <w:t xml:space="preserve"> y </w:t>
+      </w:r>
+      <w:r>
+        <w:rPr>
+          <w:rFonts w:ascii="Roboto Mono" w:eastAsia="Roboto Mono" w:hAnsi="Roboto Mono" w:cs="Roboto Mono"/>
+          <w:color w:val="188038"/>
+        </w:rPr>
+        <w:t>constrain</w:t>
+      </w:r>
+      <w:r>
+        <w:t xml:space="preserve"> para calibrar niveles de agua y tierra.</w:t>
+      </w:r>
+    </w:p>
+    <w:p w14:paraId="0D539C3C" w14:textId="77777777" w:rsidR="00917BB2" w:rsidRDefault="00000000">
+      <w:pPr>
+        <w:numPr>
+          <w:ilvl w:val="1"/>
+          <w:numId w:val="4"/>
+        </w:numPr>
+        <w:spacing w:before="0" w:after="0"/>
+        <w:jc w:val="left"/>
+      </w:pPr>
+      <w:r>
+        <w:rPr>
+          <w:b/>
+          <w:bCs/>
+        </w:rPr>
+        <w:t>formatearSensores():</w:t>
+      </w:r>
+      <w:r>
+        <w:t xml:space="preserve"> Realiza las operaciones matemáticas para convertir los rangos de sensores a valores flotantes compatibles con la red neuronal.</w:t>
+      </w:r>
+    </w:p>
+    <w:p w14:paraId="5B9D5D92" w14:textId="77777777" w:rsidR="00917BB2" w:rsidRDefault="00000000">
+      <w:pPr>
+        <w:numPr>
+          <w:ilvl w:val="1"/>
+          <w:numId w:val="4"/>
+        </w:numPr>
+        <w:spacing w:before="0" w:after="0"/>
+        <w:jc w:val="left"/>
+      </w:pPr>
+      <w:r>
+        <w:rPr>
+          <w:b/>
+          <w:bCs/>
+        </w:rPr>
+        <w:t>ServidorWeb():</w:t>
+      </w:r>
+      <w:r>
+        <w:t xml:space="preserve"> Bucle infinito en el núcleo 0 que maneja peticiones HTTP, genera el JSON de estado y sirve el buffer de imagen de la cámara.</w:t>
+      </w:r>
+    </w:p>
+    <w:p w14:paraId="3F1B9796" w14:textId="77777777" w:rsidR="00917BB2" w:rsidRDefault="00000000">
+      <w:pPr>
+        <w:numPr>
+          <w:ilvl w:val="0"/>
+          <w:numId w:val="4"/>
+        </w:numPr>
+        <w:spacing w:before="0" w:after="0"/>
+        <w:jc w:val="left"/>
+      </w:pPr>
+      <w:r>
+        <w:rPr>
+          <w:b/>
+          <w:bCs/>
+        </w:rPr>
+        <w:t>Variables Globales:</w:t>
+      </w:r>
+    </w:p>
+    <w:p w14:paraId="20931E66" w14:textId="77777777" w:rsidR="00917BB2" w:rsidRDefault="00000000">
+      <w:pPr>
+        <w:numPr>
+          <w:ilvl w:val="1"/>
+          <w:numId w:val="4"/>
+        </w:numPr>
+        <w:spacing w:before="0" w:after="0"/>
+        <w:jc w:val="left"/>
+      </w:pPr>
+      <w:r>
+        <w:rPr>
+          <w:b/>
+          <w:bCs/>
+        </w:rPr>
+        <w:t>Sensores:</w:t>
+      </w:r>
+      <w:r>
+        <w:t xml:space="preserve"> </w:t>
+      </w:r>
+      <w:r>
+        <w:rPr>
+          <w:rFonts w:ascii="Roboto Mono" w:eastAsia="Roboto Mono" w:hAnsi="Roboto Mono" w:cs="Roboto Mono"/>
+          <w:color w:val="188038"/>
+        </w:rPr>
+        <w:t>sen_humedadAire</w:t>
+      </w:r>
+      <w:r>
+        <w:t xml:space="preserve">, </w:t>
+      </w:r>
+      <w:r>
+        <w:rPr>
+          <w:rFonts w:ascii="Roboto Mono" w:eastAsia="Roboto Mono" w:hAnsi="Roboto Mono" w:cs="Roboto Mono"/>
+          <w:color w:val="188038"/>
+        </w:rPr>
+        <w:t>sen_humedadTierra</w:t>
+      </w:r>
+      <w:r>
+        <w:t xml:space="preserve">, </w:t>
+      </w:r>
+      <w:r>
+        <w:rPr>
+          <w:rFonts w:ascii="Roboto Mono" w:eastAsia="Roboto Mono" w:hAnsi="Roboto Mono" w:cs="Roboto Mono"/>
+          <w:color w:val="188038"/>
+        </w:rPr>
+        <w:t>sen_litrosAgua</w:t>
+      </w:r>
+      <w:r>
+        <w:t xml:space="preserve">, </w:t>
+      </w:r>
+      <w:r>
+        <w:rPr>
+          <w:rFonts w:ascii="Roboto Mono" w:eastAsia="Roboto Mono" w:hAnsi="Roboto Mono" w:cs="Roboto Mono"/>
+          <w:color w:val="188038"/>
+        </w:rPr>
+        <w:t>sen_alturaPlanta</w:t>
+      </w:r>
+      <w:r>
+        <w:t xml:space="preserve">, </w:t>
+      </w:r>
+      <w:r>
+        <w:rPr>
+          <w:rFonts w:ascii="Roboto Mono" w:eastAsia="Roboto Mono" w:hAnsi="Roboto Mono" w:cs="Roboto Mono"/>
+          <w:color w:val="188038"/>
+        </w:rPr>
+        <w:t>sen_temperatura</w:t>
+      </w:r>
+      <w:r>
+        <w:t xml:space="preserve">, </w:t>
+      </w:r>
+      <w:r>
+        <w:rPr>
+          <w:rFonts w:ascii="Roboto Mono" w:eastAsia="Roboto Mono" w:hAnsi="Roboto Mono" w:cs="Roboto Mono"/>
+          <w:color w:val="188038"/>
+        </w:rPr>
+        <w:t>sen_luz</w:t>
+      </w:r>
+      <w:r>
+        <w:t>.</w:t>
+      </w:r>
+    </w:p>
+    <w:p w14:paraId="4701FEC7" w14:textId="77777777" w:rsidR="00917BB2" w:rsidRDefault="00000000">
+      <w:pPr>
+        <w:numPr>
+          <w:ilvl w:val="1"/>
+          <w:numId w:val="4"/>
+        </w:numPr>
+        <w:spacing w:before="0" w:after="0"/>
+        <w:jc w:val="left"/>
+      </w:pPr>
+      <w:r>
+        <w:rPr>
+          <w:b/>
+          <w:bCs/>
+        </w:rPr>
+        <w:t>IA (Raw):</w:t>
+      </w:r>
+      <w:r>
+        <w:t xml:space="preserve"> </w:t>
+      </w:r>
+      <w:r>
+        <w:rPr>
+          <w:rFonts w:ascii="Roboto Mono" w:eastAsia="Roboto Mono" w:hAnsi="Roboto Mono" w:cs="Roboto Mono"/>
+          <w:color w:val="188038"/>
+        </w:rPr>
+        <w:t>raw_temperatura</w:t>
+      </w:r>
+      <w:r>
+        <w:t xml:space="preserve">, </w:t>
+      </w:r>
+      <w:r>
+        <w:rPr>
+          <w:rFonts w:ascii="Roboto Mono" w:eastAsia="Roboto Mono" w:hAnsi="Roboto Mono" w:cs="Roboto Mono"/>
+          <w:color w:val="188038"/>
+        </w:rPr>
+        <w:t>raw_humedadAire</w:t>
+      </w:r>
+      <w:r>
+        <w:t xml:space="preserve">, </w:t>
+      </w:r>
+      <w:r>
+        <w:rPr>
+          <w:rFonts w:ascii="Roboto Mono" w:eastAsia="Roboto Mono" w:hAnsi="Roboto Mono" w:cs="Roboto Mono"/>
+          <w:color w:val="188038"/>
+        </w:rPr>
+        <w:t>raw_humedadTierra</w:t>
+      </w:r>
+      <w:r>
+        <w:t xml:space="preserve">, </w:t>
+      </w:r>
+      <w:r>
+        <w:rPr>
+          <w:rFonts w:ascii="Roboto Mono" w:eastAsia="Roboto Mono" w:hAnsi="Roboto Mono" w:cs="Roboto Mono"/>
+          <w:color w:val="188038"/>
+        </w:rPr>
+        <w:t>raw_luz</w:t>
+      </w:r>
+      <w:r>
+        <w:t xml:space="preserve">, </w:t>
+      </w:r>
+      <w:r>
+        <w:rPr>
+          <w:rFonts w:ascii="Roboto Mono" w:eastAsia="Roboto Mono" w:hAnsi="Roboto Mono" w:cs="Roboto Mono"/>
+          <w:color w:val="188038"/>
+        </w:rPr>
+        <w:t>raw_litrosAgua</w:t>
+      </w:r>
+      <w:r>
+        <w:t>.</w:t>
+      </w:r>
+    </w:p>
+    <w:p w14:paraId="3297FC53" w14:textId="77777777" w:rsidR="00917BB2" w:rsidRDefault="00000000">
+      <w:pPr>
+        <w:numPr>
+          <w:ilvl w:val="1"/>
+          <w:numId w:val="4"/>
+        </w:numPr>
+        <w:spacing w:before="0" w:after="0"/>
+        <w:jc w:val="left"/>
+      </w:pPr>
+      <w:r>
+        <w:rPr>
+          <w:b/>
+          <w:bCs/>
+        </w:rPr>
+        <w:t>Actuadores:</w:t>
+      </w:r>
+      <w:r>
+        <w:t xml:space="preserve"> </w:t>
+      </w:r>
+      <w:r>
+        <w:rPr>
+          <w:rFonts w:ascii="Roboto Mono" w:eastAsia="Roboto Mono" w:hAnsi="Roboto Mono" w:cs="Roboto Mono"/>
+          <w:color w:val="188038"/>
+        </w:rPr>
+        <w:t>uv</w:t>
+      </w:r>
+      <w:r>
+        <w:t xml:space="preserve">, </w:t>
+      </w:r>
+      <w:r>
+        <w:rPr>
+          <w:rFonts w:ascii="Roboto Mono" w:eastAsia="Roboto Mono" w:hAnsi="Roboto Mono" w:cs="Roboto Mono"/>
+          <w:color w:val="188038"/>
+        </w:rPr>
+        <w:t>bomba</w:t>
+      </w:r>
+      <w:r>
+        <w:t xml:space="preserve">, </w:t>
+      </w:r>
+      <w:r>
+        <w:rPr>
+          <w:rFonts w:ascii="Roboto Mono" w:eastAsia="Roboto Mono" w:hAnsi="Roboto Mono" w:cs="Roboto Mono"/>
+          <w:color w:val="188038"/>
+        </w:rPr>
+        <w:t>camaraOk</w:t>
+      </w:r>
+      <w:r>
+        <w:t>.</w:t>
+      </w:r>
+    </w:p>
+    <w:p w14:paraId="0BB7C270" w14:textId="77777777" w:rsidR="00917BB2" w:rsidRDefault="00917BB2">
+      <w:pPr>
+        <w:numPr>
+          <w:ilvl w:val="0"/>
+          <w:numId w:val="7"/>
+        </w:numPr>
+        <w:spacing w:before="0" w:after="0"/>
+      </w:pPr>
+    </w:p>
+    <w:p w14:paraId="23AB04B4" w14:textId="77777777" w:rsidR="00917BB2" w:rsidRDefault="00000000">
+      <w:pPr>
+        <w:spacing w:before="0" w:after="0"/>
+        <w:ind w:left="720"/>
+      </w:pPr>
+      <w:r>
+        <w:lastRenderedPageBreak/>
+        <w:t>.</w:t>
+      </w:r>
+    </w:p>
+    <w:p w14:paraId="72E021D6" w14:textId="77777777" w:rsidR="00917BB2" w:rsidRDefault="00000000">
+      <w:pPr>
+        <w:pStyle w:val="Ttulo2"/>
+      </w:pPr>
+      <w:bookmarkStart w:id="11" w:name="_wqy9s1iv3emn" w:colFirst="0" w:colLast="0"/>
+      <w:bookmarkEnd w:id="11"/>
+      <w:r>
+        <w:t>EJECUCIÓN</w:t>
+      </w:r>
+    </w:p>
+    <w:p w14:paraId="1B7F14A4" w14:textId="130F5454" w:rsidR="00917BB2" w:rsidRDefault="00000000">
+      <w:r>
+        <w:t>El prototipo se sometió a prueba en la casa de uno de los integrantes (Robert). En el que se instaló la maceta con un cebollín en crecimiento para ver cómo se desarrollaba dentro del prototipo, mostrando buenos resultados.</w:t>
+      </w:r>
+      
+      
+      
+      
+      
+      
+    </w:p>
+    <w:p w14:paraId="7547A1D4" w14:textId="77777777" w:rsidR="00917BB2" w:rsidRDefault="00000000">
+      <w:pPr>
+        <w:pStyle w:val="Ttulo3"/>
+      </w:pPr>
+      <w:bookmarkStart w:id="12" w:name="_o0zeav1w2427" w:colFirst="0" w:colLast="0"/>
+      <w:bookmarkEnd w:id="12"/>
+      <w:r>
+        <w:t>EVALUACIÓN DEL DESEMPEÑO</w:t>
+      </w:r>
+    </w:p>
+    <w:p w14:paraId="58184271" w14:textId="77777777" w:rsidR="00917BB2" w:rsidRDefault="00000000">
+      <w:r>
+        <w:t>El sistema se consideró óptimo cuando se cumplieron tres criterios:</w:t>
+      </w:r>
+    </w:p>
+    <w:p w14:paraId="35B9CFC7" w14:textId="47810DA0" w:rsidR="00917BB2" w:rsidRDefault="00000000">
+      <w:pPr>
+        <w:numPr>
+          <w:ilvl w:val="0"/>
+          <w:numId w:val="14"/>
+        </w:numPr>
+        <w:spacing w:before="0" w:after="0"/>
+      </w:pPr>
+      <w:r>
+        <w:rPr>
+          <w:b/>
+          <w:bCs/>
+        </w:rPr>
+        <w:t>Crecimiento Continuo:</w:t>
+      </w:r>
+      <w:r>
+        <w:t xml:space="preserve"> la planta demostró un crecimiento continuo y saludable.</w:t>
+      </w:r>
+      
+      
+    </w:p>
+    <w:p w14:paraId="3464E042" w14:textId="4B6497AA" w:rsidR="00917BB2" w:rsidRDefault="00000000">
+      <w:pPr>
+        <w:numPr>
+          <w:ilvl w:val="0"/>
+          <w:numId w:val="14"/>
+        </w:numPr>
+        <w:spacing w:before="0" w:after="0"/>
+      </w:pPr>
+      <w:r>
+        <w:rPr>
+          <w:b/>
+          <w:bCs/>
+        </w:rPr>
+        <w:t>Precisión en El Riego y Luz:</w:t>
+      </w:r>
+      <w:r>
+        <w:t xml:space="preserve"> Las IA demostró ser efectiva, debido a que la bomba se activó solo cuando la humedad del suelo descendió por debajo del umbral configurado, sin inundaciones ni sequías y las luces se activaron el tiempo indicado con la potencia indicada.</w:t>
+      </w:r>
+      
+      
+    </w:p>
+    <w:p w14:paraId="1CFC0B16" w14:textId="77777777" w:rsidR="00917BB2" w:rsidRDefault="00000000">
+      <w:pPr>
+        <w:numPr>
+          <w:ilvl w:val="0"/>
+          <w:numId w:val="14"/>
+        </w:numPr>
+        <w:spacing w:before="0" w:after="0"/>
+      </w:pPr>
+      <w:r>
+        <w:rPr>
+          <w:b/>
+          <w:bCs/>
+        </w:rPr>
+        <w:t xml:space="preserve">Confiabilidad de la aplicación: </w:t>
+      </w:r>
+      <w:r>
+        <w:t>los datos mostrados coincidían con las mediciones manuales realizadas con instrumentos de referencia.</w:t>
+      </w:r>
+    </w:p>
+    <w:p w14:paraId="0C420CEF" w14:textId="77777777" w:rsidR="00917BB2" w:rsidRDefault="00000000">
+      <w:pPr>
+        <w:pStyle w:val="Ttulo3"/>
+      </w:pPr>
+      <w:bookmarkStart w:id="13" w:name="_nnnnxkveyhfw" w:colFirst="0" w:colLast="0"/>
+      <w:bookmarkEnd w:id="13"/>
+      <w:r>
+        <w:t>FORTALEZAS DEL SISTEMA</w:t>
+      </w:r>
+    </w:p>
+    <w:p w14:paraId="5CF6DA4E" w14:textId="77777777" w:rsidR="00917BB2" w:rsidRDefault="00000000">
+      <w:pPr>
+        <w:numPr>
+          <w:ilvl w:val="0"/>
+          <w:numId w:val="1"/>
+        </w:numPr>
+        <w:shd w:val="clear" w:color="auto" w:fill="FFFFFF"/>
+        <w:spacing w:before="0" w:after="0"/>
+        <w:rPr>
+          <w:color w:val="0F1115"/>
+        </w:rPr>
+      </w:pPr>
+      <w:r>
+        <w:rPr>
+          <w:b/>
+          <w:bCs/>
+          <w:color w:val="0F1115"/>
+        </w:rPr>
+        <w:t>Autonomía Total mediante la IA:</w:t>
+      </w:r>
+      <w:r>
+        <w:rPr>
+          <w:color w:val="0F1115"/>
+        </w:rPr>
+        <w:t xml:space="preserve"> no requiere intervención humana para mantener las condiciones adecuadas (solo para el rellenado ocasional del tanque de agua, aunque se tiene pensado una solución al respecto).</w:t>
+      </w:r>
+    </w:p>
+    <w:p w14:paraId="0521C5FF" w14:textId="7F4303B8" w:rsidR="00917BB2" w:rsidRDefault="00000000">
+      <w:pPr>
+        <w:numPr>
+          <w:ilvl w:val="0"/>
+          <w:numId w:val="1"/>
+        </w:numPr>
+        <w:shd w:val="clear" w:color="auto" w:fill="FFFFFF"/>
+        <w:spacing w:before="0" w:after="0"/>
+        <w:rPr>
+          <w:color w:val="0F1115"/>
+        </w:rPr>
+      </w:pPr>
+      <w:r>
+        <w:rPr>
+          <w:b/>
+          <w:bCs/>
+          <w:color w:val="0F1115"/>
+        </w:rPr>
+        <w:t>Modularidad:</w:t>
+      </w:r>
+      <w:r>
+        <w:rPr>
+          <w:color w:val="0F1115"/>
+        </w:rPr>
+        <w:t xml:space="preserve"> permite cambiar de cultivo fácilmente, y esta diseñado electrónica y estructuralmente para ser fácilmente reparable o modificable.</w:t>
+      </w:r>
+      
+      
+    </w:p>
+    <w:p w14:paraId="7BB56B13" w14:textId="5CC39250" w:rsidR="00917BB2" w:rsidRDefault="00000000">
+      <w:pPr>
+        <w:numPr>
+          <w:ilvl w:val="0"/>
+          <w:numId w:val="1"/>
+        </w:numPr>
+        <w:shd w:val="clear" w:color="auto" w:fill="FFFFFF"/>
+        <w:spacing w:before="0" w:after="0"/>
+        <w:rPr>
+          <w:color w:val="0F1115"/>
+        </w:rPr>
+      </w:pPr>
+      <w:r>
+        <w:rPr>
+          <w:b/>
+          <w:bCs/>
+          <w:color w:val="0F1115"/>
+        </w:rPr>
+        <w:t>Monitoreo Remoto:</w:t>
+      </w:r>
+      <w:r>
+        <w:rPr>
+          <w:color w:val="0F1115"/>
+        </w:rPr>
+        <w:t xml:space="preserve"> la aplicación facilita el monitoreo remoto de la planta desde cualquier dispositivo conectado a la misma red. </w:t>
+      </w:r>
+      
+      
+    </w:p>
+    <w:p w14:paraId="79D9B4E1" w14:textId="2194B2F9" w:rsidR="00917BB2" w:rsidRDefault="00000000">
+      <w:pPr>
+        <w:numPr>
+          <w:ilvl w:val="0"/>
+          <w:numId w:val="1"/>
+        </w:numPr>
+        <w:shd w:val="clear" w:color="auto" w:fill="FFFFFF"/>
+        <w:spacing w:before="0" w:after="0"/>
+        <w:rPr>
+          <w:color w:val="0F1115"/>
+        </w:rPr>
+      </w:pPr>
+      <w:r>
+        <w:rPr>
+          <w:b/>
+          <w:bCs/>
+          <w:color w:val="0F1115"/>
+        </w:rPr>
+        <w:t>Portabilidad:</w:t>
+      </w:r>
+      <w:r>
+        <w:rPr>
+          <w:color w:val="0F1115"/>
+        </w:rPr>
+        <w:t xml:space="preserve"> su tamaño y peso permiten trasladarlo sin dificultad (a comparación de otros invernaderos).</w:t>
+      </w:r>
+      
+      
+    </w:p>
+    <w:p w14:paraId="2FFD1B0B" w14:textId="77777777" w:rsidR="00917BB2" w:rsidRDefault="00000000">
+      <w:pPr>
+        <w:pStyle w:val="Ttulo3"/>
+      </w:pPr>
+      <w:bookmarkStart w:id="14" w:name="_5vy8sbii1poc" w:colFirst="0" w:colLast="0"/>
+      <w:bookmarkEnd w:id="14"/>
+      <w:r>
+        <w:t>OPORTUNIDADES DE MEJORA</w:t>
+      </w:r>
+    </w:p>
+    <w:p w14:paraId="1C033FDA" w14:textId="77777777" w:rsidR="00917BB2" w:rsidRDefault="00000000">
+      <w:pPr>
+        <w:numPr>
+          <w:ilvl w:val="0"/>
+          <w:numId w:val="15"/>
+        </w:numPr>
+        <w:spacing w:before="0" w:after="0"/>
+      </w:pPr>
+      <w:r>
+        <w:t>Incorporar sensores de pH y nutrientes para la app.</w:t>
+      </w:r>
+    </w:p>
+    <w:p w14:paraId="43B55348" w14:textId="77777777" w:rsidR="00917BB2" w:rsidRDefault="00000000">
+      <w:pPr>
+        <w:numPr>
+          <w:ilvl w:val="0"/>
+          <w:numId w:val="15"/>
+        </w:numPr>
+        <w:spacing w:before="0" w:after="0"/>
+      </w:pPr>
+      <w:r>
+        <w:t>Optimizar el consumo energético mediante modos de suspensión.</w:t>
+      </w:r>
+    </w:p>
+    <w:p w14:paraId="1E48B6C4" w14:textId="77777777" w:rsidR="00917BB2" w:rsidRDefault="00000000">
+      <w:pPr>
+        <w:numPr>
+          <w:ilvl w:val="0"/>
+          <w:numId w:val="15"/>
+        </w:numPr>
+        <w:spacing w:before="0" w:after="0"/>
+      </w:pPr>
+      <w:r>
+        <w:lastRenderedPageBreak/>
+        <w:t>Desarrollar una base de datos de plantas con parámetros predefinidos para facilitar la configuración.</w:t>
+      </w:r>
+    </w:p>
+    <w:p w14:paraId="66984D39" w14:textId="77777777" w:rsidR="00917BB2" w:rsidRDefault="00000000">
+      <w:pPr>
+        <w:numPr>
+          <w:ilvl w:val="0"/>
+          <w:numId w:val="15"/>
+        </w:numPr>
+        <w:spacing w:before="0" w:after="0"/>
+      </w:pPr>
+      <w:r>
+        <w:t>Añadir un sistema de recolección de agua mediante placas peltier</w:t>
+      </w:r>
+    </w:p>
+    <w:p w14:paraId="7BD7839B" w14:textId="77777777" w:rsidR="00917BB2" w:rsidRDefault="00000000">
+      <w:pPr>
+        <w:pStyle w:val="Ttulo1"/>
+      </w:pPr>
+      <w:bookmarkStart w:id="15" w:name="_z8h35a3a65p0" w:colFirst="0" w:colLast="0"/>
+      <w:bookmarkEnd w:id="15"/>
+      <w:r>
+        <w:t>EVALUACIÓN Y ANÁLISIS DEL PROYECTO</w:t>
+      </w:r>
+    </w:p>
+    <w:p w14:paraId="15E0D3D6" w14:textId="0F5DAECE" w:rsidR="00917BB2" w:rsidRDefault="00000000">
+      <w:r>
+        <w:t>Skell&#x2019;s GreenHouse responde a la problemática de la seguridad alimentaria desde el nivel doméstico y educativo, en línea con el Motor Agroalimentario del estado Lara. Al automatizar el cuidado de hortalizas pequeñas y plantas delicadas o de difícil cuidado, reduce la dependencia de la atención humana constante y permite a familias y escuelas producir sus propios alimentos o cuidar plantas exóticas de manera sencilla y controlada. Además, fomenta el interés por la agricultura y la tecnología, especialmente en jóvenes, al ofrecer una plataforma didáctica.</w:t>
+      </w:r>
+      
+      
+      
+      
+    </w:p>
+    <w:p w14:paraId="6D2B7C66" w14:textId="77777777" w:rsidR="00917BB2" w:rsidRDefault="00000000">
+      <w:pPr>
+        <w:pStyle w:val="Ttulo2"/>
+      </w:pPr>
+      <w:bookmarkStart w:id="16" w:name="_p647krcb255d" w:colFirst="0" w:colLast="0"/>
+      <w:bookmarkEnd w:id="16"/>
+      <w:r>
+        <w:t>LOGROS OBTENIDOS</w:t>
+      </w:r>
+    </w:p>
+    <w:p w14:paraId="38505615" w14:textId="77777777" w:rsidR="00917BB2" w:rsidRDefault="00000000">
+      <w:pPr>
+        <w:numPr>
+          <w:ilvl w:val="0"/>
+          <w:numId w:val="9"/>
+        </w:numPr>
+        <w:spacing w:before="0" w:after="0"/>
+      </w:pPr>
+      <w:r>
+        <w:t>Se consolidó un equipo interdisciplinario con roles claros y comunicación efectiva.</w:t>
+      </w:r>
+    </w:p>
+    <w:p w14:paraId="7D03355F" w14:textId="2B3BA4BE" w:rsidR="00917BB2" w:rsidRDefault="00000000">
+      <w:pPr>
+        <w:numPr>
+          <w:ilvl w:val="0"/>
+          <w:numId w:val="9"/>
+        </w:numPr>
+        <w:spacing w:before="0" w:after="0"/>
+      </w:pPr>
+      <w:r>
+        <w:t>Se logró un prototipo completamente funcional y autónomo.</w:t>
+      </w:r>
+      
+      
+    </w:p>
+    <w:p w14:paraId="7F23843B" w14:textId="77777777" w:rsidR="00917BB2" w:rsidRDefault="00000000">
+      <w:pPr>
+        <w:numPr>
+          <w:ilvl w:val="0"/>
+          <w:numId w:val="9"/>
+        </w:numPr>
+        <w:spacing w:before="0" w:after="0"/>
+      </w:pPr>
+      <w:r>
+        <w:t>Se documentó el proceso completo, dejando evidencia del trabajo original y las soluciones implementadas.</w:t>
+      </w:r>
+    </w:p>
+    <w:p w14:paraId="1094BC0E" w14:textId="77777777" w:rsidR="00917BB2" w:rsidRDefault="00000000">
+      <w:pPr>
+        <w:pStyle w:val="Ttulo2"/>
+      </w:pPr>
+      <w:bookmarkStart w:id="17" w:name="_qeso3i5qgmms" w:colFirst="0" w:colLast="0"/>
+      <w:bookmarkEnd w:id="17"/>
+      <w:r>
+        <w:t>APRENDIZAJES</w:t>
+      </w:r>
+    </w:p>
+    <w:p w14:paraId="34FF18DD" w14:textId="77777777" w:rsidR="00917BB2" w:rsidRDefault="00000000">
+      <w:pPr>
+        <w:numPr>
+          <w:ilvl w:val="0"/>
+          <w:numId w:val="10"/>
+        </w:numPr>
+        <w:spacing w:before="0" w:after="0"/>
+      </w:pPr>
+      <w:r>
+        <w:t>La importancia de la modularidad para facilitar pruebas y mantenimiento.</w:t>
+      </w:r>
+    </w:p>
+    <w:p w14:paraId="39699D78" w14:textId="3355F9EB" w:rsidR="00917BB2" w:rsidRDefault="00000000">
+      <w:pPr>
+        <w:numPr>
+          <w:ilvl w:val="0"/>
+          <w:numId w:val="10"/>
+        </w:numPr>
+        <w:spacing w:before="0" w:after="0"/>
+      </w:pPr>
+      <w:r>
+        <w:t>El manejo avanzado de librerías para la implementación de  IA y servidores web en ESP32.</w:t>
+      </w:r>
+      
+      
+    </w:p>
+    <w:p w14:paraId="23CACD80" w14:textId="77777777" w:rsidR="00917BB2" w:rsidRDefault="00000000">
+      <w:pPr>
+        <w:numPr>
+          <w:ilvl w:val="0"/>
+          <w:numId w:val="10"/>
+        </w:numPr>
+        <w:spacing w:before="0" w:after="0"/>
+      </w:pPr>
+      <w:r>
+        <w:t>La necesidad de considerar el entorno físico (humedad, temperatura) en el diseño mecánico para evitar daños a la electrónica.</w:t>
+      </w:r>
+    </w:p>
+    <w:p w14:paraId="363A773A" w14:textId="77777777" w:rsidR="00917BB2" w:rsidRDefault="00000000">
+      <w:pPr>
+        <w:pStyle w:val="Ttulo2"/>
+      </w:pPr>
+      <w:bookmarkStart w:id="18" w:name="_tc6e77ynaxtt" w:colFirst="0" w:colLast="0"/>
+      <w:bookmarkEnd w:id="18"/>
+      <w:r>
+        <w:t>ESCENARIOS DE ESCALADO</w:t>
+      </w:r>
+    </w:p>
+    <w:p w14:paraId="7BFCA9BC" w14:textId="77777777" w:rsidR="00917BB2" w:rsidRDefault="00000000">
+      <w:pPr>
+        <w:numPr>
+          <w:ilvl w:val="0"/>
+          <w:numId w:val="12"/>
+        </w:numPr>
+        <w:spacing w:before="0" w:after="0"/>
+      </w:pPr>
+      <w:r>
+        <w:t>Escala educativa: Versión en kit de componentes para escuelas, con manuales didácticos.</w:t>
+      </w:r>
+    </w:p>
+    <w:p w14:paraId="27087DF2" w14:textId="77777777" w:rsidR="00917BB2" w:rsidRDefault="00000000">
+      <w:pPr>
+        <w:numPr>
+          <w:ilvl w:val="0"/>
+          <w:numId w:val="12"/>
+        </w:numPr>
+        <w:spacing w:before="0" w:after="0"/>
+      </w:pPr>
+      <w:r>
+        <w:t>Escala comunal: Adaptación a un módulo más grande que permita el cultivo de múltiples macetas en espacios comunitarios.</w:t>
+      </w:r>
+    </w:p>
+    <w:p w14:paraId="0BD46F14" w14:textId="77777777" w:rsidR="00917BB2" w:rsidRDefault="00000000">
+      <w:pPr>
+        <w:numPr>
+          <w:ilvl w:val="0"/>
+          <w:numId w:val="12"/>
+        </w:numPr>
+        <w:spacing w:before="0" w:after="0"/>
+      </w:pPr>
+      <w:r>
+        <w:lastRenderedPageBreak/>
+        <w:t>Escala comercial: Reducción de costos mediante diseño optimizado para producción en serie, manteniendo la modularidad.</w:t>
+      </w:r>
+    </w:p>
+    <w:p w14:paraId="6FB614A6" w14:textId="77777777" w:rsidR="00917BB2" w:rsidRDefault="00000000">
+      <w:pPr>
+        <w:pStyle w:val="Ttulo1"/>
+      </w:pPr>
+      <w:bookmarkStart w:id="19" w:name="_3ujcscjk2ibs" w:colFirst="0" w:colLast="0"/>
+      <w:bookmarkEnd w:id="19"/>
+      <w:r>
+        <w:t>ESQUEMA ELECTRÓNICO</w:t>
+      </w:r>
+    </w:p>
+    <w:p w14:paraId="374321F6" w14:textId="77777777" w:rsidR="00917BB2" w:rsidRDefault="00000000">
+      <w:r>
+        <w:rPr>
+          <w:noProof/>
+        </w:rPr>
+        <w:drawing>
+          <wp:inline distT="114300" distB="114300" distL="114300" distR="114300" wp14:anchorId="6D1DD19D" wp14:editId="2BFF6375">
+            <wp:extent cx="5063701" cy="3562734"/>
+            <wp:effectExtent l="0" t="0" r="0" b="0"/>
+            <wp:docPr id="10" name="image3.jpg"/>
+            <wp:cNvGraphicFramePr/>
+            <a:graphic xmlns:a="http://schemas.openxmlformats.org/drawingml/2006/main">
+              <a:graphicData uri="http://schemas.openxmlformats.org/drawingml/2006/picture">
+                <pic:pic xmlns:pic="http://schemas.openxmlformats.org/drawingml/2006/picture">
+                  <pic:nvPicPr>
+                    <pic:cNvPr id="0" name="image3.jpg"/>
+                    <pic:cNvPicPr preferRelativeResize="0"/>
+                  </pic:nvPicPr>
+                  <pic:blipFill>
+                    <a:blip r:embed="rId8"/>
+                    <a:srcRect/>
+                    <a:stretch>
+                      <a:fillRect/>
+                    </a:stretch>
+                  </pic:blipFill>
+                  <pic:spPr>
+                    <a:xfrm>
+                      <a:off x="0" y="0"/>
+                      <a:ext cx="5063701" cy="3562734"/>
+                    </a:xfrm>
+                    <a:prstGeom prst="rect">
+                      <a:avLst/>
+                    </a:prstGeom>
+                    <a:ln/>
+                  </pic:spPr>
+                </pic:pic>
+              </a:graphicData>
+            </a:graphic>
+          </wp:inline>
+        </w:drawing>
+      </w:r>
+    </w:p>
+    <w:p w14:paraId="257AA55F" w14:textId="77777777" w:rsidR="00917BB2" w:rsidRDefault="00000000">
+      <w:pPr>
+        <w:pStyle w:val="Ttulo1"/>
+      </w:pPr>
+      <w:bookmarkStart w:id="20" w:name="_ole1wr1or33k" w:colFirst="0" w:colLast="0"/>
+      <w:bookmarkEnd w:id="20"/>
+      <w:r>
+        <w:t>ESQUEMA DE FLUJO ELÉCTRICO</w:t>
+      </w:r>
+    </w:p>
+    <w:p w14:paraId="6D270088" w14:textId="77777777" w:rsidR="00917BB2" w:rsidRDefault="00000000">
+      <w:r>
+        <w:rPr>
+          <w:noProof/>
+        </w:rPr>
+        <w:drawing>
+          <wp:inline distT="114300" distB="114300" distL="114300" distR="114300" wp14:anchorId="7F9736DF" wp14:editId="67211221">
+            <wp:extent cx="5186363" cy="3006712"/>
+            <wp:effectExtent l="0" t="0" r="0" b="0"/>
+            <wp:docPr id="11" name="image2.jpg"/>
+            <wp:cNvGraphicFramePr/>
+            <a:graphic xmlns:a="http://schemas.openxmlformats.org/drawingml/2006/main">
+              <a:graphicData uri="http://schemas.openxmlformats.org/drawingml/2006/picture">
+                <pic:pic xmlns:pic="http://schemas.openxmlformats.org/drawingml/2006/picture">
+                  <pic:nvPicPr>
+                    <pic:cNvPr id="0" name="image2.jpg"/>
+                    <pic:cNvPicPr preferRelativeResize="0"/>
+                  </pic:nvPicPr>
+                  <pic:blipFill>
+                    <a:blip r:embed="rId9"/>
+                    <a:srcRect/>
+                    <a:stretch>
+                      <a:fillRect/>
+                    </a:stretch>
+                  </pic:blipFill>
+                  <pic:spPr>
+                    <a:xfrm>
+                      <a:off x="0" y="0"/>
+                      <a:ext cx="5186363" cy="3006712"/>
+                    </a:xfrm>
+                    <a:prstGeom prst="rect">
+                      <a:avLst/>
+                    </a:prstGeom>
+                    <a:ln/>
+                  </pic:spPr>
+                </pic:pic>
+              </a:graphicData>
+            </a:graphic>
+          </wp:inline>
+        </w:drawing>
+      </w:r>
+    </w:p>
+    <w:p w14:paraId="37C0DA77" w14:textId="77777777" w:rsidR="009E0B6B" w:rsidRDefault="009E0B6B">
+      <w:pPr>
+        <w:rPr>
+          <w:b/>
+          <w:bCs/>
+        </w:rPr>
+      </w:pPr>
+      <w:bookmarkStart w:id="21" w:name="_1wkbfiln9xmn" w:colFirst="0" w:colLast="0"/>
+      <w:bookmarkEnd w:id="21"/>
+      <w:r>
+        <w:br w:type="page"/>
+      </w:r>
+    </w:p>
+    <w:p w14:paraId="5B58DC17" w14:textId="667F3A36" w:rsidR="009E0B6B" w:rsidRDefault="009E0B6B" w:rsidP="009E0B6B">
+      <w:pPr>
+        <w:pStyle w:val="Ttulo1"/>
+      </w:pPr>
+      <w:r>
+        <w:lastRenderedPageBreak/>
+        <w:t>FOTOGRAFÍAS</w:t>
+      </w:r>
+    </w:p>
+    <w:p w14:paraId="7B003BB6" w14:textId="77777777" w:rsidR="009E0B6B" w:rsidRDefault="009E0B6B" w:rsidP="009E0B6B">
+      <w:pPr>
+        <w:jc w:val="center"/>
+      </w:pPr>
+      <w:r>
+        <w:rPr>
+          <w:noProof/>
+        </w:rPr>
+        <w:drawing>
+          <wp:inline distT="114300" distB="114300" distL="114300" distR="114300" wp14:anchorId="38B90712" wp14:editId="2D50FDFB">
+            <wp:extent cx="1846425" cy="2524227"/>
+            <wp:effectExtent l="0" t="0" r="0" b="0"/>
+            <wp:docPr id="9" name="image1.jpg"/>
+            <wp:cNvGraphicFramePr/>
+            <a:graphic xmlns:a="http://schemas.openxmlformats.org/drawingml/2006/main">
+              <a:graphicData uri="http://schemas.openxmlformats.org/drawingml/2006/picture">
+                <pic:pic xmlns:pic="http://schemas.openxmlformats.org/drawingml/2006/picture">
+                  <pic:nvPicPr>
+                    <pic:cNvPr id="0" name="image1.jpg"/>
+                    <pic:cNvPicPr preferRelativeResize="0"/>
+                  </pic:nvPicPr>
+                  <pic:blipFill>
+                    <a:blip r:embed="rId10"/>
+                    <a:srcRect l="14452" t="9074" r="9302" b="32180"/>
+                    <a:stretch>
+                      <a:fillRect/>
+                    </a:stretch>
+                  </pic:blipFill>
+                  <pic:spPr>
+                    <a:xfrm>
+                      <a:off x="0" y="0"/>
+                      <a:ext cx="1846425" cy="2524227"/>
+                    </a:xfrm>
+                    <a:prstGeom prst="rect">
+                      <a:avLst/>
+                    </a:prstGeom>
+                    <a:ln/>
+                  </pic:spPr>
+                </pic:pic>
+              </a:graphicData>
+            </a:graphic>
+          </wp:inline>
+        </w:drawing>
+      <w:drawing>
+          <wp:inline distT="114300" distB="114300" distL="114300" distR="114300" wp14:anchorId="172C41C1" wp14:editId="17E34C1A">
+            <wp:extent cx="1065375" cy="2442263"/>
+            <wp:effectExtent l="0" t="0" r="0" b="0"/>
+            <wp:docPr id="1" name="image9.jpg"/>
+            <wp:cNvGraphicFramePr/>
+            <a:graphic xmlns:a="http://schemas.openxmlformats.org/drawingml/2006/main">
+              <a:graphicData uri="http://schemas.openxmlformats.org/drawingml/2006/picture">
+                <pic:pic xmlns:pic="http://schemas.openxmlformats.org/drawingml/2006/picture">
+                  <pic:nvPicPr>
+                    <pic:cNvPr id="0" name="image9.jpg"/>
+                    <pic:cNvPicPr preferRelativeResize="0"/>
+                  </pic:nvPicPr>
+                  <pic:blipFill>
+                    <a:blip r:embed="rId11"/>
+                    <a:srcRect/>
+                    <a:stretch>
+                      <a:fillRect/>
+                    </a:stretch>
+                  </pic:blipFill>
+                  <pic:spPr>
+                    <a:xfrm>
+                      <a:off x="0" y="0"/>
+                      <a:ext cx="1065375" cy="2442263"/>
+                    </a:xfrm>
+                    <a:prstGeom prst="rect">
+                      <a:avLst/>
+                    </a:prstGeom>
+                    <a:ln/>
+                  </pic:spPr>
+                </pic:pic>
+              </a:graphicData>
+            </a:graphic>
+          </wp:inline>
+        </w:drawing><w:drawing>
+          <wp:inline distT="114300" distB="114300" distL="114300" distR="114300" wp14:anchorId="05EB43C3" wp14:editId="2D9339CD">
+            <wp:extent cx="1523641" cy="2490130"/>
+            <wp:effectExtent l="0" t="0" r="0" b="0"/>
+            <wp:docPr id="7" name="image6.jpg"/>
+            <wp:cNvGraphicFramePr/>
+            <a:graphic xmlns:a="http://schemas.openxmlformats.org/drawingml/2006/main">
+              <a:graphicData uri="http://schemas.openxmlformats.org/drawingml/2006/picture">
+                <pic:pic xmlns:pic="http://schemas.openxmlformats.org/drawingml/2006/picture">
+                  <pic:nvPicPr>
+                    <pic:cNvPr id="0" name="image6.jpg"/>
+                    <pic:cNvPicPr preferRelativeResize="0"/>
+                  </pic:nvPicPr>
+                  <pic:blipFill>
+                    <a:blip r:embed="rId12"/>
+                    <a:srcRect/>
+                    <a:stretch>
+                      <a:fillRect/>
+                    </a:stretch>
+                  </pic:blipFill>
+                  <pic:spPr>
+                    <a:xfrm>
+                      <a:off x="0" y="0"/>
+                      <a:ext cx="1523641" cy="2490130"/>
+                    </a:xfrm>
+                    <a:prstGeom prst="rect">
+                      <a:avLst/>
+                    </a:prstGeom>
+                    <a:ln/>
+                  </pic:spPr>
+                </pic:pic>
+              </a:graphicData>
+            </a:graphic>
+          </wp:inline>
+        </w:drawing><w:drawing>
+          <wp:inline distT="114300" distB="114300" distL="114300" distR="114300" wp14:anchorId="041D3C87" wp14:editId="70A7AC5B">
+            <wp:extent cx="1398750" cy="2473152"/>
+            <wp:effectExtent l="0" t="0" r="0" b="0"/>
+            <wp:docPr id="8" name="image11.jpg"/>
+            <wp:cNvGraphicFramePr/>
+            <a:graphic xmlns:a="http://schemas.openxmlformats.org/drawingml/2006/main">
+              <a:graphicData uri="http://schemas.openxmlformats.org/drawingml/2006/picture">
+                <pic:pic xmlns:pic="http://schemas.openxmlformats.org/drawingml/2006/picture">
+                  <pic:nvPicPr>
+                    <pic:cNvPr id="0" name="image11.jpg"/>
+                    <pic:cNvPicPr preferRelativeResize="0"/>
+                  </pic:nvPicPr>
+                  <pic:blipFill>
+                    <a:blip r:embed="rId13"/>
+                    <a:srcRect/>
+                    <a:stretch>
+                      <a:fillRect/>
+                    </a:stretch>
+                  </pic:blipFill>
+                  <pic:spPr>
+                    <a:xfrm>
+                      <a:off x="0" y="0"/>
+                      <a:ext cx="1398750" cy="2473152"/>
+                    </a:xfrm>
+                    <a:prstGeom prst="rect">
+                      <a:avLst/>
+                    </a:prstGeom>
+                    <a:ln/>
+                  </pic:spPr>
+                </pic:pic>
+              </a:graphicData>
+            </a:graphic>
+          </wp:inline>
+        </w:drawing><w:drawing>
+          <wp:inline distT="114300" distB="114300" distL="114300" distR="114300" wp14:anchorId="6B8C0A6E" wp14:editId="76790309">
+            <wp:extent cx="1089188" cy="2512000"/>
+            <wp:effectExtent l="0" t="0" r="0" b="0"/>
+            <wp:docPr id="5" name="image5.jpg"/>
+            <wp:cNvGraphicFramePr/>
+            <a:graphic xmlns:a="http://schemas.openxmlformats.org/drawingml/2006/main">
+              <a:graphicData uri="http://schemas.openxmlformats.org/drawingml/2006/picture">
+                <pic:pic xmlns:pic="http://schemas.openxmlformats.org/drawingml/2006/picture">
+                  <pic:nvPicPr>
+                    <pic:cNvPr id="0" name="image5.jpg"/>
+                    <pic:cNvPicPr preferRelativeResize="0"/>
+                  </pic:nvPicPr>
+                  <pic:blipFill>
+                    <a:blip r:embed="rId14"/>
+                    <a:srcRect/>
+                    <a:stretch>
+                      <a:fillRect/>
+                    </a:stretch>
+                  </pic:blipFill>
+                  <pic:spPr>
+                    <a:xfrm>
+                      <a:off x="0" y="0"/>
+                      <a:ext cx="1089188" cy="2512000"/>
+                    </a:xfrm>
+                    <a:prstGeom prst="rect">
+                      <a:avLst/>
+                    </a:prstGeom>
+                    <a:ln/>
+                  </pic:spPr>
+                </pic:pic>
+              </a:graphicData>
+            </a:graphic>
+          </wp:inline>
+        </w:drawing><w:drawing>
+          <wp:inline distT="114300" distB="114300" distL="114300" distR="114300" wp14:anchorId="1B7671D3" wp14:editId="29F96161">
+            <wp:extent cx="1089188" cy="2496911"/>
+            <wp:effectExtent l="0" t="0" r="0" b="0"/>
+            <wp:docPr id="3" name="image4.jpg"/>
+            <wp:cNvGraphicFramePr/>
+            <a:graphic xmlns:a="http://schemas.openxmlformats.org/drawingml/2006/main">
+              <a:graphicData uri="http://schemas.openxmlformats.org/drawingml/2006/picture">
+                <pic:pic xmlns:pic="http://schemas.openxmlformats.org/drawingml/2006/picture">
+                  <pic:nvPicPr>
+                    <pic:cNvPr id="0" name="image4.jpg"/>
+                    <pic:cNvPicPr preferRelativeResize="0"/>
+                  </pic:nvPicPr>
+                  <pic:blipFill>
+                    <a:blip r:embed="rId15"/>
+                    <a:srcRect/>
+                    <a:stretch>
+                      <a:fillRect/>
+                    </a:stretch>
+                  </pic:blipFill>
+                  <pic:spPr>
+                    <a:xfrm>
+                      <a:off x="0" y="0"/>
+                      <a:ext cx="1089188" cy="2496911"/>
+                    </a:xfrm>
+                    <a:prstGeom prst="rect">
+                      <a:avLst/>
+                    </a:prstGeom>
+                    <a:ln/>
+                  </pic:spPr>
+                </pic:pic>
+              </a:graphicData>
+            </a:graphic>
+          </wp:inline>
+        </w:drawing><w:drawing>
+          <wp:inline distT="114300" distB="114300" distL="114300" distR="114300" wp14:anchorId="5F1982C7" wp14:editId="70BB0380">
+            <wp:extent cx="4308638" cy="2439720"/>
+            <wp:effectExtent l="0" t="0" r="0" b="0"/>
+            <wp:docPr id="4" name="image12.jpg"/>
+            <wp:cNvGraphicFramePr/>
+            <a:graphic xmlns:a="http://schemas.openxmlformats.org/drawingml/2006/main">
+              <a:graphicData uri="http://schemas.openxmlformats.org/drawingml/2006/picture">
+                <pic:pic xmlns:pic="http://schemas.openxmlformats.org/drawingml/2006/picture">
+                  <pic:nvPicPr>
+                    <pic:cNvPr id="0" name="image12.jpg"/>
+                    <pic:cNvPicPr preferRelativeResize="0"/>
+                  </pic:nvPicPr>
+                  <pic:blipFill>
+                    <a:blip r:embed="rId16"/>
+                    <a:srcRect/>
+                    <a:stretch>
+                      <a:fillRect/>
+                    </a:stretch>
+                  </pic:blipFill>
+                  <pic:spPr>
+                    <a:xfrm>
+                      <a:off x="0" y="0"/>
+                      <a:ext cx="4308638" cy="2439720"/>
+                    </a:xfrm>
+                    <a:prstGeom prst="rect">
+                      <a:avLst/>
+                    </a:prstGeom>
+                    <a:ln/>
+                  </pic:spPr>
+                </pic:pic>
+              </a:graphicData>
+            </a:graphic>
+          </wp:inline>
+        </w:drawing><w:drawing>
+          <wp:inline distT="114300" distB="114300" distL="114300" distR="114300" wp14:anchorId="51824554" wp14:editId="0DAA7CDD">
+            <wp:extent cx="1300935" cy="2989994"/>
+            <wp:effectExtent l="0" t="0" r="0" b="0"/>
+            <wp:docPr id="12" name="image8.jpg"/>
+            <wp:cNvGraphicFramePr/>
+            <a:graphic xmlns:a="http://schemas.openxmlformats.org/drawingml/2006/main">
+              <a:graphicData uri="http://schemas.openxmlformats.org/drawingml/2006/picture">
+                <pic:pic xmlns:pic="http://schemas.openxmlformats.org/drawingml/2006/picture">
+                  <pic:nvPicPr>
+                    <pic:cNvPr id="0" name="image8.jpg"/>
+                    <pic:cNvPicPr preferRelativeResize="0"/>
+                  </pic:nvPicPr>
+                  <pic:blipFill>
+                    <a:blip r:embed="rId17"/>
+                    <a:srcRect/>
+                    <a:stretch>
+                      <a:fillRect/>
+                    </a:stretch>
+                  </pic:blipFill>
+                  <pic:spPr>
+                    <a:xfrm>
+                      <a:off x="0" y="0"/>
+                      <a:ext cx="1300935" cy="2989994"/>
+                    </a:xfrm>
+                    <a:prstGeom prst="rect">
+                      <a:avLst/>
+                    </a:prstGeom>
+                    <a:ln/>
+                  </pic:spPr>
+                </pic:pic>
+              </a:graphicData>
+            </a:graphic>
+          </wp:inline>
+        </w:drawing></w:r>
+      
+      
+      
+      
+      
+      
+      
+    </w:p>
+    <w:p w14:paraId="0C4C4524" w14:textId="7C89D35B" w:rsidR="00917BB2" w:rsidRDefault="00000000">
+      <w:pPr>
+        <w:pStyle w:val="Ttulo1"/>
+      </w:pPr>
+      <w:r>
+        <w:lastRenderedPageBreak/>
+        <w:t>REFERENCIAS BIBLIOGRÁFICAS</w:t>
+      </w:r>
+    </w:p>
+    <w:p w14:paraId="6505208F" w14:textId="77777777" w:rsidR="00917BB2" w:rsidRDefault="00000000">
+      <w:pPr>
+        <w:pStyle w:val="Ttulo4"/>
+        <w:numPr>
+          <w:ilvl w:val="0"/>
+          <w:numId w:val="2"/>
+        </w:numPr>
+      </w:pPr>
+      <w:bookmarkStart w:id="22" w:name="_idc7o3wm4q1r" w:colFirst="0" w:colLast="0"/>
+      <w:bookmarkEnd w:id="22"/>
+      <w:r>
+        <w:t xml:space="preserve"> </w:t>
+      </w:r>
+      <w:r>
+        <w:rPr>
+          <w:b/>
+          <w:bCs/>
+          <w:color w:val="000000"/>
+        </w:rPr>
+        <w:t>Fundamentos de Invernaderos Inteligentes y Agricultura de Precisión</w:t>
+      </w:r>
+    </w:p>
+    <w:p w14:paraId="10BF0DC8" w14:textId="77777777" w:rsidR="00917BB2" w:rsidRPr="009E0B6B" w:rsidRDefault="00000000">
+      <w:pPr>
+        <w:rPr>
+          <w:lang w:val="en-US"/>
+        </w:rPr>
+      </w:pPr>
+      <w:r>
+        <w:rPr>
+          <w:lang w:val="en-US"/>
+        </w:rPr>
+        <w:t xml:space="preserve">Heuvelink, E., Hemming, S., &amp; Marcelis, L. F. M. (2025). Some recent developments in controlled-environment agriculture: on plant physiology, sustainability, and autonomous control. The Journal of Horticultural Science and Biotechnology, *100*(5), 604–614. </w:t>
+      </w:r>
+      <w:hyperlink r:id="rId18">
+        <w:r>
+          <w:rPr>
+            <w:color w:val="1155CC"/>
+            <w:u w:val="single"/>
+            <w:lang w:val="en-US"/>
+          </w:rPr>
+          <w:t>https://doi.org/10.1080/14620316.2024.2440592</w:t>
+        </w:r>
+      </w:hyperlink>
+      <w:r>
+        <w:rPr>
+          <w:lang w:val="en-US"/>
+        </w:rPr>
+        <w:t xml:space="preserve"> </w:t>
+      </w:r>
+    </w:p>
+    <w:p w14:paraId="0C80607D" w14:textId="77777777" w:rsidR="00917BB2" w:rsidRDefault="00000000">
+      <w:r>
+        <w:rPr>
+          <w:lang w:val="en-US"/>
+        </w:rPr>
+        <w:t xml:space="preserve">Kim, J., Lee, H., &amp; Park, S. (2025). Multi-Sensor Monitoring, Intelligent Control, and Data Processing for Smart Greenhouse Environment Management. </w:t>
+      </w:r>
+      <w:r>
+        <w:t xml:space="preserve">Sensors, *25*(19), 6134. </w:t>
+      </w:r>
+      <w:hyperlink r:id="rId19">
+        <w:r>
+          <w:rPr>
+            <w:color w:val="1155CC"/>
+            <w:u w:val="single"/>
+          </w:rPr>
+          <w:t>https://doi.org/10.3390/s25196134</w:t>
+        </w:r>
+      </w:hyperlink>
+      <w:r>
+        <w:t xml:space="preserve"> </w:t>
+      </w:r>
+    </w:p>
+    <w:p w14:paraId="3402630B" w14:textId="77777777" w:rsidR="00917BB2" w:rsidRDefault="00000000">
+      <w:pPr>
+        <w:pStyle w:val="Ttulo4"/>
+        <w:numPr>
+          <w:ilvl w:val="0"/>
+          <w:numId w:val="2"/>
+        </w:numPr>
+        <w:rPr>
+          <w:b/>
+          <w:bCs/>
+        </w:rPr>
+      </w:pPr>
+      <w:bookmarkStart w:id="23" w:name="_3gvosz4qjpxk" w:colFirst="0" w:colLast="0"/>
+      <w:bookmarkEnd w:id="23"/>
+      <w:r>
+        <w:rPr>
+          <w:b/>
+          <w:bCs/>
+          <w:color w:val="000000"/>
+        </w:rPr>
+        <w:t>Tecnologías de Sensores y Control</w:t>
+      </w:r>
+    </w:p>
+    <w:p w14:paraId="5A9E6959" w14:textId="77777777" w:rsidR="00917BB2" w:rsidRPr="009E0B6B" w:rsidRDefault="00000000">
+      <w:pPr>
+        <w:rPr>
+          <w:lang w:val="en-US"/>
+        </w:rPr>
+      </w:pPr>
+      <w:r>
+        <w:rPr>
+          <w:lang w:val="en-US"/>
+        </w:rPr>
+        <w:t xml:space="preserve">Heuvelink, E., Hemming, S., &amp; Marcelis, L. F. M. (2025). Some recent developments in controlled-environment agriculture: on plant physiology, sustainability, and autonomous control. The Journal of Horticultural Science and Biotechnology, 100(5), 604–614. </w:t>
+      </w:r>
+      <w:hyperlink r:id="rId20">
+        <w:r>
+          <w:rPr>
+            <w:color w:val="1155CC"/>
+            <w:u w:val="single"/>
+            <w:lang w:val="en-US"/>
+          </w:rPr>
+          <w:t>https://doi.org/10.1080/14620316.2024.2440592</w:t>
+        </w:r>
+      </w:hyperlink>
+      <w:r>
+        <w:rPr>
+          <w:lang w:val="en-US"/>
+        </w:rPr>
+        <w:t xml:space="preserve">  (Sección sobre uso de espectro de luz LED y fisiología vegetal.)</w:t>
+      </w:r>
+    </w:p>
+    <w:p w14:paraId="0A3C58B2" w14:textId="77777777" w:rsidR="00917BB2" w:rsidRDefault="00000000">
+      <w:r>
+        <w:rPr>
+          <w:lang w:val="en-US"/>
+        </w:rPr>
+        <w:t xml:space="preserve">Kim, J., Lee, H., &amp; Park, S. (2025). Multi-Sensor Monitoring, Intelligent Control, and Data Processing for Smart Greenhouse Environment Management. </w:t>
+      </w:r>
+      <w:r>
+        <w:t xml:space="preserve">Sensors, 25(19), 6134. </w:t>
+      </w:r>
+      <w:hyperlink r:id="rId21">
+        <w:r>
+          <w:rPr>
+            <w:color w:val="1155CC"/>
+            <w:u w:val="single"/>
+          </w:rPr>
+          <w:t>https://doi.org/10.3390/s25196134</w:t>
+        </w:r>
+      </w:hyperlink>
+      <w:r>
+        <w:t xml:space="preserve">  (Análisis detallado de redes de sensores, técnicas de filtrado de datos y estrategias de control.)</w:t>
+      </w:r>
+    </w:p>
+    <w:p w14:paraId="0A2BFEFE" w14:textId="77777777" w:rsidR="00917BB2" w:rsidRDefault="00000000">
+      <w:pPr>
+        <w:pStyle w:val="Ttulo4"/>
+        <w:numPr>
+          <w:ilvl w:val="0"/>
+          <w:numId w:val="2"/>
+        </w:numPr>
+        <w:rPr>
+          <w:b/>
+          <w:bCs/>
+        </w:rPr>
+      </w:pPr>
+      <w:bookmarkStart w:id="24" w:name="_6aifamxa59p9" w:colFirst="0" w:colLast="0"/>
+      <w:bookmarkStart w:id="25" w:name="_p18ur2rz8jcf" w:colFirst="0" w:colLast="0"/>
+      <w:bookmarkEnd w:id="24"/>
+      <w:bookmarkEnd w:id="25"/>
+      <w:r>
+        <w:rPr>
+          <w:b/>
+          <w:bCs/>
+          <w:color w:val="000000"/>
+        </w:rPr>
+        <w:t>Internet de las Cosas (IoT) y Monitoreo Remoto</w:t>
+      </w:r>
+    </w:p>
+    <w:p w14:paraId="54E215F6" w14:textId="77777777" w:rsidR="00917BB2" w:rsidRDefault="00000000">
+      <w:r>
+        <w:rPr>
+          <w:lang w:val="en-US"/>
+        </w:rPr>
+        <w:t xml:space="preserve">Kim, J., Lee, H., &amp; Park, S. (2025). Multi-Sensor Monitoring, Intelligent Control, and Data Processing for Smart Greenhouse Environment Management. </w:t>
+      </w:r>
+      <w:r>
+        <w:t xml:space="preserve">Sensors, 25(19), 6134. </w:t>
+      </w:r>
+      <w:hyperlink r:id="rId22">
+        <w:r>
+          <w:rPr>
+            <w:color w:val="1155CC"/>
+            <w:u w:val="single"/>
+          </w:rPr>
+          <w:t>https://doi.org/10.3390/s25196134</w:t>
+        </w:r>
+      </w:hyperlink>
+      <w:r>
+        <w:t xml:space="preserve">  (Discute el uso de plataformas IoT y protocolos de comunicación como Wi-Fi para la automatización.)</w:t>
+      </w:r>
+    </w:p>
+    <w:sectPr w:rsidR="00917BB2">
+      <w:footerReference w:type="default" r:id="rId23"/>
+      <w:headerReference w:type="first" r:id="rId24"/>
+      <w:footerReference w:type="first" r:id="rId25"/>
+      <w:pgSz w:w="11909" w:h="16834"/>
+      <w:pgMar w:top="1440" w:right="1440" w:bottom="1440" w:left="1440" w:header="720" w:footer="720" w:gutter="0"/>
+      <w:pgNumType w:start="0"/>
+      <w:cols w:space="720"/>
+      <w:titlePg/>
+    </w:sectPr>
+  </w:body>
+</w:document>

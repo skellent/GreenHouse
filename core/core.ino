@@ -26,6 +26,7 @@
 #include "sensors.h"
 #include "cam.h"
 #include "icons.h"
+#include "alicia.h"   // Red neuronal Alicia (TFLite Micro)
 
 
 /*╔═══════════════════════════════════╗
@@ -42,11 +43,8 @@ Preferences       prefs;
 /*╔═══════════════════════════════════════════╗
   ║ [ GLOBAL ] Variables Globales/Temporales  ║
   ╚═══════════════════════════════════════════╝*/
-bool    camStatus   = false;
-uint8_t intentos    = 0;
-uint8_t uv          = 0;
-bool    riego       = false;
-uint8_t ventilacion = 0;
+bool    camStatus        = false;
+uint8_t intentos         = 0;
 unsigned long lastLCDUpdate = 0;
 String wifiRed = WIFI_RED;
 String wifiPsw = WIFI_PSW;
@@ -54,7 +52,7 @@ static String bufferEntrante = "";
 
 
 /*╔═════════════════════════════════════════╗
-  ║ [ GLOBAL ]  Constructores de Funciones  ║ Es para evitar posibles errores de compilación
+  ║ [ GLOBAL ]  Constructores de Funciones  ║
   ╚═════════════════════════════════════════╝*/
 void servidorWeb(void *pvParameters);
 bool conectarWiFi(const String& red, const String& psw, uint8_t maxIntentos = 20);
@@ -87,15 +85,16 @@ void setup() {
   /* CARGA A LA RAM PREFERENCIAS/CONFIGURACIONES */
   prefs.begin("greenhouse", false);
   if (prefs.isKey("wifi_red")) {
-    wifiRed = prefs.getString("wifi_red", WIFI_RED); // POR DEFECTO, LA DEFINIDA EN config.h
-    wifiPsw = prefs.getString("wifi_psw", WIFI_PSW); // POR DEFECTO, LA DEFINIDA EN config.h
+    wifiRed = prefs.getString("wifi_red", WIFI_RED);
+    wifiPsw = prefs.getString("wifi_psw", WIFI_PSW);
   }
-  sensores.ia_perfilplanta = prefs.getUChar("perfil", 1); // POR DEFECTO "1" SI NO SE ENCUENTRA UNO GUARDADO
+  sensores.ia_perfilplanta = prefs.getUChar("perfil", 1);
   prefs.end();
 
-  /* CONFIGURACIÓN DE HARDWARE INTEGRADO (Protección a la RAM, activación de la cámara y conexión al wifi) */
+  /* HARDWARE: mutex, cámara, WiFi */
   mutexDatos = xSemaphoreCreateMutex();
   camStatus  = initCamara();
+  sensores.esp32_camStatus = camStatus;
   conectarWiFi(wifiRed, wifiPsw);
 
   /* CREACIÓN DE ÍCONOS PARA LA PANTALLA */
@@ -105,7 +104,20 @@ void setup() {
   lcd.createChar(3, iconoAltura);
   lcd.createChar(4, iconoRed);
 
-  neopixelWrite(PIN_RGB, 255, 255, 0); // AMARILLO
+  /* INICIALIZACIÓN DE ALICIA */
+  lcd.clear();
+  lcd.setCursor(0, 0);
+  lcd.print("Iniciando Alicia");
+  if (!Alicia::init()) {
+    lcd.setCursor(0, 1);
+    lcd.print("  ERROR en IA!  ");
+    neopixelWrite(PIN_RGB, 255, 0, 0);
+  } else {
+    lcd.setCursor(0, 1);
+    lcd.print("  Alicia lista  ");
+    neopixelWrite(PIN_RGB, 0, 255, 0); // VERDE
+    delay(1200);
+  }
 
   /* DELEGACIÓN DE API AL SEGUNDO NÚCLEO */
   xTaskCreatePinnedToCore(servidorWeb, "ServidorWeb", 8192, NULL, 1, NULL, 0);
@@ -116,11 +128,11 @@ void setup() {
   ║ [ GLOBAL ] Conectar a WiFi       ║
   ╚══════════════════════════════════╝*/
 bool conectarWiFi(const String& red, const String& psw, uint8_t maxIntentos) {
-  WiFi.disconnect(true); // Se desconecta de una red en caso de estarlo
+  WiFi.disconnect(true);
   delay(200);
-  WiFi.begin(red.c_str(), psw.c_str()); // Intenta conectarse a la nueva red
+  WiFi.begin(red.c_str(), psw.c_str());
   uint8_t i = 0;
-  while (WiFi.status() != WL_CONNECTED && i < maxIntentos) { // Realiza un número de intentos
+  while (WiFi.status() != WL_CONNECTED && i < maxIntentos) {
     delay(500);
     i++;
   }
@@ -132,14 +144,13 @@ bool conectarWiFi(const String& red, const String& psw, uint8_t maxIntentos) {
   ║ [ NÚCLEO 1 ] Búcle Principal  ║
   ╚═══════════════════════════════╝*/
 void loop() {
-  /* INICIO DE ITERACIÓN */
   neopixelWrite(PIN_RGB, 0, 0, 255); // AZUL
   actualizarLCD();
   bufferEntrante = "";
 
-  /* RECIBE BYTES POR UART Y LOS UNIFICA PARA LEER UN JSON Y GUARDAR EN MEMORIA SUS VALORES */
+  /* LEE JSON ENTRANTE POR UART (enviado por el ESP32 / nervius) */
   while (nervios.available()) {
-    char c = nervios.read(); // LEE HASTA ENCONTRAR EL SALTO DE LÍNEA QUE INDICA EL FINAL DEL JSON
+    char c = nervios.read();
     if (c == '\n') {
       if (bufferEntrante.length() > 0) {
         JsonDocument datos;
@@ -147,26 +158,41 @@ void loop() {
         bufferEntrante = "";
 
         if (!error) {
-          if (xSemaphoreTake(mutexDatos, pdMS_TO_TICKS(100)) == pdTRUE) { // PERMITE MODIFICACION SEGURA DE MEMORIA USADA POR AMBOS NÚCLEOS
+          /* Actualizar sensores con mutex para proteger la RAM compartida */
+          if (xSemaphoreTake(mutexDatos, pdMS_TO_TICKS(100)) == pdTRUE) {
             sensores.sen_temperatura_ambiente = datos[0];
             sensores.sen_temperatura_agua     = datos[1];
             sensores.sen_humedad_ambiente     = datos[2];
             sensores.sen_humedad_suelo        = datos[3];
             sensores.sen_intensidad_luz       = datos[4];
             sensores.sen_ultrasonido          = datos[5];
-            xSemaphoreGive(mutexDatos); // LIBERA EL SEGURO PARA PERMITIR EL USO DE MEMORIA POR NÚCLEO 0
+            xSemaphoreGive(mutexDatos);
           }
 
-          /*
-            EJECUCIÓN DE LA IA
-            INPUT:  sensores.sen_*  y  sensores.ia_perfilplanta
-            OUTPUT: sensores.ia_ventilacion, ia_intensidad_uv, ia_riego
-          */
+          /*╔══════════════════════╗
+            ║  EJECUCIÓN DE ALICIA ║
+            ╚══════════════════════╝*/
+          int  uv_ia    = 0;
+          bool riego_ia = false;
 
-          ejecutarActuadores(150, true, 1);
+          if (Alicia::inferir(sensores, uv_ia, riego_ia)) {
+            if (xSemaphoreTake(mutexDatos, pdMS_TO_TICKS(50)) == pdTRUE) {
+              sensores.ia_intensidad_uv = uv_ia;
+              sensores.ia_riego         = riego_ia ? 1 : 0;
+              sensores.ia_ventilacion   = 0;  // No controlado por la IA
+              xSemaphoreGive(mutexDatos);
+            }
+            ejecutarActuadores(uv_ia, riego_ia, 0);
+          } else {
+            /* Fallback seguro si la inferencia falla */
+            ejecutarActuadores(0, false, 0);
+          }
         }
       }
-    } else { bufferEntrante += c; if (bufferEntrante.length() > 128) bufferEntrante = ""; } // UNE CARACTERES Y LIMPIA EL BUFFER EN CASO DE EXCEDER EL LÍMITE EN MEMORIA
+    } else {
+      bufferEntrante += c;
+      if (bufferEntrante.length() > 128) bufferEntrante = "";
+    }
   }
 
   vTaskDelay(pdMS_TO_TICKS(200));
@@ -179,45 +205,53 @@ void loop() {
 void ejecutarActuadores(int uv, bool riego, uint8_t ventilacion) {
   JsonDocument doc;
   JsonArray actuadores = doc.to<JsonArray>();
-  actuadores.add(uv);          // INTENSIDAD DE LUZ UV EN PWM
-  actuadores.add(riego);       // ENCENDER O APAGAR EL RIEGO
-  actuadores.add(ventilacion); // VENTILACIÓN Y DIRECCIÓN DE LA MISMA
+  actuadores.add(uv);          // [0] Intensidad UV (PWM 0-255)
+  actuadores.add(riego);       // [1] Riego (on/off)
+  actuadores.add(ventilacion); // [2] Ventilación (reservado, siempre 0)
   serializeJson(doc, nervios);
   nervios.println();
 }
 
 
-/*╔════════════════════════════╗
-  ║ [ NÚCLEO 1 ] PANTALLA LCD  ║
-  ╚════════════════════════════╝*/
+/*╔══════════════════════════════════════════════════════════╗
+  ║ [ NÚCLEO 1 ] PANTALLA LCD                                ║
+  ╠══════════════════════════════════════════════════════════╣
+  ║  Botón PRESIONADO  → Sensores + salidas de la IA        ║
+  ║    Fila 1: [T] temp_amb °C  [H] hum_amb %  UV: xxx      ║
+  ║    Fila 2: S:xx% R:S/N  L:xx%                           ║
+  ║                                                          ║
+  ║  Botón NO PRESIONADO → Info de red WiFi                  ║
+  ║    Fila 1: [red_icon] NombreRed                         ║
+  ║    Fila 2: [wifi_icon] IP                               ║
+  ╚══════════════════════════════════════════════════════════╝*/
 void actualizarLCD() {
-  if (millis() - lastLCDUpdate < 1000) return; // EVITAR SATURACIÓN DE REESCRITURAS
+  if (millis() - lastLCDUpdate < 1000) return;
   lcd.clear();
   lcd.setCursor(0, 0);
 
-  /* PROCEDE A ESCRIBIR EN PANTALLA LOS DATOS DEPENDIENDO DEL ESTADO */
   if (digitalRead(LCD_BOTON)) {
-    if (xSemaphoreTake(mutexDatos, pdMS_TO_TICKS(50)) == pdTRUE) { // PERMITE MODIFICACION SEGURA DE MEMORIA USADA POR AMBOS NÚCLEOS
-      /* FILA 1 */
-      lcd.write(0);
+    if (xSemaphoreTake(mutexDatos, pdMS_TO_TICKS(50)) == pdTRUE) {
+      /* FILA 1: temperatura | humedad ambiente | UV */
+      lcd.write(0);                                       // ícono temp
       lcd.print((int)sensores.sen_temperatura_ambiente);
       lcd.print("C ");
-      lcd.write(1);
+      lcd.write(1);                                       // ícono humedad
       lcd.print((int)sensores.sen_humedad_ambiente);
       lcd.print("% ");
-      lcd.write(3);
-      lcd.print((int)sensores.sen_ultrasonido);
-      lcd.print("cm");
-      /* FILA 2 */
-      lcd.setCursor(0, 1);
-      lcd.write(0);
-      lcd.print((int)sensores.sen_temperatura_agua);
-      lcd.print("C ");
-      lcd.write(3);
-      lcd.print((int)sensores.sen_humedad_suelo);
-      lcd.print("% ");
+      lcd.print("UV:");
+      lcd.print(sensores.ia_intensidad_uv);
 
-      xSemaphoreGive(mutexDatos); // LIBERA EL SEGURO PARA PERMITIR EL USO DE MEMORIA POR NÚCLEO 0
+      /* FILA 2: humedad suelo | riego (IA) | luz exterior */
+      lcd.setCursor(0, 1);
+      lcd.print("S:");
+      lcd.print((int)sensores.sen_humedad_suelo);
+      lcd.print("% R:");
+      lcd.print(sensores.ia_riego ? "S" : "N");
+      lcd.print(" L:");
+      lcd.print((int)sensores.sen_intensidad_luz);
+      lcd.print("%");
+
+      xSemaphoreGive(mutexDatos);
     }
   } else {
     lcd.write(4);
@@ -281,7 +315,6 @@ void servidorWeb(void *pvParameters) {
   /*╔══════════════════════╗
     ║  POST /api/perfil    ║
     ╚══════════════════════╝*/
-  // Body: número plano 1–3 (ej: "2"). Se clampea si se excede el rango.
   servidor.on("/api/perfil", HTTP_POST, []() {
     if (!servidor.hasArg("plain") || servidor.arg("plain").length() == 0) {
       servidor.send(400, "application/json", "{\"error\":\"Body vacío\"}");
@@ -313,9 +346,6 @@ void servidorWeb(void *pvParameters) {
   /*╔══════════════════════╗
     ║  POST /api/wifi      ║
     ╚══════════════════════╝*/
-  // Body JSON: { "red": "NombreRed", "psw": "Contraseña" }
-  // Intenta conectarse. Si lo logra, guarda en NVS. Si falla, mantiene la
-  // red anterior. Responde ANTES de reconectar para no perder la conexión HTTP.
   servidor.on("/api/wifi", HTTP_POST, []() {
     if (!servidor.hasArg("plain") || servidor.arg("plain").length() == 0) {
       servidor.send(400, "application/json", "{\"error\":\"Body vacío\"}");
@@ -337,7 +367,7 @@ void servidorWeb(void *pvParameters) {
     servidor.send(200, "application/json",
       "{\"ok\":true,\"mensaje\":\"Reconectando... espera ~15s y consulta la nueva IP en tu router\"}");
 
-    vTaskDelay(pdMS_TO_TICKS(500)); // Dar tiempo a que la respuesta se envíe
+    vTaskDelay(pdMS_TO_TICKS(500));
 
     bool exito = conectarWiFi(nuevaRed, nuevaPsw, 20);
 
@@ -353,7 +383,7 @@ void servidorWeb(void *pvParameters) {
     }
   });
 
-  // Esperar conexión activa antes de levantar el servidor
+
   while (WiFi.status() != WL_CONNECTED) { vTaskDelay(pdMS_TO_TICKS(500)); }
   servidor.begin();
 

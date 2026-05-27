@@ -13,7 +13,7 @@
 /*╔═════════════════════════════╗
   ║ [ GLOBAL ] Módulos Propios  ║
   ╚═════════════════════════════╝*/
-#include "config.h"  // Configuración de Pines en General
+#include "config.h"
 
 
 /*╔═══════════════════════╗
@@ -22,10 +22,6 @@
 HardwareSerial core(2);
 DHT dht(DHT_PIN, DHT_MODEL);
 
-
-/*╔══════════════════════════╗
-  ║ [ GLOBAL ] LED INTEGRADO ║
-  ╚══════════════════════════╝*/
 
 /*╔═══════════════════════════════════════════╗
   ║ [ GLOBAL ] Variables Globales/Temporales  ║
@@ -36,7 +32,8 @@ float humedad_ambiente     = 0;
 float humedad_suelo        = 45.2;
 int   intensidad_luz       = 1024;
 int   ultrasonido          = 150;
-// Actuadores
+
+// Actuadores (valores recibidos desde el S3 / Alicia)
 uint8_t uv          = 0;
 bool    riego       = false;
 uint8_t ventilacion = 0;
@@ -51,17 +48,28 @@ void setup() {
   core.begin(BAUDIOS, SERIAL_8N1, RX_PIN, TX_PIN);
   core.setTimeout(100);
 
-  pinMode(LED_PIN, OUTPUT); // Led Azul Integrado
-  pinMode(FC28_PIN, INPUT); // FC-28
-  pinMode(FTRT_PIN, INPUT); // FOTORESISTENCIA
+  /* PINES DE SENSORES */
+  pinMode(LED_PIN,  OUTPUT);
+  pinMode(FC28_PIN, INPUT);
+  pinMode(FTRT_PIN, INPUT);
   pinMode(TRIG_PIN, OUTPUT);
   pinMode(ECHO_PIN, INPUT);
-
   digitalWrite(TRIG_PIN, LOW);
+
+  /* PINES DE ACTUADORES */
+  // UV: configurar canal LEDC para PWM de 8 bits a 5 kHz
+  ledcSetup(UV_LEDC_CANAL, UV_LEDC_FRECUENCIA, UV_LEDC_RESOLUCION);
+  ledcAttachPin(UV_PIN, UV_LEDC_CANAL);
+  ledcWrite(UV_LEDC_CANAL, 0);          // LEDs apagados al inicio
+
+  // Riego: pin digital hacia el relé
+  pinMode(RIEGO_PIN, OUTPUT);
+  digitalWrite(RIEGO_PIN, LOW);         // Bomba apagada al inicio
+
   dht.begin();
 
   delay(1000);
-  Serial.println("[OK] Nodo sensores listo.");
+  Serial.println("[OK] Nodo sensores + actuadores listo.");
 }
 
 
@@ -74,36 +82,37 @@ void loop() {
     tiempoAnterior = tiempoActual;
 
     // LECTURA DEL DHT22
-    float h = dht.readHumidity(); float t = dht.readTemperature();
+    float h = dht.readHumidity();
+    float t = dht.readTemperature();
     if (!std::isnan(h)) humedad_ambiente     = h;
     if (!std::isnan(t)) temperatura_ambiente = t;
 
-    // LECTURA DEL FC-28
+    // LECTURA DEL FC-28 (humedad del suelo)
     int valorCrudo = analogRead(FC28_PIN);
     int porcentaje = map(valorCrudo, FC28_LOW, FC28_HIGH, 0, 100);
-    humedad_suelo  = constrain(porcentaje, 0, 100);
-    
-    // LECTURA DE LA FOTORESISTENCIA
-    valorCrudo = analogRead(FTRT_PIN);
-    Serial.println(valorCrudo);
-    porcentaje = map(valorCrudo, FTRT_LOW, FTRT_HIGH, 0, 100);
-    intensidad_luz  = constrain(porcentaje, 0, 100);
-    
-    // LECTURA DEL ULTRASONIDO
+    humedad_suelo  = (float)constrain(porcentaje, 0, 100);
+
+    // LECTURA DE LA FOTORESISTENCIA (intensidad de luz exterior)
+    valorCrudo    = analogRead(FTRT_PIN);
+    porcentaje    = map(valorCrudo, FTRT_LOW, FTRT_HIGH, 0, 100);
+    intensidad_luz = constrain(porcentaje, 0, 100);
+
+    // LECTURA DEL ULTRASONIDO (nivel de agua / altura de planta)
     digitalWrite(TRIG_PIN, LOW);
     delayMicroseconds(2);
     digitalWrite(TRIG_PIN, HIGH);
     delayMicroseconds(10);
     digitalWrite(TRIG_PIN, LOW);
-    long duracion = pulseIn(ECHO_PIN, HIGH, 30000);
-    float distancia = duracion * 0.0343 / 2.0;
+    long duracion  = pulseIn(ECHO_PIN, HIGH, 30000);
+    float distancia = duracion * 0.0343f / 2.0f;
     ultrasonido = (int)distancia;
 
-    temperatura_agua     = random(16, 30);
-    
+    // Temperatura del agua: sustituir por sensor DS18B20 cuando esté disponible
+    temperatura_agua = (float)random(16, 30);
+
+    // Enviar JSON de sensores al S3
     JsonDocument doc;
     JsonArray sensores = doc.to<JsonArray>();
-
     sensores.add(temperatura_ambiente);
     sensores.add(temperatura_agua);
     sensores.add(humedad_ambiente);
@@ -120,7 +129,7 @@ void loop() {
     delay(600);
   }
 
-  // ── Recepción de comandos del S3 ───────────────────────────────────────
+  // ── Recepción de comandos del S3 (salidas de Alicia) ──────────────────
   if (core.available()) {
     digitalWrite(LED_PIN, LOW);
     String comandos = core.readStringUntil('\n');
@@ -129,19 +138,27 @@ void loop() {
     DeserializationError error = deserializeJson(actuadores, comandos);
 
     if (!error) {
-      uv          = actuadores[0]; // Índice 0: Estado de luz UV
-      riego       = actuadores[1]; // Índice 1: Estado de Bomba de Riego
-      ventilacion = actuadores[2]; // Índice 2: Estado de Ventilación
+      uv          = (uint8_t)constrain((int)actuadores[0], 0, 255);
+      riego       = (bool)actuadores[1];
+      ventilacion = (uint8_t)actuadores[2];
 
-      Serial.print("[RX] Órdenes recibidas del S3: ");
-      Serial.println(comandos);
+      Serial.printf("[ALICIA] UV=%d  Riego=%s\n", uv, riego ? "ON" : "OFF");
 
-      //
-      //  EJECUCIÓN DE ACCIONES MEDIANTE ACTUADORES
-      //
+      /*╔════════════════════════════════════════╗
+        ║  EJECUCIÓN DE ACTUADORES               ║
+        ╠════════════════════════════════════════╣
+        ║  UV:    PWM sobre LED UV vía LEDC      ║
+        ║  Riego: Relé de bomba de agua          ║
+        ╚════════════════════════════════════════╝*/
+
+      // Luz UV — intensidad continua vía PWM (0-255)
+      ledcWrite(UV_LEDC_CANAL, uv);
+
+      // Bomba de riego — on/off mediante relé
+      digitalWrite(RIEGO_PIN, riego ? HIGH : LOW);
 
     } else {
-      Serial.print("[ERROR] JSON del S3 corrupto o incompleto: ");
+      Serial.print("[ERROR] JSON del S3 corrupto: ");
       Serial.println(error.c_str());
     }
   }

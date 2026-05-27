@@ -1,0 +1,1961 @@
+<?xml version="1.0" encoding="UTF-8"?><w:document xmlns:wpc="http://schemas.microsoft.com/office/word/2010/wordprocessingCanvas" xmlns:cx="http://schemas.microsoft.com/office/drawing/2014/chartex" xmlns:cx1="http://schemas.microsoft.com/office/drawing/2015/9/8/chartex" xmlns:cx2="http://schemas.microsoft.com/office/drawing/2015/10/21/chartex" xmlns:cx3="http://schemas.microsoft.com/office/drawing/2016/5/9/chartex" xmlns:cx4="http://schemas.microsoft.com/office/drawing/2016/5/10/chartex" xmlns:cx5="http://schemas.microsoft.com/office/drawing/2016/5/11/chartex" xmlns:cx6="http://schemas.microsoft.com/office/drawing/2016/5/12/chartex" xmlns:cx7="http://schemas.microsoft.com/office/drawing/2016/5/13/chartex" xmlns:cx8="http://schemas.microsoft.com/office/drawing/2016/5/14/chartex" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:aink="http://schemas.microsoft.com/office/drawing/2016/ink" xmlns:am3d="http://schemas.microsoft.com/office/drawing/2017/model3d" xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:oel="http://schemas.microsoft.com/office/2019/extlst" xmlns:r="http://schemas.openxmlformats.org/officeDocument/2006/relationships" xmlns:m="http://schemas.openxmlformats.org/officeDocument/2006/math" xmlns:v="urn:schemas-microsoft-com:vml" xmlns:wp14="http://schemas.microsoft.com/office/word/2010/wordprocessingDrawing" xmlns:wp="http://schemas.openxmlformats.org/drawingml/2006/wordprocessingDrawing" xmlns:w10="urn:schemas-microsoft-com:office:word" xmlns:w="http://schemas.openxmlformats.org/wordprocessingml/2006/main" xmlns:w14="http://schemas.microsoft.com/office/word/2010/wordml" xmlns:w15="http://schemas.microsoft.com/office/word/2012/wordml" xmlns:w16cex="http://schemas.microsoft.com/office/word/2018/wordml/cex" xmlns:w16cid="http://schemas.microsoft.com/office/word/2016/wordml/cid" xmlns:w16="http://schemas.microsoft.com/office/word/2018/wordml" xmlns:w16du="http://schemas.microsoft.com/office/word/2023/wordml/word16du" xmlns:w16sdtdh="http://schemas.microsoft.com/office/word/2020/wordml/sdtdatahash" xmlns:w16sdtfl="http://schemas.microsoft.com/office/word/2024/wordml/sdtformatlock" xmlns:w16se="http://schemas.microsoft.com/office/word/2015/wordml/symex" xmlns:wpg="http://schemas.microsoft.com/office/word/2010/wordprocessingGroup" xmlns:wpi="http://schemas.microsoft.com/office/word/2010/wordprocessingInk" xmlns:wne="http://schemas.microsoft.com/office/word/2006/wordml" xmlns:wps="http://schemas.microsoft.com/office/word/2010/wordprocessingShape" mc:Ignorable="w14 w15 w16se w16cid w16 w16cex w16sdtdh w16sdtfl w16du wp14">
+  <w:body>
+    <w:p w14:paraId="0F59621D" w14:textId="77777777" w:rsidR="007B7FD1" w:rsidRDefault="007B7FD1" w:rsidP="007B7FD1">
+      <w:pPr>
+        <w:jc w:val="center"/>
+        <w:rPr>
+          <w:rFonts w:ascii="Arial" w:hAnsi="Arial" w:cs="Arial"/>
+          <w:color w:val="FF0000"/>
+          <w:sz w:val="24"/>
+          <w:szCs w:val="24"/>
+          <w:lang w:val="es-MX"/>
+        </w:rPr>
+      </w:pPr>
+    </w:p>
+    <w:p w14:paraId="57A1FC52" w14:textId="77777777" w:rsidR="007B7FD1" w:rsidRPr="00346412" w:rsidRDefault="007B7FD1" w:rsidP="007B7FD1">
+      <w:pPr>
+        <w:spacing w:line="360" w:lineRule="auto"/>
+        <w:jc w:val="center"/>
+        <w:rPr>
+          <w:rFonts w:ascii="Arial" w:hAnsi="Arial" w:cs="Arial"/>
+          <w:sz w:val="24"/>
+          <w:szCs w:val="24"/>
+        </w:rPr>
+      </w:pPr>
+      <w:r>
+        <w:rPr>
+          <w:rFonts w:ascii="Arial" w:hAnsi="Arial" w:cs="Arial"/>
+          <w:b/>
+          <w:sz w:val="24"/>
+          <w:szCs w:val="24"/>
+        </w:rPr>
+        <w:t>Olimpiadas de Robótica Creativa (ORC)</w:t>
+      </w:r>
+      
+      
+    </w:p>
+    <w:p w14:paraId="7C59CD12" w14:textId="2401679E" w:rsidR="007B7FD1" w:rsidRDefault="007B7FD1" w:rsidP="007B7FD1">
+      <w:pPr>
+        <w:spacing w:line="360" w:lineRule="auto"/>
+        <w:jc w:val="center"/>
+        <w:rPr>
+          <w:rFonts w:ascii="Arial" w:hAnsi="Arial" w:cs="Arial"/>
+          <w:b/>
+          <w:sz w:val="24"/>
+          <w:szCs w:val="24"/>
+        </w:rPr>
+      </w:pPr>
+      <w:r>
+        <w:rPr>
+          <w:rFonts w:ascii="Arial" w:hAnsi="Arial" w:cs="Arial"/>
+          <w:b/>
+          <w:sz w:val="24"/>
+          <w:szCs w:val="24"/>
+        </w:rPr>
+        <w:t>COMPETENCIA INGENIO CREATIVO</w:t>
+      </w:r>
+    </w:p>
+    <w:p w14:paraId="1C1D3256" w14:textId="3792131A" w:rsidR="007B7FD1" w:rsidRPr="001B536B" w:rsidRDefault="007B7FD1" w:rsidP="007B7FD1">
+      <w:pPr>
+        <w:spacing w:line="360" w:lineRule="auto"/>
+        <w:jc w:val="center"/>
+        <w:rPr>
+          <w:rFonts w:ascii="Arial" w:hAnsi="Arial" w:cs="Arial"/>
+          <w:b/>
+          <w:sz w:val="24"/>
+          <w:szCs w:val="24"/>
+        </w:rPr>
+      </w:pPr>
+      <w:r>
+        <w:rPr>
+          <w:rFonts w:ascii="Arial" w:hAnsi="Arial" w:cs="Arial"/>
+          <w:b/>
+          <w:sz w:val="24"/>
+          <w:szCs w:val="24"/>
+        </w:rPr>
+        <w:t xml:space="preserve">INFORME TÉCNICO </w:t>
+      </w:r>
+      
+      
+    </w:p>
+    <w:p w14:paraId="6F74F7D5" w14:textId="77777777" w:rsidR="007B7FD1" w:rsidRDefault="007B7FD1">
+      <w:pPr>
+        <w:rPr>
+          <w:rFonts w:ascii="Arial" w:hAnsi="Arial" w:cs="Arial"/>
+          <w:color w:val="FF0000"/>
+          <w:sz w:val="24"/>
+          <w:szCs w:val="24"/>
+          <w:lang w:val="es-MX"/>
+        </w:rPr>
+      </w:pPr>
+    </w:p>
+    <w:p w14:paraId="4DF845C4" w14:textId="58166D89" w:rsidR="007C2510" w:rsidRDefault="007C2510">
+      <w:pPr>
+        <w:rPr>
+          <w:rFonts w:ascii="Arial" w:hAnsi="Arial" w:cs="Arial"/>
+          <w:color w:val="FF0000"/>
+          <w:sz w:val="24"/>
+          <w:szCs w:val="24"/>
+          <w:lang w:val="es-MX"/>
+        </w:rPr>
+      </w:pPr>
+      <w:r>
+        <w:rPr>
+          <w:rFonts w:ascii="Arial" w:hAnsi="Arial" w:cs="Arial"/>
+          <w:color w:val="FF0000"/>
+          <w:sz w:val="24"/>
+          <w:szCs w:val="24"/>
+          <w:lang w:val="es-MX"/>
+        </w:rPr>
+        <w:t>Nombre de la Institución, Fundación, Academia, Núcleo o Mega Núcleo</w:t>
+      </w:r>
+      
+    </w:p>
+    <w:p w14:paraId="489954C2" w14:textId="77777777" w:rsidR="007C2510" w:rsidRPr="00B55792" w:rsidRDefault="007C2510">
+      <w:pPr>
+        <w:rPr>
+          <w:rFonts w:ascii="Arial" w:hAnsi="Arial" w:cs="Arial"/>
+          <w:sz w:val="24"/>
+          <w:szCs w:val="24"/>
+          <w:lang w:val="es-MX"/>
+        </w:rPr>
+      </w:pPr>
+    </w:p>
+    <w:p w14:paraId="3D55672D" w14:textId="77777777" w:rsidR="007C2510" w:rsidRPr="00B55792" w:rsidRDefault="007C2510">
+      <w:pPr>
+        <w:rPr>
+          <w:rFonts w:ascii="Arial" w:hAnsi="Arial" w:cs="Arial"/>
+          <w:sz w:val="24"/>
+          <w:szCs w:val="24"/>
+          <w:lang w:val="es-MX"/>
+        </w:rPr>
+      </w:pPr>
+    </w:p>
+    <w:p w14:paraId="529E3D50" w14:textId="77777777" w:rsidR="00A10A05" w:rsidRPr="00B55792" w:rsidRDefault="00A10A05" w:rsidP="00812892">
+      <w:pPr>
+        <w:rPr>
+          <w:rFonts w:ascii="Arial" w:hAnsi="Arial" w:cs="Arial"/>
+          <w:sz w:val="24"/>
+          <w:szCs w:val="24"/>
+          <w:lang w:val="es-MX"/>
+        </w:rPr>
+      </w:pPr>
+    </w:p>
+    <w:p w14:paraId="1BA2FA6F" w14:textId="77777777" w:rsidR="00A10A05" w:rsidRPr="00B55792" w:rsidRDefault="00A10A05" w:rsidP="007C2510">
+      <w:pPr>
+        <w:jc w:val="center"/>
+        <w:rPr>
+          <w:rFonts w:ascii="Arial" w:hAnsi="Arial" w:cs="Arial"/>
+          <w:sz w:val="24"/>
+          <w:szCs w:val="24"/>
+          <w:lang w:val="es-MX"/>
+        </w:rPr>
+      </w:pPr>
+    </w:p>
+    <w:p w14:paraId="566E3C08" w14:textId="08A60CF4" w:rsidR="007C2510" w:rsidRDefault="00812892" w:rsidP="007C2510">
+      <w:pPr>
+        <w:jc w:val="center"/>
+        <w:rPr>
+          <w:rFonts w:ascii="Arial" w:hAnsi="Arial" w:cs="Arial"/>
+          <w:b/>
+          <w:color w:val="FF0000"/>
+          <w:sz w:val="28"/>
+          <w:szCs w:val="24"/>
+          <w:lang w:val="es-MX"/>
+        </w:rPr>
+      </w:pPr>
+      <w:r>
+        <w:rPr>
+          <w:rFonts w:ascii="Arial" w:hAnsi="Arial" w:cs="Arial"/>
+          <w:b/>
+          <w:color w:val="FF0000"/>
+          <w:sz w:val="28"/>
+          <w:szCs w:val="24"/>
+          <w:lang w:val="es-MX"/>
+        </w:rPr>
+        <w:t>Nombre del Equipo</w:t>
+      </w:r>
+    </w:p>
+    <w:p w14:paraId="203C3CBB" w14:textId="45F823B6" w:rsidR="00812892" w:rsidRPr="00B55792" w:rsidRDefault="00812892" w:rsidP="007C2510">
+      <w:pPr>
+        <w:jc w:val="center"/>
+        <w:rPr>
+          <w:rFonts w:ascii="Arial" w:hAnsi="Arial" w:cs="Arial"/>
+          <w:b/>
+          <w:color w:val="FF0000"/>
+          <w:sz w:val="28"/>
+          <w:szCs w:val="24"/>
+          <w:lang w:val="es-MX"/>
+        </w:rPr>
+      </w:pPr>
+      
+      <w:r>
+        <w:rPr>
+          <w:rFonts w:ascii="Arial" w:hAnsi="Arial" w:cs="Arial"/>
+          <w:b/>
+          <w:color w:val="FF0000"/>
+          <w:sz w:val="28"/>
+          <w:szCs w:val="24"/>
+          <w:lang w:val="es-MX"/>
+        </w:rPr>
+        <w:t>Titulo del Proyecto</w:t>
+      </w:r>
+      
+      
+    </w:p>
+    <w:p w14:paraId="5E01D23A" w14:textId="77777777" w:rsidR="00385F18" w:rsidRPr="00B55792" w:rsidRDefault="00385F18">
+      <w:pPr>
+        <w:rPr>
+          <w:rFonts w:ascii="Arial" w:hAnsi="Arial" w:cs="Arial"/>
+          <w:sz w:val="24"/>
+          <w:szCs w:val="24"/>
+          <w:lang w:val="es-MX"/>
+        </w:rPr>
+      </w:pPr>
+    </w:p>
+    <w:p w14:paraId="06EAD450" w14:textId="2FDCCBE3" w:rsidR="007C2510" w:rsidRPr="00B55792" w:rsidRDefault="007C2510" w:rsidP="00385F18">
+      <w:pPr>
+        <w:ind w:left="4820"/>
+        <w:rPr>
+          <w:rFonts w:ascii="Arial" w:hAnsi="Arial" w:cs="Arial"/>
+          <w:sz w:val="24"/>
+          <w:szCs w:val="24"/>
+          <w:lang w:val="es-MX"/>
+        </w:rPr>
+      </w:pPr>
+      <w:r>
+        <w:rPr>
+          <w:rFonts w:ascii="Arial" w:hAnsi="Arial" w:cs="Arial"/>
+          <w:sz w:val="24"/>
+          <w:szCs w:val="24"/>
+          <w:lang w:val="es-MX"/>
+        </w:rPr>
+        <w:t xml:space="preserve">Integrantes: </w:t>
+      </w:r>
+      
+      <w:r>
+        <w:rPr>
+          <w:rFonts w:ascii="Arial" w:hAnsi="Arial" w:cs="Arial"/>
+          <w:color w:val="FF0000"/>
+          <w:sz w:val="24"/>
+          <w:szCs w:val="24"/>
+          <w:lang w:val="es-MX"/>
+        </w:rPr>
+        <w:t>Nombre, Apellido y cedula 1</w:t>
+      </w:r>
+      
+      
+      
+      
+    </w:p>
+    <w:p w14:paraId="79DFC159" w14:textId="26B1A56E" w:rsidR="00385F18" w:rsidRPr="00B55792" w:rsidRDefault="004A074C" w:rsidP="00A10A05">
+      <w:pPr>
+        <w:ind w:left="4820" w:firstLine="1134"/>
+        <w:rPr>
+          <w:rFonts w:ascii="Arial" w:hAnsi="Arial" w:cs="Arial"/>
+          <w:color w:val="FF0000"/>
+          <w:sz w:val="24"/>
+          <w:szCs w:val="24"/>
+          <w:lang w:val="es-MX"/>
+        </w:rPr>
+      </w:pPr>
+      <w:r>
+        <w:rPr>
+          <w:rFonts w:ascii="Arial" w:hAnsi="Arial" w:cs="Arial"/>
+          <w:color w:val="FF0000"/>
+          <w:sz w:val="24"/>
+          <w:szCs w:val="24"/>
+          <w:lang w:val="es-MX"/>
+        </w:rPr>
+        <w:t xml:space="preserve">   Nombre y Apellido y cedula 2</w:t>
+      </w:r>
+      
+      
+      
+    </w:p>
+    <w:p w14:paraId="18096DB1" w14:textId="78C1007B" w:rsidR="00385F18" w:rsidRPr="00B55792" w:rsidRDefault="004A074C" w:rsidP="00A10A05">
+      <w:pPr>
+        <w:ind w:left="4820" w:firstLine="1134"/>
+        <w:rPr>
+          <w:rFonts w:ascii="Arial" w:hAnsi="Arial" w:cs="Arial"/>
+          <w:color w:val="FF0000"/>
+          <w:sz w:val="24"/>
+          <w:szCs w:val="24"/>
+          <w:lang w:val="es-MX"/>
+        </w:rPr>
+      </w:pPr>
+      <w:r>
+        <w:rPr>
+          <w:rFonts w:ascii="Arial" w:hAnsi="Arial" w:cs="Arial"/>
+          <w:color w:val="FF0000"/>
+          <w:sz w:val="24"/>
+          <w:szCs w:val="24"/>
+          <w:lang w:val="es-MX"/>
+        </w:rPr>
+        <w:t xml:space="preserve">   Nombre y Apellido y cedula 3</w:t>
+      </w:r>
+      
+      
+      
+    </w:p>
+    <w:p w14:paraId="2C7B85A6" w14:textId="33C11D8F" w:rsidR="00A10A05" w:rsidRDefault="00DF6D09" w:rsidP="00812892">
+      <w:pPr>
+        <w:ind w:left="4820" w:firstLine="283"/>
+        <w:rPr>
+          <w:rFonts w:ascii="Arial" w:hAnsi="Arial" w:cs="Arial"/>
+          <w:sz w:val="24"/>
+          <w:szCs w:val="24"/>
+          <w:lang w:val="es-MX"/>
+        </w:rPr>
+      </w:pPr>
+      <w:r>
+        <w:rPr>
+          <w:rFonts w:ascii="Arial" w:hAnsi="Arial" w:cs="Arial"/>
+          <w:sz w:val="24"/>
+          <w:szCs w:val="24"/>
+          <w:lang w:val="es-MX"/>
+        </w:rPr>
+        <w:t xml:space="preserve">Tutor: </w:t>
+      </w:r>
+      
+      
+      <w:r>
+        <w:rPr>
+          <w:rFonts w:ascii="Arial" w:hAnsi="Arial" w:cs="Arial"/>
+          <w:color w:val="FF0000"/>
+          <w:sz w:val="24"/>
+          <w:szCs w:val="24"/>
+          <w:lang w:val="es-MX"/>
+        </w:rPr>
+        <w:t>Nombre y Apellido y cedula</w:t>
+      </w:r>
+      
+    </w:p>
+    <w:p w14:paraId="7D71FAC7" w14:textId="77777777" w:rsidR="007B7FD1" w:rsidRDefault="007B7FD1" w:rsidP="007B7FD1">
+      <w:pPr>
+        <w:rPr>
+          <w:rFonts w:ascii="Arial" w:hAnsi="Arial" w:cs="Arial"/>
+          <w:sz w:val="24"/>
+          <w:szCs w:val="24"/>
+          <w:lang w:val="es-MX"/>
+        </w:rPr>
+      </w:pPr>
+    </w:p>
+    <w:p w14:paraId="666AF8F5" w14:textId="77777777" w:rsidR="00812892" w:rsidRDefault="00812892" w:rsidP="007B7FD1">
+      <w:pPr>
+        <w:rPr>
+          <w:rFonts w:ascii="Arial" w:hAnsi="Arial" w:cs="Arial"/>
+          <w:sz w:val="24"/>
+          <w:szCs w:val="24"/>
+          <w:lang w:val="es-MX"/>
+        </w:rPr>
+      </w:pPr>
+    </w:p>
+    <w:p w14:paraId="443E45A6" w14:textId="77777777" w:rsidR="00812892" w:rsidRDefault="00812892" w:rsidP="007B7FD1">
+      <w:pPr>
+        <w:rPr>
+          <w:rFonts w:ascii="Arial" w:hAnsi="Arial" w:cs="Arial"/>
+          <w:sz w:val="24"/>
+          <w:szCs w:val="24"/>
+          <w:lang w:val="es-MX"/>
+        </w:rPr>
+      </w:pPr>
+    </w:p>
+    <w:p w14:paraId="181314D1" w14:textId="77777777" w:rsidR="00812892" w:rsidRDefault="00812892" w:rsidP="007B7FD1">
+      <w:pPr>
+        <w:rPr>
+          <w:rFonts w:ascii="Arial" w:hAnsi="Arial" w:cs="Arial"/>
+          <w:sz w:val="24"/>
+          <w:szCs w:val="24"/>
+          <w:lang w:val="es-MX"/>
+        </w:rPr>
+      </w:pPr>
+    </w:p>
+    <w:p w14:paraId="2D8A7559" w14:textId="77777777" w:rsidR="00812892" w:rsidRDefault="00812892" w:rsidP="007B7FD1">
+      <w:pPr>
+        <w:rPr>
+          <w:rFonts w:ascii="Arial" w:hAnsi="Arial" w:cs="Arial"/>
+          <w:sz w:val="24"/>
+          <w:szCs w:val="24"/>
+          <w:lang w:val="es-MX"/>
+        </w:rPr>
+      </w:pPr>
+    </w:p>
+    <w:p w14:paraId="1977D18F" w14:textId="77777777" w:rsidR="00812892" w:rsidRDefault="00812892" w:rsidP="007B7FD1">
+      <w:pPr>
+        <w:rPr>
+          <w:rFonts w:ascii="Arial" w:hAnsi="Arial" w:cs="Arial"/>
+          <w:sz w:val="24"/>
+          <w:szCs w:val="24"/>
+          <w:lang w:val="es-MX"/>
+        </w:rPr>
+      </w:pPr>
+    </w:p>
+    <w:p w14:paraId="6E7F4498" w14:textId="77777777" w:rsidR="00812892" w:rsidRPr="00B55792" w:rsidRDefault="00812892" w:rsidP="007B7FD1">
+      <w:pPr>
+        <w:rPr>
+          <w:rFonts w:ascii="Arial" w:hAnsi="Arial" w:cs="Arial"/>
+          <w:sz w:val="24"/>
+          <w:szCs w:val="24"/>
+          <w:lang w:val="es-MX"/>
+        </w:rPr>
+      </w:pPr>
+    </w:p>
+    <w:p w14:paraId="19C2F232" w14:textId="77777777" w:rsidR="007C2510" w:rsidRPr="00B55792" w:rsidRDefault="007C2510" w:rsidP="007C2510">
+      <w:pPr>
+        <w:jc w:val="center"/>
+        <w:rPr>
+          <w:rFonts w:ascii="Arial" w:hAnsi="Arial" w:cs="Arial"/>
+          <w:color w:val="FF0000"/>
+          <w:sz w:val="24"/>
+          <w:szCs w:val="24"/>
+          <w:lang w:val="es-MX"/>
+        </w:rPr>
+      </w:pPr>
+      <w:r>
+        <w:rPr>
+          <w:rFonts w:ascii="Arial" w:hAnsi="Arial" w:cs="Arial"/>
+          <w:color w:val="FF0000"/>
+          <w:sz w:val="24"/>
+          <w:szCs w:val="24"/>
+          <w:lang w:val="es-MX"/>
+        </w:rPr>
+        <w:lastRenderedPageBreak/>
+        <w:t>Lugar y Fecha</w:t>
+      </w:r>
+    </w:p>
+    <w:p w14:paraId="66D2272D" w14:textId="77777777" w:rsidR="007C2510" w:rsidRPr="00B55792" w:rsidRDefault="00494C90" w:rsidP="00494C90">
+      <w:pPr>
+        <w:pBdr>
+          <w:bottom w:val="single" w:sz="4" w:space="1" w:color="auto"/>
+        </w:pBdr>
+        <w:rPr>
+          <w:rFonts w:ascii="Arial" w:hAnsi="Arial" w:cs="Arial"/>
+          <w:b/>
+          <w:sz w:val="24"/>
+          <w:szCs w:val="24"/>
+          <w:lang w:val="es-MX"/>
+        </w:rPr>
+      </w:pPr>
+      <w:r>
+        <w:rPr>
+          <w:rFonts w:ascii="Arial" w:hAnsi="Arial" w:cs="Arial"/>
+          <w:b/>
+          <w:sz w:val="24"/>
+          <w:szCs w:val="24"/>
+          <w:lang w:val="es-MX"/>
+        </w:rPr>
+        <w:t>1.- Resumen de la idea de proyecto</w:t>
+      </w:r>
+    </w:p>
+    <w:p w14:paraId="2735E056" w14:textId="77777777" w:rsidR="00494C90" w:rsidRPr="00B55792" w:rsidRDefault="00494C90">
+      <w:pPr>
+        <w:rPr>
+          <w:rFonts w:ascii="Arial" w:hAnsi="Arial" w:cs="Arial"/>
+          <w:i/>
+          <w:color w:val="FF0000"/>
+          <w:sz w:val="20"/>
+          <w:szCs w:val="24"/>
+          <w:lang w:val="es-MX"/>
+        </w:rPr>
+      </w:pPr>
+      <w:r>
+        <w:rPr>
+          <w:rFonts w:ascii="Arial" w:hAnsi="Arial" w:cs="Arial"/>
+          <w:i/>
+          <w:color w:val="FF0000"/>
+          <w:sz w:val="20"/>
+          <w:szCs w:val="24"/>
+          <w:lang w:val="es-MX"/>
+        </w:rPr>
+        <w:t>Presentar en no más de 500 palabras un resumen del proyecto considerando sus aspectos más relevantes  el impacto del mismo.</w:t>
+      </w:r>
+    </w:p>
+    <w:p w14:paraId="58EC07CD" w14:textId="77777777" w:rsidR="00494C90" w:rsidRPr="00B55792" w:rsidRDefault="00494C90">
+      <w:pPr>
+        <w:rPr>
+          <w:rFonts w:ascii="Arial" w:hAnsi="Arial" w:cs="Arial"/>
+          <w:sz w:val="24"/>
+          <w:szCs w:val="24"/>
+          <w:lang w:val="es-MX"/>
+        </w:rPr>
+      </w:pPr>
+    </w:p>
+    <w:p w14:paraId="71F42507" w14:textId="77777777" w:rsidR="00494C90" w:rsidRPr="00B55792" w:rsidRDefault="00494C90">
+      <w:pPr>
+        <w:rPr>
+          <w:rFonts w:ascii="Arial" w:hAnsi="Arial" w:cs="Arial"/>
+          <w:sz w:val="24"/>
+          <w:szCs w:val="24"/>
+          <w:lang w:val="es-MX"/>
+        </w:rPr>
+      </w:pPr>
+    </w:p>
+    <w:p w14:paraId="3E3D6A6A" w14:textId="77777777" w:rsidR="00494C90" w:rsidRPr="00B55792" w:rsidRDefault="00494C90">
+      <w:pPr>
+        <w:rPr>
+          <w:rFonts w:ascii="Arial" w:hAnsi="Arial" w:cs="Arial"/>
+          <w:sz w:val="24"/>
+          <w:szCs w:val="24"/>
+          <w:lang w:val="es-MX"/>
+        </w:rPr>
+      </w:pPr>
+    </w:p>
+    <w:p w14:paraId="55283B80" w14:textId="77777777" w:rsidR="00494C90" w:rsidRPr="00B55792" w:rsidRDefault="00494C90">
+      <w:pPr>
+        <w:rPr>
+          <w:rFonts w:ascii="Arial" w:hAnsi="Arial" w:cs="Arial"/>
+          <w:sz w:val="24"/>
+          <w:szCs w:val="24"/>
+          <w:lang w:val="es-MX"/>
+        </w:rPr>
+      </w:pPr>
+    </w:p>
+    <w:p w14:paraId="037F72EC" w14:textId="77777777" w:rsidR="00494C90" w:rsidRPr="00B55792" w:rsidRDefault="00494C90">
+      <w:pPr>
+        <w:rPr>
+          <w:rFonts w:ascii="Arial" w:hAnsi="Arial" w:cs="Arial"/>
+          <w:sz w:val="24"/>
+          <w:szCs w:val="24"/>
+          <w:lang w:val="es-MX"/>
+        </w:rPr>
+      </w:pPr>
+    </w:p>
+    <w:p w14:paraId="4B687DE8" w14:textId="77777777" w:rsidR="00494C90" w:rsidRPr="00B55792" w:rsidRDefault="00494C90" w:rsidP="00494C90">
+      <w:pPr>
+        <w:pBdr>
+          <w:bottom w:val="single" w:sz="4" w:space="1" w:color="auto"/>
+        </w:pBdr>
+        <w:rPr>
+          <w:rFonts w:ascii="Arial" w:hAnsi="Arial" w:cs="Arial"/>
+          <w:b/>
+          <w:sz w:val="24"/>
+          <w:szCs w:val="24"/>
+          <w:lang w:val="es-MX"/>
+        </w:rPr>
+      </w:pPr>
+      <w:r>
+        <w:rPr>
+          <w:rFonts w:ascii="Arial" w:hAnsi="Arial" w:cs="Arial"/>
+          <w:b/>
+          <w:sz w:val="24"/>
+          <w:szCs w:val="24"/>
+          <w:lang w:val="es-MX"/>
+        </w:rPr>
+        <w:t>2.- Integrantes del equipo de proyecto</w:t>
+      </w:r>
+    </w:p>
+    <w:p w14:paraId="02B313A3" w14:textId="77777777" w:rsidR="00B55792" w:rsidRPr="00B55792" w:rsidRDefault="00494C90" w:rsidP="00494C90">
+      <w:pPr>
+        <w:rPr>
+          <w:rFonts w:ascii="Arial" w:hAnsi="Arial" w:cs="Arial"/>
+          <w:i/>
+          <w:color w:val="FF0000"/>
+          <w:sz w:val="20"/>
+          <w:szCs w:val="24"/>
+          <w:lang w:val="es-MX"/>
+        </w:rPr>
+      </w:pPr>
+      <w:r>
+        <w:rPr>
+          <w:rFonts w:ascii="Arial" w:hAnsi="Arial" w:cs="Arial"/>
+          <w:i/>
+          <w:color w:val="FF0000"/>
+          <w:sz w:val="20"/>
+          <w:szCs w:val="24"/>
+          <w:lang w:val="es-MX"/>
+        </w:rPr>
+        <w:t>Presentar al equipo cómo tal (completo, participantes y mentor/tutor), sus integrantes, cómo fueron seleccionados o cómo se integraron como equipo. Identificar el rol o roles de cada integrante del equipo. Incorporar al final, una tabla con los datos de los participantes indicando la edad y el correo de contacto.</w:t>
+      </w:r>
+      
+    </w:p>
+    <w:p w14:paraId="2B050C56" w14:textId="77777777" w:rsidR="00494C90" w:rsidRPr="00B55792" w:rsidRDefault="00494C90">
+      <w:pPr>
+        <w:rPr>
+          <w:rFonts w:ascii="Arial" w:hAnsi="Arial" w:cs="Arial"/>
+          <w:sz w:val="24"/>
+          <w:szCs w:val="24"/>
+          <w:lang w:val="es-MX"/>
+        </w:rPr>
+      </w:pPr>
+    </w:p>
+    <w:p w14:paraId="7BB71AF4" w14:textId="77777777" w:rsidR="00494C90" w:rsidRPr="00B55792" w:rsidRDefault="00494C90">
+      <w:pPr>
+        <w:rPr>
+          <w:rFonts w:ascii="Arial" w:hAnsi="Arial" w:cs="Arial"/>
+          <w:sz w:val="24"/>
+          <w:szCs w:val="24"/>
+          <w:lang w:val="es-MX"/>
+        </w:rPr>
+      </w:pPr>
+    </w:p>
+    <w:p w14:paraId="3A920012" w14:textId="77777777" w:rsidR="00494C90" w:rsidRPr="00B55792" w:rsidRDefault="00494C90">
+      <w:pPr>
+        <w:rPr>
+          <w:rFonts w:ascii="Arial" w:hAnsi="Arial" w:cs="Arial"/>
+          <w:sz w:val="24"/>
+          <w:szCs w:val="24"/>
+          <w:lang w:val="es-MX"/>
+        </w:rPr>
+      </w:pPr>
+    </w:p>
+    <w:p w14:paraId="0E198F14" w14:textId="77777777" w:rsidR="00494C90" w:rsidRPr="00B55792" w:rsidRDefault="00494C90">
+      <w:pPr>
+        <w:rPr>
+          <w:rFonts w:ascii="Arial" w:hAnsi="Arial" w:cs="Arial"/>
+          <w:sz w:val="24"/>
+          <w:szCs w:val="24"/>
+          <w:lang w:val="es-MX"/>
+        </w:rPr>
+      </w:pPr>
+    </w:p>
+    <w:p w14:paraId="0592B242" w14:textId="77777777" w:rsidR="00494C90" w:rsidRPr="00B55792" w:rsidRDefault="00494C90">
+      <w:pPr>
+        <w:rPr>
+          <w:rFonts w:ascii="Arial" w:hAnsi="Arial" w:cs="Arial"/>
+          <w:sz w:val="24"/>
+          <w:szCs w:val="24"/>
+          <w:lang w:val="es-MX"/>
+        </w:rPr>
+      </w:pPr>
+    </w:p>
+    <w:p w14:paraId="67CD4619" w14:textId="77777777" w:rsidR="00494C90" w:rsidRPr="00B55792" w:rsidRDefault="00494C90">
+      <w:pPr>
+        <w:rPr>
+          <w:rFonts w:ascii="Arial" w:hAnsi="Arial" w:cs="Arial"/>
+          <w:sz w:val="24"/>
+          <w:szCs w:val="24"/>
+          <w:lang w:val="es-MX"/>
+        </w:rPr>
+      </w:pPr>
+    </w:p>
+    <w:p w14:paraId="490708CB" w14:textId="77777777" w:rsidR="007C2510" w:rsidRPr="00B55792" w:rsidRDefault="007C2510">
+      <w:pPr>
+        <w:rPr>
+          <w:rFonts w:ascii="Arial" w:hAnsi="Arial" w:cs="Arial"/>
+          <w:sz w:val="24"/>
+          <w:szCs w:val="24"/>
+          <w:lang w:val="es-MX"/>
+        </w:rPr>
+      </w:pPr>
+      <w:r>
+        <w:rPr>
+          <w:rFonts w:ascii="Arial" w:hAnsi="Arial" w:cs="Arial"/>
+          <w:sz w:val="24"/>
+          <w:szCs w:val="24"/>
+          <w:lang w:val="es-MX"/>
+        </w:rPr>
+        <w:br w:type="page"/>
+      </w:r>
+    </w:p>
+    <w:p w14:paraId="2DE93A2D" w14:textId="77777777" w:rsidR="00494C90" w:rsidRPr="00B55792" w:rsidRDefault="00494C90" w:rsidP="00494C90">
+      <w:pPr>
+        <w:pBdr>
+          <w:bottom w:val="single" w:sz="4" w:space="1" w:color="auto"/>
+        </w:pBdr>
+        <w:rPr>
+          <w:rFonts w:ascii="Arial" w:hAnsi="Arial" w:cs="Arial"/>
+          <w:b/>
+          <w:sz w:val="24"/>
+          <w:szCs w:val="24"/>
+          <w:lang w:val="es-MX"/>
+        </w:rPr>
+      </w:pPr>
+      <w:r>
+        <w:rPr>
+          <w:rFonts w:ascii="Arial" w:hAnsi="Arial" w:cs="Arial"/>
+          <w:b/>
+          <w:sz w:val="24"/>
+          <w:szCs w:val="24"/>
+          <w:lang w:val="es-MX"/>
+        </w:rPr>
+        <w:lastRenderedPageBreak/>
+        <w:t>3.- Implementación del proyecto</w:t>
+      </w:r>
+      
+      
+    </w:p>
+    <w:p w14:paraId="67698F6F" w14:textId="77777777" w:rsidR="00494C90" w:rsidRPr="00B55792" w:rsidRDefault="00494C90" w:rsidP="00494C90">
+      <w:pPr>
+        <w:rPr>
+          <w:rFonts w:ascii="Arial" w:hAnsi="Arial" w:cs="Arial"/>
+          <w:color w:val="FF0000"/>
+          <w:sz w:val="20"/>
+          <w:szCs w:val="24"/>
+          <w:lang w:val="es-MX"/>
+        </w:rPr>
+      </w:pPr>
+      <w:r>
+        <w:rPr>
+          <w:rFonts w:ascii="Arial" w:hAnsi="Arial" w:cs="Arial"/>
+          <w:i/>
+          <w:color w:val="FF0000"/>
+          <w:sz w:val="20"/>
+          <w:szCs w:val="24"/>
+          <w:lang w:val="es-MX"/>
+        </w:rPr>
+        <w:t>Presentar de manera escrita el desarrollo del proyecto considerando la siguiente estructura e interrogantes a responder:</w:t>
+      </w:r>
+      
+      
+      
+      
+    </w:p>
+    <w:p w14:paraId="57B09347" w14:textId="77777777" w:rsidR="00494C90" w:rsidRPr="00B55792" w:rsidRDefault="005E035B" w:rsidP="005E035B">
+      <w:pPr>
+        <w:rPr>
+          <w:rFonts w:ascii="Arial" w:hAnsi="Arial" w:cs="Arial"/>
+          <w:b/>
+          <w:sz w:val="24"/>
+          <w:szCs w:val="24"/>
+          <w:lang w:val="es-MX"/>
+        </w:rPr>
+      </w:pPr>
+      <w:r>
+        <w:rPr>
+          <w:rFonts w:ascii="Arial" w:hAnsi="Arial" w:cs="Arial"/>
+          <w:b/>
+          <w:sz w:val="24"/>
+          <w:szCs w:val="24"/>
+          <w:lang w:val="es-MX"/>
+        </w:rPr>
+        <w:t>3.1.- Inicio</w:t>
+      </w:r>
+      
+      
+    </w:p>
+    <w:p w14:paraId="2C0EF199" w14:textId="77777777" w:rsidR="005E035B" w:rsidRPr="00B55792" w:rsidRDefault="005E035B" w:rsidP="005E035B">
+      <w:pPr>
+        <w:pStyle w:val="Prrafodelista"/>
+        <w:numPr>
+          <w:ilvl w:val="0"/>
+          <w:numId w:val="1"/>
+        </w:numPr>
+        <w:rPr>
+          <w:rFonts w:ascii="Arial" w:hAnsi="Arial" w:cs="Arial"/>
+          <w:i/>
+          <w:color w:val="FF0000"/>
+          <w:sz w:val="20"/>
+          <w:szCs w:val="24"/>
+          <w:lang w:val="es-MX"/>
+        </w:rPr>
+      </w:pPr>
+      <w:r>
+        <w:rPr>
+          <w:rFonts w:ascii="Arial" w:hAnsi="Arial" w:cs="Arial"/>
+          <w:i/>
+          <w:color w:val="FF0000"/>
+          <w:sz w:val="20"/>
+          <w:szCs w:val="24"/>
+          <w:lang w:val="es-MX"/>
+        </w:rPr>
+        <w:t>¿Cómo surgió la idea del robot o del problema, qué los inspiró?</w:t>
+      </w:r>
+    </w:p>
+    <w:p w14:paraId="54573626" w14:textId="77777777" w:rsidR="005E035B" w:rsidRPr="00B55792" w:rsidRDefault="005E035B" w:rsidP="005E035B">
+      <w:pPr>
+        <w:pStyle w:val="Prrafodelista"/>
+        <w:numPr>
+          <w:ilvl w:val="0"/>
+          <w:numId w:val="1"/>
+        </w:numPr>
+        <w:rPr>
+          <w:rFonts w:ascii="Arial" w:hAnsi="Arial" w:cs="Arial"/>
+          <w:i/>
+          <w:color w:val="FF0000"/>
+          <w:sz w:val="20"/>
+          <w:szCs w:val="24"/>
+          <w:lang w:val="es-MX"/>
+        </w:rPr>
+      </w:pPr>
+      <w:r>
+        <w:rPr>
+          <w:rFonts w:ascii="Arial" w:hAnsi="Arial" w:cs="Arial"/>
+          <w:i/>
+          <w:color w:val="FF0000"/>
+          <w:sz w:val="20"/>
+          <w:szCs w:val="24"/>
+          <w:lang w:val="es-MX"/>
+        </w:rPr>
+        <w:t>¿Qué elementos anteriores encontraron que ya existían en el mercado, en producciones científicas, en la sociedad?</w:t>
+      </w:r>
+    </w:p>
+    <w:p w14:paraId="30C53928" w14:textId="77777777" w:rsidR="00494B01" w:rsidRPr="00B55792" w:rsidRDefault="005E035B" w:rsidP="005E035B">
+      <w:pPr>
+        <w:pStyle w:val="Prrafodelista"/>
+        <w:numPr>
+          <w:ilvl w:val="0"/>
+          <w:numId w:val="1"/>
+        </w:numPr>
+        <w:rPr>
+          <w:rFonts w:ascii="Arial" w:hAnsi="Arial" w:cs="Arial"/>
+          <w:i/>
+          <w:color w:val="FF0000"/>
+          <w:sz w:val="20"/>
+          <w:szCs w:val="24"/>
+          <w:lang w:val="es-MX"/>
+        </w:rPr>
+      </w:pPr>
+      <w:r>
+        <w:rPr>
+          <w:rFonts w:ascii="Arial" w:hAnsi="Arial" w:cs="Arial"/>
+          <w:i/>
+          <w:color w:val="FF0000"/>
+          <w:sz w:val="20"/>
+          <w:szCs w:val="24"/>
+          <w:lang w:val="es-MX"/>
+        </w:rPr>
+        <w:t xml:space="preserve">¿Con qué materiales, recursos contaban al iniciar la idea? </w:t>
+      </w:r>
+    </w:p>
+    <w:p w14:paraId="192E75D8" w14:textId="77777777" w:rsidR="005E035B" w:rsidRPr="00B55792" w:rsidRDefault="00494B01" w:rsidP="005E035B">
+      <w:pPr>
+        <w:pStyle w:val="Prrafodelista"/>
+        <w:numPr>
+          <w:ilvl w:val="0"/>
+          <w:numId w:val="1"/>
+        </w:numPr>
+        <w:rPr>
+          <w:rFonts w:ascii="Arial" w:hAnsi="Arial" w:cs="Arial"/>
+          <w:i/>
+          <w:color w:val="FF0000"/>
+          <w:sz w:val="20"/>
+          <w:szCs w:val="24"/>
+          <w:lang w:val="es-MX"/>
+        </w:rPr>
+      </w:pPr>
+      <w:r>
+        <w:rPr>
+          <w:rFonts w:ascii="Arial" w:hAnsi="Arial" w:cs="Arial"/>
+          <w:i/>
+          <w:color w:val="FF0000"/>
+          <w:sz w:val="20"/>
+          <w:szCs w:val="24"/>
+          <w:lang w:val="es-MX"/>
+        </w:rPr>
+        <w:t>Se debe incorporar registros, fotos, evidencias de los recursos, materiales, antecedentes…</w:t>
+      </w:r>
+      
+      
+      
+      
+    </w:p>
+    <w:p w14:paraId="266BAFCB" w14:textId="77777777" w:rsidR="005E035B" w:rsidRPr="00B55792" w:rsidRDefault="005E035B" w:rsidP="00494C90">
+      <w:pPr>
+        <w:rPr>
+          <w:rFonts w:ascii="Arial" w:hAnsi="Arial" w:cs="Arial"/>
+          <w:sz w:val="24"/>
+          <w:szCs w:val="24"/>
+          <w:lang w:val="es-MX"/>
+        </w:rPr>
+      </w:pPr>
+    </w:p>
+    <w:p w14:paraId="0C43CDCD" w14:textId="77777777" w:rsidR="005E035B" w:rsidRPr="00B55792" w:rsidRDefault="005E035B" w:rsidP="005E035B">
+      <w:pPr>
+        <w:rPr>
+          <w:rFonts w:ascii="Arial" w:hAnsi="Arial" w:cs="Arial"/>
+          <w:b/>
+          <w:sz w:val="24"/>
+          <w:szCs w:val="24"/>
+          <w:lang w:val="es-MX"/>
+        </w:rPr>
+      </w:pPr>
+      <w:r>
+        <w:rPr>
+          <w:rFonts w:ascii="Arial" w:hAnsi="Arial" w:cs="Arial"/>
+          <w:b/>
+          <w:sz w:val="24"/>
+          <w:szCs w:val="24"/>
+          <w:lang w:val="es-MX"/>
+        </w:rPr>
+        <w:t>3.2.- Desarrollo</w:t>
+      </w:r>
+      
+      
+    </w:p>
+    <w:p w14:paraId="203AD6CA" w14:textId="77777777" w:rsidR="005E035B" w:rsidRPr="00B55792" w:rsidRDefault="005E035B" w:rsidP="005E035B">
+      <w:pPr>
+        <w:pStyle w:val="Prrafodelista"/>
+        <w:numPr>
+          <w:ilvl w:val="0"/>
+          <w:numId w:val="1"/>
+        </w:numPr>
+        <w:rPr>
+          <w:rFonts w:ascii="Arial" w:hAnsi="Arial" w:cs="Arial"/>
+          <w:i/>
+          <w:color w:val="FF0000"/>
+          <w:sz w:val="20"/>
+          <w:szCs w:val="24"/>
+          <w:lang w:val="es-MX"/>
+        </w:rPr>
+      </w:pPr>
+      <w:r>
+        <w:rPr>
+          <w:rFonts w:ascii="Arial" w:hAnsi="Arial" w:cs="Arial"/>
+          <w:i/>
+          <w:color w:val="FF0000"/>
+          <w:sz w:val="20"/>
+          <w:szCs w:val="24"/>
+          <w:lang w:val="es-MX"/>
+        </w:rPr>
+        <w:t>¿Cuáles fueron los pasos o metodología que siguieron para llevar la idea a un producto real? ¿Resolvieron con un primer modelo o tuvieron que hacer varios modelos de un mismo prototipo?</w:t>
+      </w:r>
+      
+      
+      
+    </w:p>
+    <w:p w14:paraId="0C4EC865" w14:textId="77777777" w:rsidR="005E035B" w:rsidRPr="00B55792" w:rsidRDefault="005E035B" w:rsidP="005E035B">
+      <w:pPr>
+        <w:pStyle w:val="Prrafodelista"/>
+        <w:numPr>
+          <w:ilvl w:val="0"/>
+          <w:numId w:val="1"/>
+        </w:numPr>
+        <w:rPr>
+          <w:rFonts w:ascii="Arial" w:hAnsi="Arial" w:cs="Arial"/>
+          <w:i/>
+          <w:color w:val="FF0000"/>
+          <w:sz w:val="20"/>
+          <w:szCs w:val="24"/>
+          <w:lang w:val="es-MX"/>
+        </w:rPr>
+      </w:pPr>
+      <w:r>
+        <w:rPr>
+          <w:rFonts w:ascii="Arial" w:hAnsi="Arial" w:cs="Arial"/>
+          <w:i/>
+          <w:color w:val="FF0000"/>
+          <w:sz w:val="20"/>
+          <w:szCs w:val="24"/>
+          <w:lang w:val="es-MX"/>
+        </w:rPr>
+        <w:t>¿Cuáles fueron las principales dificultades encontradas y cómo las abordaron y qué acciones aplicaron para resolverlas?</w:t>
+      </w:r>
+      
+      
+    </w:p>
+    <w:p w14:paraId="456A8955" w14:textId="77777777" w:rsidR="005E035B" w:rsidRPr="00B55792" w:rsidRDefault="005E035B" w:rsidP="005E035B">
+      <w:pPr>
+        <w:pStyle w:val="Prrafodelista"/>
+        <w:numPr>
+          <w:ilvl w:val="0"/>
+          <w:numId w:val="1"/>
+        </w:numPr>
+        <w:rPr>
+          <w:rFonts w:ascii="Arial" w:hAnsi="Arial" w:cs="Arial"/>
+          <w:i/>
+          <w:color w:val="FF0000"/>
+          <w:sz w:val="20"/>
+          <w:szCs w:val="24"/>
+          <w:lang w:val="es-MX"/>
+        </w:rPr>
+      </w:pPr>
+      <w:r>
+        <w:rPr>
+          <w:rFonts w:ascii="Arial" w:hAnsi="Arial" w:cs="Arial"/>
+          <w:i/>
+          <w:color w:val="FF0000"/>
+          <w:sz w:val="20"/>
+          <w:szCs w:val="24"/>
+          <w:lang w:val="es-MX"/>
+        </w:rPr>
+        <w:t>¿Cuáles son los materiales, recursos… definitivos que incorporaron a la solución robótica?</w:t>
+      </w:r>
+      
+      
+    </w:p>
+    <w:p w14:paraId="23235607" w14:textId="77777777" w:rsidR="00A46871" w:rsidRPr="00B55792" w:rsidRDefault="00A46871" w:rsidP="005E035B">
+      <w:pPr>
+        <w:pStyle w:val="Prrafodelista"/>
+        <w:numPr>
+          <w:ilvl w:val="0"/>
+          <w:numId w:val="1"/>
+        </w:numPr>
+        <w:rPr>
+          <w:rFonts w:ascii="Arial" w:hAnsi="Arial" w:cs="Arial"/>
+          <w:i/>
+          <w:color w:val="FF0000"/>
+          <w:sz w:val="20"/>
+          <w:szCs w:val="24"/>
+          <w:lang w:val="es-MX"/>
+        </w:rPr>
+      </w:pPr>
+      <w:r>
+        <w:rPr>
+          <w:rFonts w:ascii="Arial" w:hAnsi="Arial" w:cs="Arial"/>
+          <w:i/>
+          <w:color w:val="FF0000"/>
+          <w:sz w:val="20"/>
+          <w:szCs w:val="24"/>
+          <w:lang w:val="es-MX"/>
+        </w:rPr>
+        <w:t>Lenguaje de programación y Entorno de Desarrollo Integrado (IDE) que utilizaron, ¿por qué esos y no otros?</w:t>
+      </w:r>
+    </w:p>
+    <w:p w14:paraId="1DA7FD59" w14:textId="77777777" w:rsidR="00A46871" w:rsidRPr="00B55792" w:rsidRDefault="00A46871" w:rsidP="005E035B">
+      <w:pPr>
+        <w:pStyle w:val="Prrafodelista"/>
+        <w:numPr>
+          <w:ilvl w:val="0"/>
+          <w:numId w:val="1"/>
+        </w:numPr>
+        <w:rPr>
+          <w:rFonts w:ascii="Arial" w:hAnsi="Arial" w:cs="Arial"/>
+          <w:i/>
+          <w:color w:val="FF0000"/>
+          <w:sz w:val="20"/>
+          <w:szCs w:val="24"/>
+          <w:lang w:val="es-MX"/>
+        </w:rPr>
+      </w:pPr>
+      <w:r>
+        <w:rPr>
+          <w:rFonts w:ascii="Arial" w:hAnsi="Arial" w:cs="Arial"/>
+          <w:i/>
+          <w:color w:val="FF0000"/>
+          <w:sz w:val="20"/>
+          <w:szCs w:val="24"/>
+          <w:lang w:val="es-MX"/>
+        </w:rPr>
+        <w:t>Identificar los principales aspectos mecánicos de la solución robótica y su funcionamiento dentro de todo el sistema.</w:t>
+      </w:r>
+    </w:p>
+    <w:p w14:paraId="50AEF8A7" w14:textId="77777777" w:rsidR="00A46871" w:rsidRPr="00B55792" w:rsidRDefault="00A46871" w:rsidP="005E035B">
+      <w:pPr>
+        <w:pStyle w:val="Prrafodelista"/>
+        <w:numPr>
+          <w:ilvl w:val="0"/>
+          <w:numId w:val="1"/>
+        </w:numPr>
+        <w:rPr>
+          <w:rFonts w:ascii="Arial" w:hAnsi="Arial" w:cs="Arial"/>
+          <w:i/>
+          <w:color w:val="FF0000"/>
+          <w:sz w:val="20"/>
+          <w:szCs w:val="24"/>
+          <w:lang w:val="es-MX"/>
+        </w:rPr>
+      </w:pPr>
+      <w:r>
+        <w:rPr>
+          <w:rFonts w:ascii="Arial" w:hAnsi="Arial" w:cs="Arial"/>
+          <w:i/>
+          <w:color w:val="FF0000"/>
+          <w:sz w:val="20"/>
+          <w:szCs w:val="24"/>
+          <w:lang w:val="es-MX"/>
+        </w:rPr>
+        <w:t xml:space="preserve">Identificar los procesos lógicos de la programación (algoritmos, no códigos en sí) que desarrollaron para que funcione el sistema. </w:t>
+      </w:r>
+    </w:p>
+    <w:p w14:paraId="6385F6C8" w14:textId="77777777" w:rsidR="00A46871" w:rsidRPr="00B55792" w:rsidRDefault="00A46871" w:rsidP="005E035B">
+      <w:pPr>
+        <w:pStyle w:val="Prrafodelista"/>
+        <w:numPr>
+          <w:ilvl w:val="0"/>
+          <w:numId w:val="1"/>
+        </w:numPr>
+        <w:rPr>
+          <w:rFonts w:ascii="Arial" w:hAnsi="Arial" w:cs="Arial"/>
+          <w:i/>
+          <w:color w:val="FF0000"/>
+          <w:sz w:val="20"/>
+          <w:szCs w:val="24"/>
+          <w:lang w:val="es-MX"/>
+        </w:rPr>
+      </w:pPr>
+      <w:r>
+        <w:rPr>
+          <w:rFonts w:ascii="Arial" w:hAnsi="Arial" w:cs="Arial"/>
+          <w:i/>
+          <w:color w:val="FF0000"/>
+          <w:sz w:val="20"/>
+          <w:szCs w:val="24"/>
+          <w:lang w:val="es-MX"/>
+        </w:rPr>
+        <w:t>Mostrar un resumen de la estructura fundamental de funcionamiento del código que implementaron: sus partes, componentes o elementos, estructuras, funciones y variables.</w:t>
+      </w:r>
+    </w:p>
+    <w:p w14:paraId="255947E0" w14:textId="77777777" w:rsidR="00494B01" w:rsidRPr="00B55792" w:rsidRDefault="00494B01" w:rsidP="005E035B">
+      <w:pPr>
+        <w:pStyle w:val="Prrafodelista"/>
+        <w:numPr>
+          <w:ilvl w:val="0"/>
+          <w:numId w:val="1"/>
+        </w:numPr>
+        <w:rPr>
+          <w:rFonts w:ascii="Arial" w:hAnsi="Arial" w:cs="Arial"/>
+          <w:i/>
+          <w:color w:val="FF0000"/>
+          <w:sz w:val="20"/>
+          <w:szCs w:val="24"/>
+          <w:lang w:val="es-MX"/>
+        </w:rPr>
+      </w:pPr>
+      <w:r>
+        <w:rPr>
+          <w:rFonts w:ascii="Arial" w:hAnsi="Arial" w:cs="Arial"/>
+          <w:i/>
+          <w:color w:val="FF0000"/>
+          <w:sz w:val="20"/>
+          <w:szCs w:val="24"/>
+          <w:lang w:val="es-MX"/>
+        </w:rPr>
+        <w:t>Se debe incorporar registros, fotos, evidencias de los recursos, materiales, prototipos…</w:t>
+      </w:r>
+      
+      
+    </w:p>
+    <w:p w14:paraId="6D272175" w14:textId="77777777" w:rsidR="00A46871" w:rsidRPr="00B55792" w:rsidRDefault="00A46871" w:rsidP="00494C90">
+      <w:pPr>
+        <w:rPr>
+          <w:rFonts w:ascii="Arial" w:hAnsi="Arial" w:cs="Arial"/>
+          <w:sz w:val="24"/>
+          <w:szCs w:val="24"/>
+          <w:lang w:val="es-MX"/>
+        </w:rPr>
+      </w:pPr>
+    </w:p>
+    <w:p w14:paraId="113B717B" w14:textId="77777777" w:rsidR="00A46871" w:rsidRPr="00B55792" w:rsidRDefault="00A46871" w:rsidP="00A46871">
+      <w:pPr>
+        <w:rPr>
+          <w:rFonts w:ascii="Arial" w:hAnsi="Arial" w:cs="Arial"/>
+          <w:b/>
+          <w:sz w:val="24"/>
+          <w:szCs w:val="24"/>
+          <w:lang w:val="es-MX"/>
+        </w:rPr>
+      </w:pPr>
+      <w:r>
+        <w:rPr>
+          <w:rFonts w:ascii="Arial" w:hAnsi="Arial" w:cs="Arial"/>
+          <w:b/>
+          <w:sz w:val="24"/>
+          <w:szCs w:val="24"/>
+          <w:lang w:val="es-MX"/>
+        </w:rPr>
+        <w:t>3.3.- Ejecución</w:t>
+      </w:r>
+    </w:p>
+    <w:p w14:paraId="307D256C" w14:textId="77777777" w:rsidR="00A46871" w:rsidRPr="00B55792" w:rsidRDefault="00A46871" w:rsidP="00A46871">
+      <w:pPr>
+        <w:pStyle w:val="Prrafodelista"/>
+        <w:numPr>
+          <w:ilvl w:val="0"/>
+          <w:numId w:val="1"/>
+        </w:numPr>
+        <w:rPr>
+          <w:rFonts w:ascii="Arial" w:hAnsi="Arial" w:cs="Arial"/>
+          <w:i/>
+          <w:color w:val="FF0000"/>
+          <w:sz w:val="20"/>
+          <w:szCs w:val="24"/>
+          <w:lang w:val="es-MX"/>
+        </w:rPr>
+      </w:pPr>
+      <w:r>
+        <w:rPr>
+          <w:rFonts w:ascii="Arial" w:hAnsi="Arial" w:cs="Arial"/>
+          <w:i/>
+          <w:color w:val="FF0000"/>
+          <w:sz w:val="20"/>
+          <w:szCs w:val="24"/>
+          <w:lang w:val="es-MX"/>
+        </w:rPr>
+        <w:t>¿Dónde y de qué manera realizaron pruebas para verificar el funcionamiento del sistema en el contexto de solución del problema de la temporada?</w:t>
+      </w:r>
+    </w:p>
+    <w:p w14:paraId="4C115A61" w14:textId="77777777" w:rsidR="00A46871" w:rsidRPr="00B55792" w:rsidRDefault="00A46871" w:rsidP="00A46871">
+      <w:pPr>
+        <w:pStyle w:val="Prrafodelista"/>
+        <w:numPr>
+          <w:ilvl w:val="0"/>
+          <w:numId w:val="1"/>
+        </w:numPr>
+        <w:rPr>
+          <w:rFonts w:ascii="Arial" w:hAnsi="Arial" w:cs="Arial"/>
+          <w:i/>
+          <w:color w:val="FF0000"/>
+          <w:sz w:val="20"/>
+          <w:szCs w:val="24"/>
+          <w:lang w:val="es-MX"/>
+        </w:rPr>
+      </w:pPr>
+      <w:r>
+        <w:rPr>
+          <w:rFonts w:ascii="Arial" w:hAnsi="Arial" w:cs="Arial"/>
+          <w:i/>
+          <w:color w:val="FF0000"/>
+          <w:sz w:val="20"/>
+          <w:szCs w:val="24"/>
+          <w:lang w:val="es-MX"/>
+        </w:rPr>
+        <w:t>¿De qué manera evaluaron el desempeño del sistema robótico para considerar que ya estaba en un nivel óptimo o al menos adecuado para el problema planteado?</w:t>
+      </w:r>
+    </w:p>
+    <w:p w14:paraId="50C51347" w14:textId="77777777" w:rsidR="00A46871" w:rsidRPr="00B55792" w:rsidRDefault="00A46871" w:rsidP="00A46871">
+      <w:pPr>
+        <w:pStyle w:val="Prrafodelista"/>
+        <w:numPr>
+          <w:ilvl w:val="0"/>
+          <w:numId w:val="1"/>
+        </w:numPr>
+        <w:rPr>
+          <w:rFonts w:ascii="Arial" w:hAnsi="Arial" w:cs="Arial"/>
+          <w:i/>
+          <w:color w:val="FF0000"/>
+          <w:sz w:val="20"/>
+          <w:szCs w:val="24"/>
+          <w:lang w:val="es-MX"/>
+        </w:rPr>
+      </w:pPr>
+      <w:r>
+        <w:rPr>
+          <w:rFonts w:ascii="Arial" w:hAnsi="Arial" w:cs="Arial"/>
+          <w:i/>
+          <w:color w:val="FF0000"/>
+          <w:sz w:val="20"/>
+          <w:szCs w:val="24"/>
+          <w:lang w:val="es-MX"/>
+        </w:rPr>
+        <w:t>¿Qué aspectos identifican como fortalezas del sistema robótico desarrollado?</w:t>
+      </w:r>
+    </w:p>
+    <w:p w14:paraId="3381750B" w14:textId="77777777" w:rsidR="00A46871" w:rsidRDefault="00A46871" w:rsidP="00A46871">
+      <w:pPr>
+        <w:pStyle w:val="Prrafodelista"/>
+        <w:numPr>
+          <w:ilvl w:val="0"/>
+          <w:numId w:val="1"/>
+        </w:numPr>
+        <w:rPr>
+          <w:rFonts w:ascii="Arial" w:hAnsi="Arial" w:cs="Arial"/>
+          <w:i/>
+          <w:color w:val="FF0000"/>
+          <w:sz w:val="20"/>
+          <w:szCs w:val="24"/>
+          <w:lang w:val="es-MX"/>
+        </w:rPr>
+      </w:pPr>
+      <w:r>
+        <w:rPr>
+          <w:rFonts w:ascii="Arial" w:hAnsi="Arial" w:cs="Arial"/>
+          <w:i/>
+          <w:color w:val="FF0000"/>
+          <w:sz w:val="20"/>
+          <w:szCs w:val="24"/>
+          <w:lang w:val="es-MX"/>
+        </w:rPr>
+        <w:t>¿Qué oportunidades de mejora identifican para una segunda versión mejorada del sistema robótico implementado?</w:t>
+      </w:r>
+    </w:p>
+    <w:p w14:paraId="0873F034" w14:textId="77777777" w:rsidR="00B55792" w:rsidRPr="00B55792" w:rsidRDefault="00B55792" w:rsidP="00A46871">
+      <w:pPr>
+        <w:pStyle w:val="Prrafodelista"/>
+        <w:numPr>
+          <w:ilvl w:val="0"/>
+          <w:numId w:val="1"/>
+        </w:numPr>
+        <w:rPr>
+          <w:rFonts w:ascii="Arial" w:hAnsi="Arial" w:cs="Arial"/>
+          <w:i/>
+          <w:color w:val="FF0000"/>
+          <w:sz w:val="20"/>
+          <w:szCs w:val="24"/>
+          <w:lang w:val="es-MX"/>
+        </w:rPr>
+      </w:pPr>
+      <w:r>
+        <w:rPr>
+          <w:rFonts w:ascii="Arial" w:hAnsi="Arial" w:cs="Arial"/>
+          <w:i/>
+          <w:color w:val="FF0000"/>
+          <w:sz w:val="20"/>
+          <w:szCs w:val="24"/>
+          <w:lang w:val="es-MX"/>
+        </w:rPr>
+        <w:t>Recuerden incorporar los registros y evidencias: fotos, etc…</w:t>
+      </w:r>
+    </w:p>
+    <w:p w14:paraId="62D2C01F" w14:textId="77777777" w:rsidR="00494C90" w:rsidRPr="00B55792" w:rsidRDefault="00494C90" w:rsidP="00494C90">
+      <w:pPr>
+        <w:rPr>
+          <w:rFonts w:ascii="Arial" w:hAnsi="Arial" w:cs="Arial"/>
+          <w:sz w:val="24"/>
+          <w:szCs w:val="24"/>
+          <w:lang w:val="es-MX"/>
+        </w:rPr>
+      </w:pPr>
+    </w:p>
+    <w:p w14:paraId="4A215F2B" w14:textId="77777777" w:rsidR="00B55792" w:rsidRPr="00B55792" w:rsidRDefault="00494C90" w:rsidP="00B55792">
+      <w:pPr>
+        <w:pBdr>
+          <w:bottom w:val="single" w:sz="4" w:space="1" w:color="auto"/>
+        </w:pBdr>
+        <w:rPr>
+          <w:rFonts w:ascii="Arial" w:hAnsi="Arial" w:cs="Arial"/>
+          <w:b/>
+          <w:sz w:val="24"/>
+          <w:szCs w:val="24"/>
+          <w:lang w:val="es-MX"/>
+        </w:rPr>
+      </w:pPr>
+      <w:r>
+        <w:rPr>
+          <w:rFonts w:ascii="Arial" w:hAnsi="Arial" w:cs="Arial"/>
+          <w:i/>
+          <w:sz w:val="24"/>
+          <w:szCs w:val="24"/>
+          <w:lang w:val="es-MX"/>
+        </w:rPr>
+        <w:br w:type="page"/>
+      </w:r>
+      <w:r>
+        <w:rPr>
+          <w:rFonts w:ascii="Arial" w:hAnsi="Arial" w:cs="Arial"/>
+          <w:b/>
+          <w:sz w:val="24"/>
+          <w:szCs w:val="24"/>
+          <w:lang w:val="es-MX"/>
+        </w:rPr>
+        <w:lastRenderedPageBreak/>
+        <w:t>4.- Evaluación y análisis del proyecto</w:t>
+      </w:r>
+      
+      
+      
+    </w:p>
+    <w:p w14:paraId="7D4CE2C3" w14:textId="77777777" w:rsidR="00B55792" w:rsidRDefault="00B55792" w:rsidP="00B55792">
+      <w:pPr>
+        <w:rPr>
+          <w:rFonts w:ascii="Arial" w:hAnsi="Arial" w:cs="Arial"/>
+          <w:i/>
+          <w:color w:val="FF0000"/>
+          <w:sz w:val="20"/>
+          <w:szCs w:val="24"/>
+          <w:lang w:val="es-MX"/>
+        </w:rPr>
+      </w:pPr>
+      <w:r>
+        <w:rPr>
+          <w:rFonts w:ascii="Arial" w:hAnsi="Arial" w:cs="Arial"/>
+          <w:i/>
+          <w:color w:val="FF0000"/>
+          <w:sz w:val="20"/>
+          <w:szCs w:val="24"/>
+          <w:lang w:val="es-MX"/>
+        </w:rPr>
+        <w:t>Presentar de manera escrita un análisis del aporte del proyecto a la sociedad y al problema de la temporada planteado en específico. Identificar los logros y aprendizajes obtenidos durante el desarrollo del mismo. Presentar posibles escenarios para desarrollar este prototipo a escala.</w:t>
+      </w:r>
+      
+      
+    </w:p>
+    <w:p w14:paraId="186BAAF8" w14:textId="77777777" w:rsidR="00812892" w:rsidRDefault="00812892" w:rsidP="00B55792">
+      <w:pPr>
+        <w:rPr>
+          <w:rFonts w:ascii="Arial" w:hAnsi="Arial" w:cs="Arial"/>
+          <w:i/>
+          <w:color w:val="FF0000"/>
+          <w:sz w:val="20"/>
+          <w:szCs w:val="24"/>
+          <w:lang w:val="es-MX"/>
+        </w:rPr>
+      </w:pPr>
+    </w:p>
+    <w:p w14:paraId="63A243FE" w14:textId="77777777" w:rsidR="00812892" w:rsidRDefault="00812892" w:rsidP="00B55792">
+      <w:pPr>
+        <w:rPr>
+          <w:rFonts w:ascii="Arial" w:hAnsi="Arial" w:cs="Arial"/>
+          <w:i/>
+          <w:color w:val="FF0000"/>
+          <w:sz w:val="20"/>
+          <w:szCs w:val="24"/>
+          <w:lang w:val="es-MX"/>
+        </w:rPr>
+      </w:pPr>
+    </w:p>
+    <w:p w14:paraId="424DFE56" w14:textId="77777777" w:rsidR="00812892" w:rsidRPr="00B55792" w:rsidRDefault="00812892" w:rsidP="00812892">
+      <w:pPr>
+        <w:rPr>
+          <w:rFonts w:ascii="Arial" w:hAnsi="Arial" w:cs="Arial"/>
+          <w:sz w:val="24"/>
+          <w:szCs w:val="24"/>
+          <w:lang w:val="es-MX"/>
+        </w:rPr>
+      </w:pPr>
+    </w:p>
+    <w:p w14:paraId="4523058E" w14:textId="77777777" w:rsidR="00812892" w:rsidRPr="00B55792" w:rsidRDefault="00812892" w:rsidP="00812892">
+      <w:pPr>
+        <w:rPr>
+          <w:rFonts w:ascii="Arial" w:hAnsi="Arial" w:cs="Arial"/>
+          <w:sz w:val="24"/>
+          <w:szCs w:val="24"/>
+          <w:lang w:val="es-MX"/>
+        </w:rPr>
+      </w:pPr>
+    </w:p>
+    <w:p w14:paraId="6B98EA08" w14:textId="2EA9BF32" w:rsidR="00812892" w:rsidRPr="00B55792" w:rsidRDefault="00812892" w:rsidP="00812892">
+      <w:pPr>
+        <w:pBdr>
+          <w:bottom w:val="single" w:sz="4" w:space="1" w:color="auto"/>
+        </w:pBdr>
+        <w:rPr>
+          <w:rFonts w:ascii="Arial" w:hAnsi="Arial" w:cs="Arial"/>
+          <w:b/>
+          <w:sz w:val="24"/>
+          <w:szCs w:val="24"/>
+          <w:lang w:val="es-MX"/>
+        </w:rPr>
+      </w:pPr>
+      <w:r>
+        <w:rPr>
+          <w:rFonts w:ascii="Arial" w:hAnsi="Arial" w:cs="Arial"/>
+          <w:b/>
+          <w:sz w:val="24"/>
+          <w:szCs w:val="24"/>
+          <w:lang w:val="es-MX"/>
+        </w:rPr>
+        <w:t>5.- Esquemático Electrónico</w:t>
+      </w:r>
+      
+      
+    </w:p>
+    <w:p w14:paraId="7D6A09D9" w14:textId="77777777" w:rsidR="00812892" w:rsidRPr="00B55792" w:rsidRDefault="00812892" w:rsidP="00812892">
+      <w:pPr>
+        <w:rPr>
+          <w:rFonts w:ascii="Arial" w:hAnsi="Arial" w:cs="Arial"/>
+          <w:sz w:val="24"/>
+          <w:szCs w:val="24"/>
+          <w:lang w:val="es-MX"/>
+        </w:rPr>
+      </w:pPr>
+    </w:p>
+    <w:p w14:paraId="4118A7F9" w14:textId="77777777" w:rsidR="00812892" w:rsidRPr="00B55792" w:rsidRDefault="00812892" w:rsidP="00812892">
+      <w:pPr>
+        <w:rPr>
+          <w:rFonts w:ascii="Arial" w:hAnsi="Arial" w:cs="Arial"/>
+          <w:sz w:val="24"/>
+          <w:szCs w:val="24"/>
+          <w:lang w:val="es-MX"/>
+        </w:rPr>
+      </w:pPr>
+    </w:p>
+    <w:p w14:paraId="69F0C7E2" w14:textId="77777777" w:rsidR="00812892" w:rsidRPr="00B55792" w:rsidRDefault="00812892" w:rsidP="00812892">
+      <w:pPr>
+        <w:rPr>
+          <w:rFonts w:ascii="Arial" w:hAnsi="Arial" w:cs="Arial"/>
+          <w:sz w:val="24"/>
+          <w:szCs w:val="24"/>
+          <w:lang w:val="es-MX"/>
+        </w:rPr>
+      </w:pPr>
+    </w:p>
+    <w:p w14:paraId="55310D6E" w14:textId="7BD52E1A" w:rsidR="00812892" w:rsidRPr="00B55792" w:rsidRDefault="00812892" w:rsidP="00812892">
+      <w:pPr>
+        <w:pBdr>
+          <w:bottom w:val="single" w:sz="4" w:space="1" w:color="auto"/>
+        </w:pBdr>
+        <w:rPr>
+          <w:rFonts w:ascii="Arial" w:hAnsi="Arial" w:cs="Arial"/>
+          <w:b/>
+          <w:sz w:val="24"/>
+          <w:szCs w:val="24"/>
+          <w:lang w:val="es-MX"/>
+        </w:rPr>
+      </w:pPr>
+      <w:r>
+        <w:rPr>
+          <w:rFonts w:ascii="Arial" w:hAnsi="Arial" w:cs="Arial"/>
+          <w:b/>
+          <w:sz w:val="24"/>
+          <w:szCs w:val="24"/>
+          <w:lang w:val="es-MX"/>
+        </w:rPr>
+        <w:t>6.- Esquema de Flujo Eléctrico</w:t>
+      </w:r>
+      
+      
+    </w:p>
+    <w:p w14:paraId="1DCCB1CB" w14:textId="77777777" w:rsidR="00812892" w:rsidRPr="00B55792" w:rsidRDefault="00812892" w:rsidP="00812892">
+      <w:pPr>
+        <w:rPr>
+          <w:rFonts w:ascii="Arial" w:hAnsi="Arial" w:cs="Arial"/>
+          <w:sz w:val="24"/>
+          <w:szCs w:val="24"/>
+          <w:lang w:val="es-MX"/>
+        </w:rPr>
+      </w:pPr>
+    </w:p>
+    <w:p w14:paraId="0FBC351B" w14:textId="77777777" w:rsidR="00812892" w:rsidRPr="00B55792" w:rsidRDefault="00812892" w:rsidP="00B55792">
+      <w:pPr>
+        <w:rPr>
+          <w:rFonts w:ascii="Arial" w:hAnsi="Arial" w:cs="Arial"/>
+          <w:color w:val="FF0000"/>
+          <w:sz w:val="20"/>
+          <w:szCs w:val="24"/>
+          <w:lang w:val="es-MX"/>
+        </w:rPr>
+      </w:pPr>
+    </w:p>
+    <w:p w14:paraId="09A4537F" w14:textId="77777777" w:rsidR="00B55792" w:rsidRPr="00B55792" w:rsidRDefault="00B55792" w:rsidP="00B55792">
+      <w:pPr>
+        <w:rPr>
+          <w:rFonts w:ascii="Arial" w:hAnsi="Arial" w:cs="Arial"/>
+          <w:sz w:val="24"/>
+          <w:szCs w:val="24"/>
+          <w:lang w:val="es-MX"/>
+        </w:rPr>
+      </w:pPr>
+    </w:p>
+    <w:p w14:paraId="0023DDF9" w14:textId="77777777" w:rsidR="00494C90" w:rsidRDefault="00494C90">
+      <w:pPr>
+        <w:rPr>
+          <w:rFonts w:ascii="Arial" w:hAnsi="Arial" w:cs="Arial"/>
+          <w:sz w:val="24"/>
+          <w:szCs w:val="24"/>
+          <w:lang w:val="es-MX"/>
+        </w:rPr>
+      </w:pPr>
+    </w:p>
+    <w:p w14:paraId="7B073AB9" w14:textId="77777777" w:rsidR="00B55792" w:rsidRDefault="00B55792">
+      <w:pPr>
+        <w:rPr>
+          <w:rFonts w:ascii="Arial" w:hAnsi="Arial" w:cs="Arial"/>
+          <w:sz w:val="24"/>
+          <w:szCs w:val="24"/>
+          <w:lang w:val="es-MX"/>
+        </w:rPr>
+      </w:pPr>
+      <w:r>
+        <w:rPr>
+          <w:rFonts w:ascii="Arial" w:hAnsi="Arial" w:cs="Arial"/>
+          <w:sz w:val="24"/>
+          <w:szCs w:val="24"/>
+          <w:lang w:val="es-MX"/>
+        </w:rPr>
+        <w:br w:type="page"/>
+      </w:r>
+    </w:p>
+    <w:p w14:paraId="5F64BDEC" w14:textId="77777777" w:rsidR="00274DFB" w:rsidRPr="00B55792" w:rsidRDefault="00274DFB" w:rsidP="00274DFB">
+      <w:pPr>
+        <w:pBdr>
+          <w:bottom w:val="single" w:sz="4" w:space="1" w:color="auto"/>
+        </w:pBdr>
+        <w:rPr>
+          <w:rFonts w:ascii="Arial" w:hAnsi="Arial" w:cs="Arial"/>
+          <w:b/>
+          <w:sz w:val="24"/>
+          <w:szCs w:val="24"/>
+          <w:lang w:val="es-MX"/>
+        </w:rPr>
+      </w:pPr>
+      <w:r>
+        <w:rPr>
+          <w:rFonts w:ascii="Arial" w:hAnsi="Arial" w:cs="Arial"/>
+          <w:b/>
+          <w:sz w:val="24"/>
+          <w:szCs w:val="24"/>
+          <w:lang w:val="es-MX"/>
+        </w:rPr>
+        <w:lastRenderedPageBreak/>
+        <w:t>5.- Referencias bibliográficas</w:t>
+      </w:r>
+      
+      
+    </w:p>
+    <w:p w14:paraId="05430B7F" w14:textId="781CB630" w:rsidR="00977475" w:rsidRPr="00977475" w:rsidRDefault="00274DFB" w:rsidP="00274DFB">
+      <w:pPr>
+        <w:rPr>
+          <w:rFonts w:ascii="Arial" w:hAnsi="Arial" w:cs="Arial"/>
+          <w:i/>
+          <w:color w:val="FF0000"/>
+          <w:sz w:val="20"/>
+          <w:szCs w:val="24"/>
+          <w:lang w:val="es-MX"/>
+        </w:rPr>
+      </w:pPr>
+      <w:r>
+        <w:rPr>
+          <w:rFonts w:ascii="Arial" w:hAnsi="Arial" w:cs="Arial"/>
+          <w:i/>
+          <w:color w:val="FF0000"/>
+          <w:sz w:val="20"/>
+          <w:szCs w:val="24"/>
+          <w:lang w:val="es-MX"/>
+        </w:rPr>
+        <w:t xml:space="preserve">Incorporar los diferentes tipos de materiales de consulta que utilizaron durante el desarrollo del proyecto, bien sea para el desarrollo teórico, aclarar duras, indagar soluciones preexistentes, entre otros… Recuerda utilizar las </w:t>
+      </w:r>
+      
+      <w:hyperlink r:id="rId7" w:history="1">
+        <w:r>
+          <w:rPr>
+            <w:rStyle w:val="Hipervnculo"/>
+            <w:rFonts w:ascii="Arial" w:hAnsi="Arial" w:cs="Arial"/>
+            <w:i/>
+            <w:sz w:val="20"/>
+            <w:szCs w:val="24"/>
+            <w:lang w:val="es-MX"/>
+          </w:rPr>
+          <w:t>normas APA</w:t>
+        </w:r>
+      </w:hyperlink>
+      <w:r>
+        <w:rPr>
+          <w:rFonts w:ascii="Arial" w:hAnsi="Arial" w:cs="Arial"/>
+          <w:i/>
+          <w:color w:val="FF0000"/>
+          <w:sz w:val="20"/>
+          <w:szCs w:val="24"/>
+          <w:lang w:val="es-MX"/>
+        </w:rPr>
+        <w:t xml:space="preserve">,  </w:t>
+      </w:r>
+      
+    </w:p>
+    <w:p w14:paraId="6F241A09" w14:textId="77777777" w:rsidR="00B55792" w:rsidRDefault="00B55792">
+      <w:pPr>
+        <w:rPr>
+          <w:rFonts w:ascii="Arial" w:hAnsi="Arial" w:cs="Arial"/>
+          <w:sz w:val="24"/>
+          <w:szCs w:val="24"/>
+          <w:lang w:val="es-MX"/>
+        </w:rPr>
+      </w:pPr>
+    </w:p>
+    <w:p w14:paraId="18C34040" w14:textId="77777777" w:rsidR="00977475" w:rsidRDefault="00977475">
+      <w:pPr>
+        <w:rPr>
+          <w:rFonts w:ascii="Arial" w:hAnsi="Arial" w:cs="Arial"/>
+          <w:sz w:val="24"/>
+          <w:szCs w:val="24"/>
+          <w:lang w:val="es-MX"/>
+        </w:rPr>
+      </w:pPr>
+    </w:p>
+    <w:p w14:paraId="0032A676" w14:textId="77777777" w:rsidR="00977475" w:rsidRDefault="00977475">
+      <w:pPr>
+        <w:rPr>
+          <w:rFonts w:ascii="Arial" w:hAnsi="Arial" w:cs="Arial"/>
+          <w:sz w:val="24"/>
+          <w:szCs w:val="24"/>
+          <w:lang w:val="es-MX"/>
+        </w:rPr>
+      </w:pPr>
+    </w:p>
+    <w:p w14:paraId="5EBFA91B" w14:textId="77777777" w:rsidR="00977475" w:rsidRDefault="00977475">
+      <w:pPr>
+        <w:rPr>
+          <w:rFonts w:ascii="Arial" w:hAnsi="Arial" w:cs="Arial"/>
+          <w:sz w:val="24"/>
+          <w:szCs w:val="24"/>
+          <w:lang w:val="es-MX"/>
+        </w:rPr>
+      </w:pPr>
+    </w:p>
+    <w:p w14:paraId="6F1A01DE" w14:textId="77777777" w:rsidR="00977475" w:rsidRDefault="00977475">
+      <w:pPr>
+        <w:rPr>
+          <w:rFonts w:ascii="Arial" w:hAnsi="Arial" w:cs="Arial"/>
+          <w:sz w:val="24"/>
+          <w:szCs w:val="24"/>
+          <w:lang w:val="es-MX"/>
+        </w:rPr>
+      </w:pPr>
+    </w:p>
+    <w:p w14:paraId="05F6FD0D" w14:textId="77777777" w:rsidR="00977475" w:rsidRDefault="00977475">
+      <w:pPr>
+        <w:rPr>
+          <w:rFonts w:ascii="Arial" w:hAnsi="Arial" w:cs="Arial"/>
+          <w:sz w:val="24"/>
+          <w:szCs w:val="24"/>
+          <w:lang w:val="es-MX"/>
+        </w:rPr>
+      </w:pPr>
+    </w:p>
+    <w:p w14:paraId="654D99E1" w14:textId="77777777" w:rsidR="00977475" w:rsidRDefault="00977475">
+      <w:pPr>
+        <w:rPr>
+          <w:rFonts w:ascii="Arial" w:hAnsi="Arial" w:cs="Arial"/>
+          <w:sz w:val="24"/>
+          <w:szCs w:val="24"/>
+          <w:lang w:val="es-MX"/>
+        </w:rPr>
+      </w:pPr>
+    </w:p>
+    <w:p w14:paraId="6455554F" w14:textId="77777777" w:rsidR="00977475" w:rsidRDefault="00977475">
+      <w:pPr>
+        <w:rPr>
+          <w:rFonts w:ascii="Arial" w:hAnsi="Arial" w:cs="Arial"/>
+          <w:sz w:val="24"/>
+          <w:szCs w:val="24"/>
+          <w:lang w:val="es-MX"/>
+        </w:rPr>
+      </w:pPr>
+    </w:p>
+    <w:p w14:paraId="5116947E" w14:textId="77777777" w:rsidR="00977475" w:rsidRDefault="00977475">
+      <w:pPr>
+        <w:rPr>
+          <w:rFonts w:ascii="Arial" w:hAnsi="Arial" w:cs="Arial"/>
+          <w:sz w:val="24"/>
+          <w:szCs w:val="24"/>
+          <w:lang w:val="es-MX"/>
+        </w:rPr>
+      </w:pPr>
+    </w:p>
+    <w:p w14:paraId="6C3AC96A" w14:textId="77777777" w:rsidR="00977475" w:rsidRDefault="00977475">
+      <w:pPr>
+        <w:rPr>
+          <w:rFonts w:ascii="Arial" w:hAnsi="Arial" w:cs="Arial"/>
+          <w:sz w:val="24"/>
+          <w:szCs w:val="24"/>
+          <w:lang w:val="es-MX"/>
+        </w:rPr>
+      </w:pPr>
+    </w:p>
+    <w:p w14:paraId="12272C40" w14:textId="77777777" w:rsidR="00977475" w:rsidRDefault="00977475">
+      <w:pPr>
+        <w:rPr>
+          <w:rFonts w:ascii="Arial" w:hAnsi="Arial" w:cs="Arial"/>
+          <w:sz w:val="24"/>
+          <w:szCs w:val="24"/>
+          <w:lang w:val="es-MX"/>
+        </w:rPr>
+      </w:pPr>
+    </w:p>
+    <w:p w14:paraId="449D1B29" w14:textId="77777777" w:rsidR="00977475" w:rsidRDefault="00977475">
+      <w:pPr>
+        <w:rPr>
+          <w:rFonts w:ascii="Arial" w:hAnsi="Arial" w:cs="Arial"/>
+          <w:sz w:val="24"/>
+          <w:szCs w:val="24"/>
+          <w:lang w:val="es-MX"/>
+        </w:rPr>
+      </w:pPr>
+    </w:p>
+    <w:p w14:paraId="442655CE" w14:textId="77777777" w:rsidR="00977475" w:rsidRDefault="00977475">
+      <w:pPr>
+        <w:rPr>
+          <w:rFonts w:ascii="Arial" w:hAnsi="Arial" w:cs="Arial"/>
+          <w:sz w:val="24"/>
+          <w:szCs w:val="24"/>
+          <w:lang w:val="es-MX"/>
+        </w:rPr>
+      </w:pPr>
+    </w:p>
+    <w:p w14:paraId="3151F219" w14:textId="77777777" w:rsidR="00977475" w:rsidRDefault="00977475">
+      <w:pPr>
+        <w:rPr>
+          <w:rFonts w:ascii="Arial" w:hAnsi="Arial" w:cs="Arial"/>
+          <w:sz w:val="24"/>
+          <w:szCs w:val="24"/>
+          <w:lang w:val="es-MX"/>
+        </w:rPr>
+      </w:pPr>
+    </w:p>
+    <w:p w14:paraId="2CABD636" w14:textId="77777777" w:rsidR="00977475" w:rsidRDefault="00977475">
+      <w:pPr>
+        <w:rPr>
+          <w:rFonts w:ascii="Arial" w:hAnsi="Arial" w:cs="Arial"/>
+          <w:sz w:val="24"/>
+          <w:szCs w:val="24"/>
+          <w:lang w:val="es-MX"/>
+        </w:rPr>
+      </w:pPr>
+    </w:p>
+    <w:p w14:paraId="253E2623" w14:textId="77777777" w:rsidR="00977475" w:rsidRDefault="00977475">
+      <w:pPr>
+        <w:rPr>
+          <w:rFonts w:ascii="Arial" w:hAnsi="Arial" w:cs="Arial"/>
+          <w:sz w:val="24"/>
+          <w:szCs w:val="24"/>
+          <w:lang w:val="es-MX"/>
+        </w:rPr>
+      </w:pPr>
+    </w:p>
+    <w:p w14:paraId="188399C1" w14:textId="77777777" w:rsidR="00977475" w:rsidRDefault="00977475">
+      <w:pPr>
+        <w:rPr>
+          <w:rFonts w:ascii="Arial" w:hAnsi="Arial" w:cs="Arial"/>
+          <w:sz w:val="24"/>
+          <w:szCs w:val="24"/>
+          <w:lang w:val="es-MX"/>
+        </w:rPr>
+      </w:pPr>
+    </w:p>
+    <w:p w14:paraId="3726DF61" w14:textId="77777777" w:rsidR="00977475" w:rsidRDefault="00977475">
+      <w:pPr>
+        <w:rPr>
+          <w:rFonts w:ascii="Arial" w:hAnsi="Arial" w:cs="Arial"/>
+          <w:sz w:val="24"/>
+          <w:szCs w:val="24"/>
+          <w:lang w:val="es-MX"/>
+        </w:rPr>
+      </w:pPr>
+    </w:p>
+    <w:p w14:paraId="647B4ED8" w14:textId="77777777" w:rsidR="00977475" w:rsidRDefault="00977475">
+      <w:pPr>
+        <w:rPr>
+          <w:rFonts w:ascii="Arial" w:hAnsi="Arial" w:cs="Arial"/>
+          <w:sz w:val="24"/>
+          <w:szCs w:val="24"/>
+          <w:lang w:val="es-MX"/>
+        </w:rPr>
+      </w:pPr>
+    </w:p>
+    <w:p w14:paraId="5164510D" w14:textId="77777777" w:rsidR="00977475" w:rsidRDefault="00977475">
+      <w:pPr>
+        <w:rPr>
+          <w:rFonts w:ascii="Arial" w:hAnsi="Arial" w:cs="Arial"/>
+          <w:sz w:val="24"/>
+          <w:szCs w:val="24"/>
+          <w:lang w:val="es-MX"/>
+        </w:rPr>
+      </w:pPr>
+    </w:p>
+    <w:p w14:paraId="07EB0008" w14:textId="77777777" w:rsidR="00977475" w:rsidRDefault="00977475">
+      <w:pPr>
+        <w:rPr>
+          <w:rFonts w:ascii="Arial" w:hAnsi="Arial" w:cs="Arial"/>
+          <w:sz w:val="24"/>
+          <w:szCs w:val="24"/>
+          <w:lang w:val="es-MX"/>
+        </w:rPr>
+      </w:pPr>
+    </w:p>
+    <w:p w14:paraId="36D4A381" w14:textId="77777777" w:rsidR="00977475" w:rsidRDefault="00977475">
+      <w:pPr>
+        <w:rPr>
+          <w:rFonts w:ascii="Arial" w:hAnsi="Arial" w:cs="Arial"/>
+          <w:sz w:val="24"/>
+          <w:szCs w:val="24"/>
+          <w:lang w:val="es-MX"/>
+        </w:rPr>
+      </w:pPr>
+    </w:p>
+    <w:p w14:paraId="6430CDF7" w14:textId="77777777" w:rsidR="00977475" w:rsidRDefault="00977475">
+      <w:pPr>
+        <w:rPr>
+          <w:rFonts w:ascii="Arial" w:hAnsi="Arial" w:cs="Arial"/>
+          <w:sz w:val="24"/>
+          <w:szCs w:val="24"/>
+          <w:lang w:val="es-MX"/>
+        </w:rPr>
+      </w:pPr>
+    </w:p>
+    <w:p w14:paraId="0952FE39" w14:textId="77777777" w:rsidR="00977475" w:rsidRDefault="00977475">
+      <w:pPr>
+        <w:rPr>
+          <w:rFonts w:ascii="Arial" w:hAnsi="Arial" w:cs="Arial"/>
+          <w:sz w:val="24"/>
+          <w:szCs w:val="24"/>
+          <w:lang w:val="es-MX"/>
+        </w:rPr>
+      </w:pPr>
+    </w:p>
+    <w:p w14:paraId="3089C973" w14:textId="77777777" w:rsidR="00977475" w:rsidRDefault="00977475">
+      <w:pPr>
+        <w:rPr>
+          <w:rFonts w:ascii="Arial" w:hAnsi="Arial" w:cs="Arial"/>
+          <w:sz w:val="24"/>
+          <w:szCs w:val="24"/>
+          <w:lang w:val="es-MX"/>
+        </w:rPr>
+      </w:pPr>
+    </w:p>
+    <w:p w14:paraId="546D7297" w14:textId="36943D61" w:rsidR="00977475" w:rsidRPr="00B55792" w:rsidRDefault="00977475" w:rsidP="00977475">
+      <w:pPr>
+        <w:pBdr>
+          <w:bottom w:val="single" w:sz="4" w:space="1" w:color="auto"/>
+        </w:pBdr>
+        <w:rPr>
+          <w:rFonts w:ascii="Arial" w:hAnsi="Arial" w:cs="Arial"/>
+          <w:b/>
+          <w:sz w:val="24"/>
+          <w:szCs w:val="24"/>
+          <w:lang w:val="es-MX"/>
+        </w:rPr>
+      </w:pPr>
+      <w:r>
+        <w:rPr>
+          <w:rFonts w:ascii="Arial" w:hAnsi="Arial" w:cs="Arial"/>
+          <w:b/>
+          <w:sz w:val="24"/>
+          <w:szCs w:val="24"/>
+          <w:lang w:val="es-MX"/>
+        </w:rPr>
+        <w:lastRenderedPageBreak/>
+        <w:t>6.- Fotografías</w:t>
+      </w:r>
+      
+      
+      
+      
+    </w:p>
+    <w:p w14:paraId="05D1ED64" w14:textId="77777777" w:rsidR="00977475" w:rsidRPr="00977475" w:rsidRDefault="00977475" w:rsidP="00977475">
+      <w:pPr>
+        <w:rPr>
+          <w:rFonts w:ascii="Arial" w:hAnsi="Arial" w:cs="Arial"/>
+          <w:i/>
+          <w:color w:val="FF0000"/>
+          <w:sz w:val="20"/>
+          <w:szCs w:val="24"/>
+          <w:lang w:val="es-MX"/>
+        </w:rPr>
+      </w:pPr>
+      <w:r>
+        <w:rPr>
+          <w:rFonts w:ascii="Arial" w:hAnsi="Arial" w:cs="Arial"/>
+          <w:i/>
+          <w:color w:val="FF0000"/>
+          <w:sz w:val="20"/>
+          <w:szCs w:val="24"/>
+          <w:lang w:val="es-MX"/>
+        </w:rPr>
+        <w:t xml:space="preserve">Incorporar los diferentes tipos de materiales de consulta que utilizaron durante el desarrollo del proyecto, bien sea para el desarrollo teórico, aclarar duras, indagar soluciones preexistentes, entre otros… Recuerda utilizar las </w:t>
+      </w:r>
+      <w:hyperlink r:id="rId8" w:history="1">
+        <w:r>
+          <w:rPr>
+            <w:rStyle w:val="Hipervnculo"/>
+            <w:rFonts w:ascii="Arial" w:hAnsi="Arial" w:cs="Arial"/>
+            <w:i/>
+            <w:sz w:val="20"/>
+            <w:szCs w:val="24"/>
+            <w:lang w:val="es-MX"/>
+          </w:rPr>
+          <w:t>normas APA</w:t>
+        </w:r>
+      </w:hyperlink>
+      <w:r>
+        <w:rPr>
+          <w:rFonts w:ascii="Arial" w:hAnsi="Arial" w:cs="Arial"/>
+          <w:i/>
+          <w:color w:val="FF0000"/>
+          <w:sz w:val="20"/>
+          <w:szCs w:val="24"/>
+          <w:lang w:val="es-MX"/>
+        </w:rPr>
+        <w:t xml:space="preserve">,  </w:t>
+      </w:r>
+    </w:p>
+    <w:p w14:paraId="35ECB1CA" w14:textId="77777777" w:rsidR="00977475" w:rsidRPr="00B55792" w:rsidRDefault="00977475">
+      <w:pPr>
+        <w:rPr>
+          <w:rFonts w:ascii="Arial" w:hAnsi="Arial" w:cs="Arial"/>
+          <w:sz w:val="24"/>
+          <w:szCs w:val="24"/>
+          <w:lang w:val="es-MX"/>
+        </w:rPr>
+      </w:pPr>
+    </w:p>
+    <w:sectPr w:rsidR="00977475" w:rsidRPr="00B55792" w:rsidSect="00B55792">
+      <w:footerReference w:type="default" r:id="rId9"/>
+      <w:headerReference w:type="first" r:id="rId10"/>
+      <w:pgSz w:w="12240" w:h="15840" w:code="1"/>
+      <w:pgMar w:top="1417" w:right="1701" w:bottom="1417" w:left="1701" w:header="708" w:footer="708" w:gutter="0"/>
+      <w:cols w:space="708"/>
+      <w:titlePg/>
+      <w:docGrid w:linePitch="360"/>
+    </w:sectPr>
+  </w:body>
+</w:document>

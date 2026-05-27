@@ -25,11 +25,14 @@
 #define FTRT_LOW  0
 #define TRIG_PIN 5
 #define ECHO_PIN 18
-// PIN PARA LECTOR DE TANQUE
-// PIN PARA BOMBA DEL TANQUE
 
+/* PINES DE ACTUADORES */
+#define UV_PIN      25   // LED UV — salida PWM (LEDC canal 0, 8-bit, 5 kHz)
+#define RIEGO_PIN   26   // Bomba de riego — salida digital a relé (HIGH = encendido)
 
-
-
+/* CONFIGURACIÓN PWM PARA LUZ UV */
+#define UV_LEDC_CANAL      0
+#define UV_LEDC_FRECUENCIA 5000
+#define UV_LEDC_RESOLUCION 8     // 8 bits → valores 0–255
 
 #endif
