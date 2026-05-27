@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Documentacion | GreenHouse</title>
+    <link rel="stylesheet" href="../assets/site.css" />
+  </head>
+  <body>
+    <header class="site-header">
+      <a class="brand" href="../">
+        <img src="../assets/icon.svg" alt="" />
+        <span>GreenHouse</span>
+      </a>
+      <nav>
+        <a href="../">Inicio</a>
+        <a href="#api">API</a>
+        <a href="#app">App</a>
+      </nav>
+    </header>
+
+    <main>
+      <section class="doc-hero reveal">
+        <span class="eyebrow">Documentacion</span>
+        <h1>Arquitectura de monitoreo y configuracion</h1>
+        <p>Resumen operativo para entender como la app conversa con el ESP32-S3 y como se organiza la experiencia movil.</p>
+      </section>
+
+      <section class="doc-grid" id="api">
+        <article class="doc-panel reveal">
+          <h2>GET /api/datos</h2>
+          <p>Devuelve sensores, estado del ESP32 y resultados de IA. La app guarda la respuesta completa en historial y exporta los campos actuales mas `raw_json`.</p>
+          <pre><code>{
+  "sensores": {
+    "temperatura_ambiente": 26.1,
+    "temperatura_agua": 23.8,
+    "humedad_ambiente": 58,
+    "humedad_suelo": 41,
+    "intensidad_luz": 720,
+    "ultrasonido": 18
+  },
+  "esp32": { "temperatura": 42, "camStatus": true },
+  "ia": { "intensidad_uv": 0.72, "riego": true, "ventilacion": false, "perfil": 2 }
+}</code></pre>
+        </article>
+
+        <article class="doc-panel reveal">
+          <h2>GET /api/foto</h2>
+          <p>Devuelve una imagen JPEG. La app realiza dos solicitudes consecutivas porque algunos builds del ESP32-S3 entregan un frame cacheado en la primera lectura.</p>
+        </article>
+
+        <article class="doc-panel reveal">
+          <h2>POST /api/perfil</h2>
+          <p>Recibe texto plano `1`, `2` o `3` para seleccionar `Desertico`, `Tropical` o `Alpino`.</p>
+        </article>
+
+        <article class="doc-panel reveal">
+          <h2>POST /api/wifi</h2>
+          <p>Recibe JSON con `red` y `psw`. El ESP32 responde antes de reconectarse para evitar perder la respuesta HTTP.</p>
+        </article>
+      </section>
+
+      <section class="section" id="app">
+        <div class="section-title reveal">
+          <span class="eyebrow">Aplicacion</span>
+          <h2>Flujo de uso recomendado</h2>
+        </div>
+        <div class="timeline">
+          <div class="timeline-item reveal"><strong>1</strong><span>Configurar IP local del ESP32-S3.</span></div>
+          <div class="timeline-item reveal"><strong>2</strong><span>Activar lectura automatica cada 1 o 2 segundos.</span></div>
+          <div class="timeline-item reveal"><strong>3</strong><span>Registrar historial cuando se necesite evidencia de monitoreo.</span></div>
+          <div class="timeline-item reveal"><strong>4</strong><span>Exportar CSV y revisar tendencias de sensores e IA.</span></div>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <span>GreenHouse V3.0</span>
+      <a href="../">Volver al inicio</a>
+    </footer>
+
+    <script src="../assets/site.js"></script>
+  </body>
+</html>

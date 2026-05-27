@@ -54,7 +54,10 @@ void setup() {
   pinMode(LED_PIN, OUTPUT); // Led Azul Integrado
   pinMode(FC28_PIN, INPUT); // FC-28
   pinMode(FTRT_PIN, INPUT); // FOTORESISTENCIA
+  pinMode(TRIG_PIN, OUTPUT);
+  pinMode(ECHO_PIN, INPUT);
 
+  digitalWrite(TRIG_PIN, LOW);
   dht.begin();
 
   delay(1000);
@@ -86,9 +89,18 @@ void loop() {
     porcentaje = map(valorCrudo, FTRT_LOW, FTRT_HIGH, 0, 100);
     intensidad_luz  = constrain(porcentaje, 0, 100);
     
-    temperatura_agua     = random(16, 30);
-    ultrasonido          = random(5, 20);
+    // LECTURA DEL ULTRASONIDO
+    digitalWrite(TRIG_PIN, LOW);
+    delayMicroseconds(2);
+    digitalWrite(TRIG_PIN, HIGH);
+    delayMicroseconds(10);
+    digitalWrite(TRIG_PIN, LOW);
+    long duracion = pulseIn(ECHO_PIN, HIGH, 30000);
+    float distancia = duracion * 0.0343 / 2.0;
+    ultrasonido = (int)distancia;
 
+    temperatura_agua     = random(16, 30);
+    
     JsonDocument doc;
     JsonArray sensores = doc.to<JsonArray>();
 
@@ -105,10 +117,7 @@ void loop() {
     serializeJson(sensores, Serial);
     Serial.println();
 
-    // [FIX 2] Pequeña pausa tras enviar para dar ventana al S3 de responder
-    // antes de que el loop vuelva a ejecutarse y potencialmente transmitir
-    // de nuevo. Sin este delay, TX y RX pueden solaparse en el bus UART.
-    delay(300);
+    delay(600);
   }
 
   // ── Recepción de comandos del S3 ───────────────────────────────────────

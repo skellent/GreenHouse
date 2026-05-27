@@ -50,7 +50,7 @@ bool initCamara() {
   config.xclk_freq_hz = 20000000;
   config.pixel_format = PIXFORMAT_JPEG;
   
-  config.frame_size = FRAMESIZE_QVGA; // Configuración de resolución menor a VGA por rendimiento (QVGA = 320x240)
+  config.frame_size = FRAMESIZE_VGA; // Configuración de resolución menor a VGA por rendimiento (QVGA = 320x240)
   config.jpeg_quality = 10;           // Calidad de compresión (10 es alta calidad, 63 es baja)
   config.fb_count = 1;                // Un solo buffer es suficiente si no haces streaming continuo de alta tasa
 

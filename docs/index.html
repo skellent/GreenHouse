@@ -1,89 +1,84 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Skell's GreenHouse</title>
-    <link rel="stylesheet" href="./css/styles.css">
-    <script src="./js/script.js" defer></script>
-</head>
-<body>
-    <h1>Skell's GreenHouse</h1>
-    <nav>
-        <ul>
-            <li><a href="#inicio">Inicio</a></li>
-            <li><a href="#indice">Índice</a></li>
-            <li><a href="#hardware">Hardware</a></li>
-            <li><a href="#software">Software</a></li>
-            <li><a href="#uso">Instrucciones de Uso</a></li>
-            <li><a href="#tft">Pantalla TFT</a></li>
-            <li><a href="#contacto">Contacto</a></li>
-        </ul>
-    </nav>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>GreenHouse | Invernadero autonomo con IA</title>
+    <link rel="stylesheet" href="./assets/site.css" />
+  </head>
+  <body>
+    <header class="site-header">
+      <a class="brand" href="./">
+        <img src="./assets/icon.svg" alt="" />
+        <span>GreenHouse</span>
+      </a>
+      <nav>
+        <a href="#inicio">Inicio</a>
+        <a href="#modulos">Modulos</a>
+        <a href="./documentacion/">Documentacion</a>
+      </nav>
+    </header>
+
     <main>
-        <section id="inicio">
-            <h2>Bienvenido a Skell's GreenHouse</h2>
-            <p>Skell's GreenHouse es un invernadero inteligente y autónomo, desarrollado para monitorear y controlar variables ambientales usando ESP32, sensores y una pantalla TFT. El proyecto es open source y está documentado para facilitar su uso y adaptación.</p>
-        </section>
-        <section id="indice">
-            <h2>Índice</h2>
-            <ol>
-                <li><a href="#hardware">Hardware</a></li>
-                <li><a href="#software">Software</a></li>
-                <li><a href="#uso">Instrucciones de Uso</a></li>
-                <li><a href="#tft">Configuración de Pantalla TFT</a></li>
-                <li><a href="#contacto">Contacto</a></li>
-            </ol>
-        </section>
-        <section id="hardware">
-            <h2>Hardware</h2>
-            <ul>
-                <li>ESP32 Dev Board</li>
-                <li>Pantalla TFT ILI9341 (SPI)</li>
-                <li>Sensores: DHT22, DS18B20, sensor de humedad de tierra, sensor de nivel de agua</li>
-                <li>Luces UV (control PWM)</li>
-                <li>Bomba de agua</li>
-                <li>Placa y esquemas: <a href="../Chris/Esquema circuito/Esquema circuito.kicad_sch">Esquema KiCad</a></li>
-            </ul>
-        </section>
-        <section id="software">
-            <h2>Software</h2>
-            <ul>
-                <li>Firmware principal: <code>src/main/main.ino</code></li>
-                <li>Módulos: <code>GUI</code>, <code>CONFIG</code>, <code>MONITOR</code></li>
-                <li>Servidor web integrado para monitoreo en tiempo real</li>
-                <li>Generación de interfaz gráfica en pantalla TFT</li>
-                <li>Documentación y código fuente en <a href="https://github.com/">GitHub</a></li>
-            </ul>
-        </section>
-        <section id="uso">
-            <h2>Instrucciones de Uso</h2>
-            <ol>
-                <li>Clona o descarga este repositorio.</li>
-                <li>Abre el proyecto en Arduino IDE o PlatformIO.</li>
-                <li>Configura tus credenciales WiFi en <code>CONFIG_example.h</code> y renómbralo a <code>CONFIG.h</code>.</li>
-                <li>Reemplaza el archivo <code>User_Setup.h</code> en la carpeta de la librería <b>TFT_eSPI</b> por el incluido en <code>src/User_Setup.h</code> para asegurar la correcta configuración de la pantalla.</li>
-                <li>Compila y sube el firmware al ESP32.</li>
-                <li>Accede al servidor web desde la IP mostrada en la pantalla TFT.</li>
-            </ol>
-        </section>
-        <section id="tft">
-            <h2>Configuración de Pantalla TFT</h2>
-            <p>El archivo <code>User_Setup.h</code> define los pines y parámetros para la pantalla ILI9341. Es <b>imprescindible</b> reemplazar el archivo original de la librería <b>TFT_eSPI</b> por el proporcionado aquí para el correcto funcionamiento del proyecto.</p>
-            <ul>
-                <li>Pines SPI: MISO=19, MOSI=23, SCLK=18, CS=15, DC=2, RST=4, TOUCH_CS=21</li>
-                <li>Frecuencia SPI: 27 MHz</li>
-                <li>Driver: ILI9341</li>
-            </ul>
-        </section>
-    </main>
-    <footer>
+      <section class="hero" id="inicio">
+        <div class="hero-copy reveal">
+          <span class="eyebrow">Skell's GreenHouse V3.0</span>
+          <h1>Un invernadero autonomo que observa, decide y registra.</h1>
+          <p>
+            GreenHouse integra sensores ambientales, ESP32-S3, camara e inteligencia artificial para ayudar a monitorear cultivos en tiempo real desde una app movil.
+          </p>
+          <div class="hero-actions">
+            <a class="primary-link" href="./documentacion/">Leer documentacion</a>
+            <a class="secondary-link" href="#modulos">Ver capacidades</a>
+          </div>
+        </div>
+        <div class="device-card reveal">
+          <img src="./assets/icon.svg" alt="Icono de GreenHouse" />
+          <div>
+            <strong>Monitoreo vivo</strong>
+            <span>Datos, camara, IA e historial CSV.</span>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="modulos">
+        <div class="section-title reveal">
+          <span class="eyebrow">Capacidades</span>
+          <h2>Del sensor a una decision util</h2>
+        </div>
+        <div class="feature-grid">
+          <article class="feature-card reveal">
+            <span>01</span>
+            <h3>Sensores completos</h3>
+            <p>Temperatura, humedad, luz, altura y estado del hardware se consultan desde la API local del ESP32-S3.</p>
+          </article>
+          <article class="feature-card reveal">
+            <span>02</span>
+            <h3>IA integrada</h3>
+            <p>La app muestra intensidad UV, riego, ventilacion y perfil de planta activo para entender la respuesta del sistema.</p>
+          </article>
+          <article class="feature-card reveal">
+            <span>03</span>
+            <h3>Camara y evidencia</h3>
+            <p>Captura fotografias con doble solicitud para evitar frames cacheados y exporta historial completo en CSV.</p>
+          </article>
+        </div>
+      </section>
+
+      <section class="band reveal">
         <div>
-            <p>&copy; 2024 Skell's GreenHouse. Todos los derechos reservados.</p>
+          <span class="eyebrow">Aplicacion movil</span>
+          <h2>Hecha para el WebView de Capacitor</h2>
         </div>
-        <div id="contacto">
-            <p>Contacto: <a href="mailto:skellent69@gmail.com">skellent69@gmail.com</a></p>
-        </div>
+        <p>La interfaz movil se construye en HTML, CSS y JavaScript vanilla, sin framework de UI, para empaquetarse directamente dentro de Android.</p>
+      </section>
+    </main>
+
+    <footer>
+      <span>Developed by Robert Rodriguez "Skellent", Christopher Ramirez y Fabiana Hernandez.</span>
+      <a href="./documentacion/">Documentacion tecnica</a>
     </footer>
-</body>
+
+    <script src="./assets/site.js"></script>
+  </body>
 </html>

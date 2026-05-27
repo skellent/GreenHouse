@@ -104,7 +104,7 @@ Sensores y pines:
 
 ## Aplicacion Movil
 
-La aplicacion movil esta en [`app/`](app/). Incluye monitoreo automatico configurable cada 1 o 2 segundos, historial local bajo demanda, captura/descarga de foto, configuracion WiFi, perfiles `Desertico`, `Tropical` y `Alpino`, temas claro/oscuro/sistema e idiomas Español, English, Русский, Deutsch y 中文.
+La aplicacion movil esta en [`app/`](app/). Es una app vanilla HTML/CSS/JS empaquetada con Capacitor. Incluye monitoreo automatico configurable cada 1 o 2 segundos, historial local bajo demanda, captura/descarga de foto con doble solicitud para evitar cache de camara, configuracion WiFi, perfiles `Desertico`, `Tropical` y `Alpino`, temas claro/oscuro/sistema y exportacion CSV con todos los sensores, estado del ESP32 y resultados de IA.
 
 Consulta el manual completo en [`app/README.md`](app/README.md).
 

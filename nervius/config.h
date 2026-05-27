@@ -23,6 +23,13 @@
 #define FTRT_PIN  35
 #define FTRT_HIGH 4095
 #define FTRT_LOW  0
+#define TRIG_PIN 5
+#define ECHO_PIN 18
+// PIN PARA LECTOR DE TANQUE
+// PIN PARA BOMBA DEL TANQUE
+
+
+
 
 
 #endif

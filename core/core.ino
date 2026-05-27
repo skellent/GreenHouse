@@ -48,13 +48,14 @@ uint8_t uv          = 0;
 bool    riego       = false;
 uint8_t ventilacion = 0;
 unsigned long lastLCDUpdate = 0;
-
-// Credenciales WiFi activas (cargadas desde NVS o fallback a config.h)
 String wifiRed = WIFI_RED;
 String wifiPsw = WIFI_PSW;
+static String bufferEntrante = "";
 
 
-// Declaraciones anticipadas
+/*╔═════════════════════════════════════════╗
+  ║ [ GLOBAL ]  Constructores de Funciones  ║ Es para evitar posibles errores de compilación
+  ╚═════════════════════════════════════════╝*/
 void servidorWeb(void *pvParameters);
 bool conectarWiFi(const String& red, const String& psw, uint8_t maxIntentos = 20);
 
@@ -65,37 +66,7 @@ bool conectarWiFi(const String& red, const String& psw, uint8_t maxIntentos = 20
 void setup() {
   neopixelWrite(PIN_RGB, 255, 255, 0); // AMARILLO
 
-  //pinMode(PIN_BUZZER, OUTPUT);
-
-  Serial.begin(BAUDIOS);
-  nervios.begin(BAUDIOS, SERIAL_8N1, PIN_RX, PIN_TX);
-  // Sin setTimeout: la lectura en loop() es no bloqueante (byte a byte)
-
-  delay(1000);
-
-  // ── Cargar preferencias persistentes desde NVS ─────────────────────────
-  prefs.begin("greenhouse", false);
-
-  if (prefs.isKey("wifi_red")) {
-    wifiRed = prefs.getString("wifi_red", WIFI_RED);
-    wifiPsw = prefs.getString("wifi_psw", WIFI_PSW);
-    Serial.println("[NVS] Credenciales WiFi cargadas desde memoria.");
-  }
-
-  // Perfil 1 por defecto si nunca se ha guardado uno
-  sensores.ia_perfilplanta = prefs.getUChar("perfil", 1);
-  Serial.printf("[NVS] Perfil activo: %d\n", sensores.ia_perfilplanta);
-
-  prefs.end();
-
-  // ── Resto del hardware ─────────────────────────────────────────────────
-  mutexDatos = xSemaphoreCreateMutex();
-  camStatus  = initCamara();
-
-  conectarWiFi(wifiRed, wifiPsw);
-
-  neopixelWrite(PIN_RGB, 0, 0, 255); // AZUL
-
+  /* INICIALIZACIÓN DE LA PANTALLA */
   Wire.begin(LCD_SDA, LCD_SCL);
   lcd.init();
   lcd.backlight();
@@ -104,14 +75,39 @@ void setup() {
   lcd.setCursor(0, 1);
   lcd.print("Skell's GrHs  V3");
 
+  neopixelWrite(PIN_RGB, 255, 0, 0); // ROJO
+
+  /* INICIALIZACIÓN DE PINES */
+  pinMode(LCD_BOTON, INPUT_PULLUP);
+
+  /* INICIALIZACIÓN DE MONITORES SERIALES (UART) */
+  Serial.begin(BAUDIOS);
+  nervios.begin(BAUDIOS, SERIAL_8N1, PIN_RX, PIN_TX);
+
+  /* CARGA A LA RAM PREFERENCIAS/CONFIGURACIONES */
+  prefs.begin("greenhouse", false);
+  if (prefs.isKey("wifi_red")) {
+    wifiRed = prefs.getString("wifi_red", WIFI_RED); // POR DEFECTO, LA DEFINIDA EN config.h
+    wifiPsw = prefs.getString("wifi_psw", WIFI_PSW); // POR DEFECTO, LA DEFINIDA EN config.h
+  }
+  sensores.ia_perfilplanta = prefs.getUChar("perfil", 1); // POR DEFECTO "1" SI NO SE ENCUENTRA UNO GUARDADO
+  prefs.end();
+
+  /* CONFIGURACIÓN DE HARDWARE INTEGRADO (Protección a la RAM, activación de la cámara y conexión al wifi) */
+  mutexDatos = xSemaphoreCreateMutex();
+  camStatus  = initCamara();
+  conectarWiFi(wifiRed, wifiPsw);
+
+  /* CREACIÓN DE ÍCONOS PARA LA PANTALLA */
   lcd.createChar(0, iconoTemperatura);
   lcd.createChar(1, iconoHumedad);
   lcd.createChar(2, iconoWifi);
   lcd.createChar(3, iconoAltura);
+  lcd.createChar(4, iconoRed);
 
-  delay(5000);
   neopixelWrite(PIN_RGB, 255, 255, 0); // AMARILLO
 
+  /* DELEGACIÓN DE API AL SEGUNDO NÚCLEO */
   xTaskCreatePinnedToCore(servidorWeb, "ServidorWeb", 8192, NULL, 1, NULL, 0);
 }
 
@@ -120,11 +116,14 @@ void setup() {
   ║ [ GLOBAL ] Conectar a WiFi       ║
   ╚══════════════════════════════════╝*/
 bool conectarWiFi(const String& red, const String& psw, uint8_t maxIntentos) {
-  WiFi.disconnect(true);
+  WiFi.disconnect(true); // Se desconecta de una red en caso de estarlo
   delay(200);
-  WiFi.begin(red.c_str(), psw.c_str());
+  WiFi.begin(red.c_str(), psw.c_str()); // Intenta conectarse a la nueva red
   uint8_t i = 0;
-  while (WiFi.status() != WL_CONNECTED && i < maxIntentos) { delay(500); i++; }
+  while (WiFi.status() != WL_CONNECTED && i < maxIntentos) { // Realiza un número de intentos
+    delay(500);
+    i++;
+  }
   return WiFi.status() == WL_CONNECTED;
 }
 
@@ -133,18 +132,14 @@ bool conectarWiFi(const String& red, const String& psw, uint8_t maxIntentos) {
   ║ [ NÚCLEO 1 ] Búcle Principal  ║
   ╚═══════════════════════════════╝*/
 void loop() {
-  neopixelWrite(PIN_RGB, 255, 255, 255); // BLANCO
+  /* INICIO DE ITERACIÓN */
+  neopixelWrite(PIN_RGB, 0, 0, 255); // AZUL
   actualizarLCD();
-  //tone(PIN_BUZZER, random(100, 1000), 500);
+  bufferEntrante = "";
 
-  // ── Lectura UART no bloqueante (byte a byte) ───────────────────────────
-  static String bufferEntrante = "";
-
+  /* RECIBE BYTES POR UART Y LOS UNIFICA PARA LEER UN JSON Y GUARDAR EN MEMORIA SUS VALORES */
   while (nervios.available()) {
-    // noTone(PIN_BUZZER);
-    // neopixelWrite(PIN_RGB, 0, 0, 255); // AZUL
-
-    char c = nervios.read();
+    char c = nervios.read(); // LEE HASTA ENCONTRAR EL SALTO DE LÍNEA QUE INDICA EL FINAL DEL JSON
     if (c == '\n') {
       if (bufferEntrante.length() > 0) {
         JsonDocument datos;
@@ -152,16 +147,14 @@ void loop() {
         bufferEntrante = "";
 
         if (!error) {
-          if (xSemaphoreTake(mutexDatos, pdMS_TO_TICKS(100)) == pdTRUE) {
+          if (xSemaphoreTake(mutexDatos, pdMS_TO_TICKS(100)) == pdTRUE) { // PERMITE MODIFICACION SEGURA DE MEMORIA USADA POR AMBOS NÚCLEOS
             sensores.sen_temperatura_ambiente = datos[0];
             sensores.sen_temperatura_agua     = datos[1];
             sensores.sen_humedad_ambiente     = datos[2];
             sensores.sen_humedad_suelo        = datos[3];
             sensores.sen_intensidad_luz       = datos[4];
             sensores.sen_ultrasonido          = datos[5];
-            // ia_perfilplanta ya está cargado desde NVS en setup()
-            detectarPerfil();
-            xSemaphoreGive(mutexDatos);
+            xSemaphoreGive(mutexDatos); // LIBERA EL SEGURO PARA PERMITIR EL USO DE MEMORIA POR NÚCLEO 0
           }
 
           /*
@@ -171,15 +164,9 @@ void loop() {
           */
 
           ejecutarActuadores(150, true, 1);
-        } else {
-          Serial.print("[ERROR] JSON del Común corrupto: ");
-          Serial.println(error.c_str());
         }
       }
-    } else {
-      bufferEntrante += c;
-      if (bufferEntrante.length() > 128) bufferEntrante = "";
-    }
+    } else { bufferEntrante += c; if (bufferEntrante.length() > 128) bufferEntrante = ""; } // UNE CARACTERES Y LIMPIA EL BUFFER EN CASO DE EXCEDER EL LÍMITE EN MEMORIA
   }
 
   vTaskDelay(pdMS_TO_TICKS(200));
@@ -192,21 +179,11 @@ void loop() {
 void ejecutarActuadores(int uv, bool riego, uint8_t ventilacion) {
   JsonDocument doc;
   JsonArray actuadores = doc.to<JsonArray>();
-  actuadores.add(uv);
-  actuadores.add(riego);
-  actuadores.add(ventilacion);
+  actuadores.add(uv);          // INTENSIDAD DE LUZ UV EN PWM
+  actuadores.add(riego);       // ENCENDER O APAGAR EL RIEGO
+  actuadores.add(ventilacion); // VENTILACIÓN Y DIRECCIÓN DE LA MISMA
   serializeJson(doc, nervios);
   nervios.println();
-}
-
-
-/*╔═════════════════════════════════════════╗
-  ║ [ NÚCLEO 1 ] Detector de Maceta/Perfil  ║
-  ╚═════════════════════════════════════════╝*/
-void detectarPerfil() {
-  // sensores.ia_perfilplanta ya está cargado desde NVS.
-  // Aquí añade lógica visual o de ajuste según el perfil activo.
-  Serial.printf("[Perfil] Perfil activo: %d\n", sensores.ia_perfilplanta);
 }
 
 
@@ -214,30 +191,45 @@ void detectarPerfil() {
   ║ [ NÚCLEO 1 ] PANTALLA LCD  ║
   ╚════════════════════════════╝*/
 void actualizarLCD() {
-  if (millis() - lastLCDUpdate < 1000) return;
+  if (millis() - lastLCDUpdate < 1000) return; // EVITAR SATURACIÓN DE REESCRITURAS
+  lcd.clear();
+  lcd.setCursor(0, 0);
 
-  if (xSemaphoreTake(mutexDatos, pdMS_TO_TICKS(50)) == pdTRUE) {
-    lcd.clear();
+  /* PROCEDE A ESCRIBIR EN PANTALLA LOS DATOS DEPENDIENDO DEL ESTADO */
+  if (digitalRead(LCD_BOTON)) {
+    if (xSemaphoreTake(mutexDatos, pdMS_TO_TICKS(50)) == pdTRUE) { // PERMITE MODIFICACION SEGURA DE MEMORIA USADA POR AMBOS NÚCLEOS
+      /* FILA 1 */
+      lcd.write(0);
+      lcd.print((int)sensores.sen_temperatura_ambiente);
+      lcd.print("C ");
+      lcd.write(1);
+      lcd.print((int)sensores.sen_humedad_ambiente);
+      lcd.print("% ");
+      lcd.write(3);
+      lcd.print((int)sensores.sen_ultrasonido);
+      lcd.print("cm");
+      /* FILA 2 */
+      lcd.setCursor(0, 1);
+      lcd.write(0);
+      lcd.print((int)sensores.sen_temperatura_agua);
+      lcd.print("C ");
+      lcd.write(3);
+      lcd.print((int)sensores.sen_humedad_suelo);
+      lcd.print("% ");
 
-    lcd.setCursor(0, 0);
-    lcd.write(0);
-    lcd.print((int)sensores.sen_temperatura_ambiente);
-    lcd.print("C ");
-    lcd.write(1);
-    lcd.print((int)sensores.sen_humedad_ambiente);
-    lcd.print("% ");
-    lcd.write(3);
-    lcd.print((int)sensores.sen_ultrasonido);
-    lcd.print("cm");
-
+      xSemaphoreGive(mutexDatos); // LIBERA EL SEGURO PARA PERMITIR EL USO DE MEMORIA POR NÚCLEO 0
+    }
+  } else {
+    lcd.write(4);
+    lcd.print(" ");
+    lcd.print(wifiRed);
     lcd.setCursor(0, 1);
     lcd.write(2);
     lcd.print(" ");
     lcd.print(WiFi.localIP());
-
-    xSemaphoreGive(mutexDatos);
-    lastLCDUpdate = millis();
   }
+
+  lastLCDUpdate = millis();
 }
 
 

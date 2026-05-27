@@ -4,9 +4,9 @@
   "type": "module",
   "private": true,
   "scripts": {
-    "dev": "vite --host 0.0.0.0",
-    "build": "tsc --noEmit && vite build",
-    "preview": "vite preview --host 0.0.0.0",
+    "dev": "bun tools/dev-server.js",
+    "build": "bun tools/check-static.js",
+    "preview": "bun tools/dev-server.js",
     "cap:add:android": "bunx cap add android",
     "cap:sync": "bun run build && bunx cap sync android",
     "cap:open": "bunx cap open android"
@@ -17,9 +17,6 @@
     "@capacitor/filesystem": "latest"
   },
   "devDependencies": {
-    "@capacitor/cli": "latest",
-    "@types/bun": "latest",
-    "typescript": "^5",
-    "vite": "latest"
+    "@capacitor/cli": "latest"
   }
 }

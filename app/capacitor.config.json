@@ -1,0 +1,14 @@
+{
+  "appId": "dev.skellent.greenhouse",
+  "appName": "GreenHouse",
+  "webDir": "www",
+  "server": {
+    "androidScheme": "https",
+    "cleartext": true
+  },
+  "plugins": {
+    "CapacitorHttp": {
+      "enabled": true
+    }
+  }
+}
