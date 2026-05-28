@@ -19,8 +19,4 @@
 #define LCD_PROTOCOLO 0x27
 #define LCD_BOTON 19
 
-/* BUZZER */
-#define PIN_BUZZER 38
-#define BUZZER_TONE 329
-
 #endif

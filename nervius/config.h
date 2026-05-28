@@ -25,9 +25,10 @@
 #define FTRT_LOW  0
 #define TRIG_PIN 5
 #define ECHO_PIN 18
+#define DS18_PIN 22
 
 /* PINES DE ACTUADORES */
-#define UV_PIN      25   // LED UV — salida PWM (LEDC canal 0, 8-bit, 5 kHz)
+#define UV_PIN      23   // LED UV — salida PWM (LEDC canal 0, 8-bit, 5 kHz)
 #define RIEGO_PIN   26   // Bomba de riego — salida digital a relé (HIGH = encendido)
 
 /* CONFIGURACIÓN PWM PARA LUZ UV */

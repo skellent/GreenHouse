@@ -18,6 +18,7 @@
 // Librerías TFLite Micro
 #include <TensorFlowLite_ESP32.h>
 #include <tensorflow/lite/micro/micro_interpreter.h>
+#include <tensorflow/lite/micro/micro_error_reporter.h>
 #include <tensorflow/lite/micro/micro_mutable_op_resolver.h>
 #include <tensorflow/lite/schema/schema_generated.h>
 
@@ -105,8 +106,9 @@ namespace Alicia {
     resolver.AddLogistic();
 
     // Crear el intérprete de forma estática (sin heap dinámico)
+    static tflite::MicroErrorReporter micro_error_reporter;
     static tflite::MicroInterpreter static_interpreter(
-      _model, resolver, _arena, ALICIA_ARENA_KB * 1024
+      _model, resolver, _arena, ALICIA_ARENA_KB * 1024, &micro_error_reporter
     );
     _interpreter = &static_interpreter;
 
