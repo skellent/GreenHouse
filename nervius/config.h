@@ -9,7 +9,7 @@
 #define BAUDIOS 115200
 
 /* CONFIGURACION DE LECTURA */
-#define INTERVALO 2
+#define INTERVALO 1
 
 /* LED INTEGRADO */
 #define LED_PIN 2

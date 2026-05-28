@@ -1,6 +1,6 @@
-/*╔═══════════════════════════════════════════════════╗
-  ║  SKELL'S GREENHOUSE V3.0 - NODO SENSORES (COMÚN)  ║
-  ╚═══════════════════════════════════════════════════╝*/
+/*╔═══════════════════════════════════════════════════════╗
+  ║  SKELL'S GREENHOUSE V3.0 - NODO SENSORES (COMÚN)    ║
+  ╚═══════════════════════════════════════════════════════╝*/
 
 
 /*╔══════════════════════════════════╗
@@ -8,6 +8,8 @@
   ╚══════════════════════════════════╝*/
 #include <ArduinoJson.h>
 #include <DHT.h>
+#include <OneWire.h>
+#include <DallasTemperature.h>
 
 
 /*╔═════════════════════════════╗
@@ -20,17 +22,20 @@
   ║ [ GLOBAL ] Instancias ║
   ╚═══════════════════════╝*/
 HardwareSerial core(2);
-DHT dht(DHT_PIN, DHT_MODEL);
+DHT            dht(DHT_PIN, DHT_MODEL);
+OneWire        oneWire(DS18_PIN);
+DallasTemperature ds18(&oneWire);
 
 
 /*╔═══════════════════════════════════════════╗
   ║ [ GLOBAL ] Variables Globales/Temporales  ║
   ╚═══════════════════════════════════════════╝*/
 float temperatura_ambiente = 0;
-float temperatura_agua     = 22.0;
+float temperatura_agua_a   = 22.0;   // DS18[0] — sensor A (tanque principal)
+float temperatura_agua_b   = 22.0;   // DS18[1] — sensor B (punto secundario)
 float humedad_ambiente     = 0;
 float humedad_suelo        = 45.2;
-int   intensidad_luz       = 1024;
+int   intensidad_luz       = 0;
 int   ultrasonido          = 150;
 
 // Actuadores (valores recibidos desde el S3 / Alicia)
@@ -39,7 +44,7 @@ bool    riego       = false;
 uint8_t ventilacion = 0;
 
 unsigned long tiempoAnterior = 0;
-const long intervalo = INTERVALO * 1000;
+const long    intervalo      = INTERVALO * 1000;
 
 
 void setup() {
@@ -57,19 +62,39 @@ void setup() {
   digitalWrite(TRIG_PIN, LOW);
 
   /* PINES DE ACTUADORES */
-  // UV: configurar canal LEDC para PWM de 8 bits a 5 kHz
   ledcSetup(UV_LEDC_CANAL, UV_LEDC_FRECUENCIA, UV_LEDC_RESOLUCION);
   ledcAttachPin(UV_PIN, UV_LEDC_CANAL);
-  ledcWrite(UV_LEDC_CANAL, 0);          // LEDs apagados al inicio
+  ledcWrite(UV_LEDC_CANAL, 0);
 
-  // Riego: pin digital hacia el relé
   pinMode(RIEGO_PIN, OUTPUT);
-  digitalWrite(RIEGO_PIN, LOW);         // Bomba apagada al inicio
+  digitalWrite(RIEGO_PIN, LOW);
 
+  /* DHT22 */
   dht.begin();
 
-  delay(1000);
-  Serial.println("[OK] Nodo sensores + actuadores listo.");
+  /*╔══════════════════════════════════════════════════╗
+    ║  DS18B20 — Inicialización                        ║
+    ╠══════════════════════════════════════════════════╣
+    ║  Resolución 11-bit → conversión ~375 ms, ±0.125°C║
+    ║  setWaitForConversion(false) = modo no-bloqueante ║
+    ║  El ciclo de 1 s sirve como tiempo de conversión  ║
+    ╚══════════════════════════════════════════════════╝*/
+  ds18.begin();
+  ds18.setResolution(11);
+  ds18.setWaitForConversion(false);
+
+  // Primera solicitud en setup → delay para cebar la lectura inicial
+  ds18.requestTemperatures();
+  delay(400);
+
+  int encontrados = ds18.getDeviceCount();
+  Serial.printf("[DS18] Sensores encontrados: %d en pin %d\n", encontrados, DS18_PIN);
+  if (encontrados < 2) {
+    Serial.println("[DS18] ADVERTENCIA: se esperaban 2 sensores.");
+  }
+
+  delay(200);
+  Serial.println("[OK] Nodo sensores + actuadores listo. Intervalo: " + String(INTERVALO) + " s.");
 }
 
 
@@ -78,10 +103,23 @@ void loop() {
 
   // ── Envío periódico de sensores al S3 ──────────────────────────────────
   if (tiempoActual - tiempoAnterior >= intervalo) {
-    digitalWrite(LED_PIN, HIGH);
     tiempoAnterior = tiempoActual;
+    digitalWrite(LED_PIN, HIGH);
 
-    // LECTURA DEL DHT22
+    /*╔══════════════════════════════════════════════════════╗
+      ║  DS18B20 — Lectura no-bloqueante                     ║
+      ╠══════════════════════════════════════════════════════╣
+      ║  1. Se leen los valores de la conversión ANTERIOR    ║
+      ║     (tiene ≥ 1 s desde que se solicitó → lista).    ║
+      ║  2. Se solicita la conversión para el PRÓXIMO ciclo. ║
+      ╚══════════════════════════════════════════════════════╝*/
+    float t0 = ds18.getTempCByIndex(0);
+    float t1 = ds18.getTempCByIndex(1);
+    if (t0 != DEVICE_DISCONNECTED_C && t0 > -50.0f) temperatura_agua_a = t0;
+    if (t1 != DEVICE_DISCONNECTED_C && t1 > -50.0f) temperatura_agua_b = t1;
+    ds18.requestTemperatures();   // solicitar conversión para el siguiente ciclo
+
+    // LECTURA DEL DHT22 (temperatura y humedad ambiente)
     float h = dht.readHumidity();
     float t = dht.readTemperature();
     if (!std::isnan(h)) humedad_ambiente     = h;
@@ -103,35 +141,43 @@ void loop() {
     digitalWrite(TRIG_PIN, HIGH);
     delayMicroseconds(10);
     digitalWrite(TRIG_PIN, LOW);
-    long duracion  = pulseIn(ECHO_PIN, HIGH, 30000);
+    long  duracion  = pulseIn(ECHO_PIN, HIGH, 30000);
     float distancia = duracion * 0.0343f / 2.0f;
-    ultrasonido = (int)distancia;
+    ultrasonido     = (int)distancia;
 
-    // Temperatura del agua: sustituir por sensor DS18B20 cuando esté disponible
-    temperatura_agua = (float)random(16, 30);
-
-    // Enviar JSON de sensores al S3
+    /*╔══════════════════════════════════════════════════════╗
+      ║  Protocolo UART → Core (ESP32-S3)                    ║
+      ╠══════════════════════════════════════════════════════╣
+      ║  JSON Array de 7 elementos:                          ║
+      ║  [0] temp_ambiente  (DHT22,  °C)                    ║
+      ║  [1] temp_agua_a    (DS18[0], °C) — sensor A        ║
+      ║  [2] hum_ambiente   (DHT22,  %)                     ║
+      ║  [3] hum_suelo      (FC-28,  %)                     ║
+      ║  [4] intensidad_luz (FTRT,   %)                     ║
+      ║  [5] ultrasonido    (HC-SR04, cm)                   ║
+      ║  [6] temp_agua_b    (DS18[1], °C) — sensor B        ║
+      ╚══════════════════════════════════════════════════════╝*/
     JsonDocument doc;
-    JsonArray sensores = doc.to<JsonArray>();
-    sensores.add(temperatura_ambiente);
-    sensores.add(temperatura_agua);
-    sensores.add(humedad_ambiente);
-    sensores.add(humedad_suelo);
-    sensores.add(intensidad_luz);
-    sensores.add(ultrasonido);
+    JsonArray    payload = doc.to<JsonArray>();
+    payload.add(temperatura_ambiente);   // [0]
+    payload.add(temperatura_agua_a);     // [1] DS18[0]
+    payload.add(humedad_ambiente);       // [2]
+    payload.add(humedad_suelo);          // [3]
+    payload.add(intensidad_luz);         // [4]
+    payload.add(ultrasonido);            // [5]
+    payload.add(temperatura_agua_b);     // [6] DS18[1]
 
-    serializeJson(sensores, core);
+    serializeJson(payload, core);
     core.println();
 
-    serializeJson(sensores, Serial);
+    serializeJson(payload, Serial);
     Serial.println();
 
-    delay(600);
+    digitalWrite(LED_PIN, LOW);
   }
 
-  // ── Recepción de comandos del S3 (salidas de Alicia) ──────────────────
+  // ── Recepción de comandos del Core (salidas de Alicia) ─────────────────
   if (core.available()) {
-    digitalWrite(LED_PIN, LOW);
     String comandos = core.readStringUntil('\n');
 
     JsonDocument actuadores;
@@ -144,13 +190,6 @@ void loop() {
 
       Serial.printf("[ALICIA] UV=%d  Riego=%s\n", uv, riego ? "ON" : "OFF");
 
-      /*╔════════════════════════════════════════╗
-        ║  EJECUCIÓN DE ACTUADORES               ║
-        ╠════════════════════════════════════════╣
-        ║  UV:    PWM sobre LED UV vía LEDC      ║
-        ║  Riego: Relé de bomba de agua          ║
-        ╚════════════════════════════════════════╝*/
-
       // Luz UV — intensidad continua vía PWM (0-255)
       ledcWrite(UV_LEDC_CANAL, uv);
 
@@ -158,7 +197,7 @@ void loop() {
       digitalWrite(RIEGO_PIN, riego ? HIGH : LOW);
 
     } else {
-      Serial.print("[ERROR] JSON del S3 corrupto: ");
+      Serial.print("[ERROR] JSON del Core corrupto: ");
       Serial.println(error.c_str());
     }
   }

@@ -161,11 +161,12 @@ void loop() {
           /* Actualizar sensores con mutex para proteger la RAM compartida */
           if (xSemaphoreTake(mutexDatos, pdMS_TO_TICKS(100)) == pdTRUE) {
             sensores.sen_temperatura_ambiente = datos[0];
-            sensores.sen_temperatura_agua     = datos[1];
+            sensores.sen_temperatura_agua     = datos[1];   // DS18[0]
             sensores.sen_humedad_ambiente     = datos[2];
             sensores.sen_humedad_suelo        = datos[3];
             sensores.sen_intensidad_luz       = datos[4];
             sensores.sen_ultrasonido          = datos[5];
+            sensores.sen_temperatura_agua_b   = datos[6];   // DS18[1]
             xSemaphoreGive(mutexDatos);
           }
 
@@ -279,7 +280,8 @@ void servidorWeb(void *pvParameters) {
     JsonDocument informacion;
     if (xSemaphoreTake(mutexDatos, pdMS_TO_TICKS(50)) == pdTRUE) {
       informacion["sensores"]["temperatura_ambiente"] = sensores.sen_temperatura_ambiente;
-      informacion["sensores"]["temperatura_agua"]     = sensores.sen_temperatura_agua;
+      informacion["sensores"]["temperatura_agua_a"]   = sensores.sen_temperatura_agua;
+      informacion["sensores"]["temperatura_agua_b"]   = sensores.sen_temperatura_agua_b;
       informacion["sensores"]["humedad_ambiente"]     = sensores.sen_humedad_ambiente;
       informacion["sensores"]["humedad_suelo"]        = sensores.sen_humedad_suelo;
       informacion["sensores"]["intensidad_luz"]       = sensores.sen_intensidad_luz;
