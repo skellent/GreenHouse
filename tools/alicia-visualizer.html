@@ -1,0 +1,938 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Alicia — Visualizador Neural · GreenHouse V3.0</title>
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+:root {
+  --bg:        #070d09;
+  --surf:      #0c1610;
+  --surf2:     #101e14;
+  --border:    #1b3322;
+  --prim:      #00e676;
+  --prim-dim:  #00994d;
+  --prim-dk:   #002d14;
+  --acc:       #ffc107;
+  --acc-dk:    #7a5c00;
+  --blue:      #4fc3f7;
+  --blue-dk:   #003a52;
+  --red:       #ff5252;
+  --txt:       #c8f5d5;
+  --txt-d:     #5a9e6f;
+  --txt-m:     #2a5438;
+}
+body {
+  background:var(--bg); color:var(--txt);
+  font-family:'Courier New',monospace;
+  height:100vh; overflow:hidden; display:flex; flex-direction:column;
+}
+
+/* ── HEADER ── */
+header {
+  background:var(--surf); border-bottom:1px solid var(--border);
+  padding:10px 20px; display:flex; justify-content:space-between; align-items:center;
+  flex-shrink:0;
+}
+header h1 { font-size:17px; color:var(--prim); letter-spacing:3px; }
+header .sub { font-size:10px; color:var(--txt-d); margin-top:2px; }
+.badges { display:flex; gap:8px; }
+.badge {
+  padding:3px 10px; border-radius:10px; font-size:10px; letter-spacing:1px;
+  border:1px solid var(--prim-dim); background:var(--prim-dk); color:var(--prim);
+}
+.badge.b2 { border-color:#555; background:#1a1a1a; color:#aaa; }
+
+/* ── MAIN LAYOUT ── */
+main {
+  display:grid; grid-template-columns:250px 1fr 230px;
+  flex:1; overflow:hidden;
+}
+
+/* ── PANELS ── */
+.panel {
+  padding:14px; border-right:1px solid var(--border);
+  overflow-y:auto; overflow-x:hidden;
+}
+.panel:last-child { border-right:none; }
+.ptitle {
+  font-size:9px; letter-spacing:2.5px; color:var(--txt-d); text-transform:uppercase;
+  margin-bottom:12px; padding-bottom:6px; border-bottom:1px solid var(--border);
+}
+
+/* ── INPUTS ── */
+.igroup { margin-bottom:12px; }
+.ilabel {
+  display:flex; justify-content:space-between; align-items:baseline;
+  margin-bottom:5px; font-size:11px;
+}
+.ilabel .iname { color:var(--txt-d); }
+.ilabel .ival  { color:var(--prim); font-weight:bold; min-width:50px; text-align:right; }
+.ilabel .inorm { font-size:9px; color:var(--txt-m); }
+input[type=range] {
+  width:100%; -webkit-appearance:none; height:3px;
+  background:var(--border); border-radius:2px; outline:none; cursor:pointer;
+}
+input[type=range]::-webkit-slider-thumb {
+  -webkit-appearance:none; width:13px; height:13px;
+  border-radius:50%; background:var(--prim); cursor:pointer;
+  box-shadow:0 0 6px var(--prim);
+}
+.isep {
+  border:none; border-top:1px solid var(--border); margin:10px 0;
+}
+.plabel { font-size:10px; color:var(--txt-d); margin-bottom:6px; }
+.pbts { display:flex; gap:5px; }
+.pbt {
+  flex:1; padding:6px 3px; background:var(--surf2);
+  border:1px solid var(--border); color:var(--txt-d);
+  font-family:inherit; font-size:10px; cursor:pointer;
+  border-radius:3px; transition:all .15s; text-align:center;
+}
+.pbt.on {
+  background:var(--prim-dk); border-color:var(--prim); color:var(--prim);
+}
+.sim-btn {
+  width:100%; margin-top:14px; padding:11px;
+  background:var(--prim-dk); border:1px solid var(--prim); color:var(--prim);
+  font-family:inherit; font-size:12px; letter-spacing:2px; cursor:pointer;
+  border-radius:3px; transition:all .2s;
+}
+.sim-btn:hover:not(:disabled) { background:var(--prim); color:var(--bg); }
+.sim-btn:disabled { opacity:.4; cursor:not-allowed; }
+.arch-tag {
+  margin-top:14px; padding:8px; background:var(--surf2);
+  border:1px solid var(--border); border-radius:3px;
+  font-size:10px; color:var(--txt-m); text-align:center; line-height:1.8;
+}
+.arch-tag b { color:var(--prim-dim); }
+
+/* ── NETWORK ── */
+.net-panel {
+  background:var(--surf); position:relative; overflow:hidden;
+}
+#netSvg { width:100%; height:100%; display:block; }
+
+/* ── OUTPUT ── */
+.ogroup { margin-bottom:16px; }
+.olabel {
+  font-size:9px; letter-spacing:2px; color:var(--txt-d);
+  text-transform:uppercase; margin-bottom:7px;
+}
+.uv-box {
+  background:var(--prim-dk); border:1px solid var(--prim-dim);
+  border-radius:4px; padding:12px; text-align:center; position:relative;
+}
+.uv-num {
+  font-size:44px; font-weight:bold; color:var(--prim); line-height:1;
+  transition:all .4s; font-variant-numeric:tabular-nums;
+}
+.uv-unit { font-size:11px; color:var(--txt-d); margin-top:3px; }
+.uv-bar-wrap {
+  height:6px; background:var(--border); border-radius:3px;
+  margin-top:10px; overflow:hidden;
+}
+.uv-bar {
+  height:100%; width:0%; border-radius:3px;
+  background:linear-gradient(to right,#00994d,#00e676,#ffffff);
+  transition:width .6s ease;
+}
+.riego-box {
+  border:1px solid var(--border); border-radius:4px; padding:14px;
+  text-align:center; transition:all .4s;
+}
+.riego-box.on  { background:var(--blue-dk); border-color:var(--blue); }
+.riego-box.off { background:var(--surf2);  border-color:var(--border); }
+.riego-icon { font-size:26px; line-height:1; }
+.riego-val  {
+  font-size:18px; font-weight:bold; margin-top:4px; letter-spacing:2px;
+  transition:color .4s;
+}
+.riego-box.on  .riego-val { color:var(--blue); }
+.riego-box.off .riego-val { color:var(--txt-m); }
+.riego-conf { font-size:9px; color:var(--txt-m); margin-top:3px; }
+
+.log-wrap { margin-top:4px; }
+.log-entry {
+  padding:5px 8px; margin-bottom:3px;
+  background:var(--surf2); border-left:2px solid var(--prim-dim);
+  font-size:10px; color:var(--txt-d); border-radius:0 3px 3px 0;
+  opacity:0; transform:translateX(-6px); transition:all .3s;
+  line-height:1.4;
+}
+.log-entry.vis  { opacity:1; transform:none; }
+.log-entry.warn { border-left-color:var(--acc); }
+.log-entry.alrt { border-left-color:var(--red); }
+.log-entry.res  { border-left-color:var(--prim); color:var(--prim); }
+
+/* ── TOOLTIP ── */
+#tip {
+  position:fixed; background:var(--surf2); border:1px solid var(--border);
+  padding:7px 10px; border-radius:4px; font-size:10px; pointer-events:none;
+  opacity:0; transition:opacity .15s; z-index:999; max-width:160px; line-height:1.5;
+}
+#tip .tname { color:var(--prim); font-weight:bold; margin-bottom:2px; }
+#tip .tact  { color:var(--txt-d); }
+
+/* ── SCANNING OVERLAY ── */
+#scan {
+  position:absolute; top:0; left:0; right:0;
+  height:2px; background:var(--prim);
+  box-shadow:0 0 12px var(--prim);
+  opacity:0; pointer-events:none;
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div>
+    <h1>◈ ALICIA — VISUALIZADOR NEURAL</h1>
+    <div class="sub">Skell's GreenHouse V3.0 · Simulación de Inferencia</div>
+  </div>
+  <div class="badges">
+    <span class="badge">MLP · 6→16→8→2</span>
+    <span class="badge">266 parámetros</span>
+    <span class="badge b2">TFLite Micro · ESP32-S3</span>
+  </div>
+</header>
+
+<main>
+
+  <!-- ── INPUTS ── -->
+  <div class="panel" id="inputPanel">
+    <div class="ptitle">Entradas del Sensor</div>
+
+    <div class="igroup">
+      <div class="ilabel">
+        <span class="iname">Temp. Ambiente</span>
+        <span class="ival" id="v0">25 °C</span>
+      </div>
+      <input type="range" id="s0" min="-10" max="50" value="25" step="0.5">
+    </div>
+
+    <div class="igroup">
+      <div class="ilabel">
+        <span class="iname">Temp. Agua</span>
+        <span class="ival" id="v1">22 °C</span>
+      </div>
+      <input type="range" id="s1" min="5" max="45" value="22" step="0.5">
+    </div>
+
+    <div class="igroup">
+      <div class="ilabel">
+        <span class="iname">Humedad Ambiente</span>
+        <span class="ival" id="v2">60 %</span>
+      </div>
+      <input type="range" id="s2" min="0" max="100" value="60" step="1">
+    </div>
+
+    <div class="igroup">
+      <div class="ilabel">
+        <span class="iname">Humedad Suelo</span>
+        <span class="ival" id="v3">45 %</span>
+      </div>
+      <input type="range" id="s3" min="0" max="100" value="45" step="1">
+    </div>
+
+    <div class="igroup">
+      <div class="ilabel">
+        <span class="iname">Intensidad Luz</span>
+        <span class="ival" id="v4">70 %</span>
+      </div>
+      <input type="range" id="s4" min="0" max="100" value="70" step="1">
+    </div>
+
+    <hr class="isep">
+
+    <div class="plabel">Perfil de Planta</div>
+    <div class="pbts">
+      <button class="pbt on" data-p="1">Desértico</button>
+      <button class="pbt"    data-p="2">Regular</button>
+      <button class="pbt"    data-p="3">Alpino</button>
+    </div>
+
+    <button class="sim-btn" id="simBtn">▶  SIMULAR</button>
+
+    <div class="arch-tag">
+      <b>Arquitectura Alicia</b><br>
+      Entrada [6] → Oculta1 [<b>16</b>·ReLU]<br>
+      → Oculta2 [<b>8</b>·ReLU] → Salida [<b>2</b>·Sigmoid]<br>
+      <br>
+      Normalización: min-max por variable<br>
+      Parámetros totales: <b>266</b>
+    </div>
+  </div>
+
+  <!-- ── NETWORK ── -->
+  <div class="net-panel" id="netPanel">
+    <div id="scan"></div>
+    <svg id="netSvg" viewBox="0 0 740 580" preserveAspectRatio="xMidYMid meet"></svg>
+  </div>
+
+  <!-- ── OUTPUTS ── -->
+  <div class="panel" id="outputPanel">
+    <div class="ptitle">Decisiones de Alicia</div>
+
+    <div class="ogroup">
+      <div class="olabel">Intensidad UV</div>
+      <div class="uv-box">
+        <div class="uv-num" id="uvNum">—</div>
+        <div class="uv-unit">/ 255 (PWM)</div>
+        <div class="uv-bar-wrap"><div class="uv-bar" id="uvBar"></div></div>
+      </div>
+    </div>
+
+    <div class="ogroup">
+      <div class="olabel">Activar Riego</div>
+      <div class="riego-box off" id="riegoBox">
+        <div class="riego-icon">💧</div>
+        <div class="riego-val" id="riegoVal">—</div>
+        <div class="riego-conf" id="riegoConf">esperando...</div>
+      </div>
+    </div>
+
+    <div class="ogroup">
+      <div class="olabel">Razonamiento</div>
+      <div class="log-wrap" id="logWrap"></div>
+    </div>
+  </div>
+
+</main>
+
+<div id="tip"><div class="tname" id="tipName"></div><div class="tact" id="tipAct"></div></div>
+
+<script>
+// ═══════════════════════════════════════════════
+//  CONSTANTES DE LAYOUT DEL GRAFO
+// ═══════════════════════════════════════════════
+const VB_W = 740, VB_H = 580;
+
+// Posiciones X de cada capa
+const LX = { inp:78, h1:230, h2:490, out:648 };
+
+// Posiciones Y de cada capa
+function yPos(n, total, pad=28) {
+  const span = VB_H - pad*2;
+  if (total === 1) return VB_H/2;
+  return pad + (n / (total-1)) * span;
+}
+
+const INP_N = 6, H1_N = 16, H2_N = 8, OUT_N = 2;
+
+const INP_Y  = Array.from({length:INP_N},  (_,i) => yPos(i, INP_N, 50));
+const H1_Y   = Array.from({length:H1_N},   (_,i) => yPos(i, H1_N, 18));
+const H2_Y   = Array.from({length:H2_N},   (_,i) => yPos(i, H2_N, 40));
+const OUT_Y  = Array.from({length:OUT_N},  (_,i) => yPos(i, OUT_N, 160));
+
+// Etiquetas
+const INP_LABELS  = ['Tº Amb','Tº Agua','Hum Amb','Hum Suelo','Luz Ext','Perfil'];
+const H1_LABELS   = [
+  'Luz alta','Luz baja/noche','Suelo seco','Suelo húmedo',
+  'Tº amb alta','Tº amb segura','Hum amb baja','Hum amb alta',
+  'Perf. desértico','Perf. regular','Perf. alpino','Calor + seco',
+  'Agua fría','Agua caliente','UV×perfil','Mod. térmico UV'
+];
+const H2_LABELS   = [
+  'Señal UV base','UV nocturno','Activa riego','Inhibe riego',
+  'Riego por calor','Prot. agua fría','Mod. UV final','Intensidad hídrica'
+];
+const OUT_LABELS  = ['Intensidad UV','Activar Riego'];
+
+// ═══════════════════════════════════════════════
+//  ESTADO GLOBAL
+// ═══════════════════════════════════════════════
+let perfil = 1;
+let animating = false;
+let neuronEls = { inp:[], h1:[], h2:[], out:[] };
+let edgeEls   = { inp_h1:[], h1_h2:[], h2_out:[] };
+let labelEls  = { inp:[], h1:[], h2:[], out:[] };
+
+// ═══════════════════════════════════════════════
+//  HELPERS
+// ═══════════════════════════════════════════════
+const relu    = x => Math.max(0, x);
+const sigmoid = x => 1 / (1 + Math.exp(-x));
+const clamp   = (x,a,b) => Math.max(a, Math.min(b, x));
+const norm    = (v,mn,mx) => clamp((v - mn)/(mx - mn), 0, 1);
+const lerp    = (a,b,t) => a + (b-a)*t;
+
+function actColor(a) {
+  // 0 → #0c1610 (dark surface), 1 → #00e676 (prim)
+  const r = Math.round(lerp(0x0c, 0x00, a));
+  const g = Math.round(lerp(0x16, 0xe6, a));
+  const b = Math.round(lerp(0x10, 0x76, a));
+  return `rgb(${r},${g},${b})`;
+}
+
+function strokeColor(a) {
+  const r = Math.round(lerp(0x1b, 0x00, a));
+  const g = Math.round(lerp(0x33, 0xe6, a));
+  const b = Math.round(lerp(0x22, 0x76, a));
+  return `rgb(${r},${g},${b})`;
+}
+
+// ═══════════════════════════════════════════════
+//  CÓMPUTO DE LA RED NEURONAL
+// ═══════════════════════════════════════════════
+function computeNetwork(tAmb, tAgua, hAmb, hSuelo, luz, pf) {
+  // Normalizar entradas
+  const n = [
+    norm(tAmb,  -10, 50),
+    norm(tAgua,   5, 45),
+    norm(hAmb,    0,100),
+    norm(hSuelo,  0,100),
+    norm(luz,     0,100),
+    norm(pf,      1,  3)
+  ];
+
+  // === Capa oculta 1 (16 neuronas) ===
+  const h1 = [
+    clamp(relu(n[4]*2.8 - 0.9),  0,1),   // 0  Luz alta
+    clamp(relu(1.1 - n[4]*2.0),  0,1),   // 1  Luz baja/noche
+    clamp(relu(0.9 - n[3]*2.0),  0,1),   // 2  Suelo seco
+    clamp(relu(n[3]*2.1 - 0.7),  0,1),   // 3  Suelo húmedo
+    clamp(relu(n[0]*2.0 - 0.95), 0,1),   // 4  Tº amb alta
+    clamp(relu(0.7 - n[0]*1.8),  0,1),   // 5  Tº amb segura
+    clamp(relu(0.8 - n[2]*1.8),  0,1),   // 6  Hum amb baja
+    clamp(relu(n[2]*1.9 - 0.7),  0,1),   // 7  Hum amb alta
+    clamp(relu(0.9 - n[5]*2.2),  0,1),   // 8  Perf. desértico
+    clamp(relu(0.9 - Math.abs(n[5]-0.5)*3.5), 0,1), // 9  Perf. regular
+    clamp(relu(n[5]*2.2 - 0.9),  0,1),   // 10 Perf. alpino
+    clamp(relu(n[0]*0.7 + (1-n[2])*0.8 - 0.5), 0,1), // 11 Calor + seco
+    clamp(relu(0.95 - n[1]*3.5), 0,1),   // 12 Agua fría (<8°C)
+    clamp(relu(n[1]*2.8 - 2.0),  0,1),   // 13 Agua caliente (>40°C)
+    clamp(relu(n[4]*0.9 + (1-n[5])*0.7 - 0.3), 0,1), // 14 UV×perfil
+    clamp(relu((1-n[0])*1.3 - 0.2), 0,1) // 15 Mod. térmico UV
+  ];
+
+  // === Capa oculta 2 (8 neuronas) ===
+  const h2 = [
+    clamp(relu(h1[0]*1.0 + h1[14]*0.8 + h1[15]*0.3 - 0.2), 0,1), // 0 Señal UV base
+    clamp(relu(h1[1]*1.3 + h1[8]*0.4  + 0.15),              0,1), // 1 UV nocturno min
+    clamp(relu(h1[2]*0.9 + h1[6]*0.7  + h1[11]*0.5 - 0.1), 0,1), // 2 Activa riego
+    clamp(relu(h1[3]*1.0 + h1[7]*0.6  - 0.45),              0,1), // 3 Inhibe riego
+    clamp(relu(h1[4]*0.9 + h1[11]*0.8 - 0.3),               0,1), // 4 Riego por calor
+    clamp(relu(h1[12]*1.6 - 0.1),                            0,1), // 5 Prot. agua fría
+    clamp(relu(h1[4]*(-0.7) + h1[0]*0.6 + 0.5),             0,1), // 6 Mod. UV final
+    clamp(relu(h1[2]*0.6 + h1[6]*0.5 + h1[4]*0.4 - 0.3),   0,1)  // 7 Intensidad hídrica
+  ];
+
+  // === Salidas (usando lógica determinista del dataset) ===
+  const mults = [1.15, 1.0, 0.75];
+  const mult  = mults[pf - 1];
+
+  let uvNorm = clamp((luz * 2.55 * mult) / 255, 0, 1);
+  if (tAmb > 35) uvNorm *= 0.85;
+  if (luz < 15) {
+    const minUV = [40, 30, 20][pf-1] / 255;
+    uvNorm = Math.max(uvNorm, minUV);
+  }
+  uvNorm = clamp(uvNorm, 0, 1);
+
+  const cfg = [
+    {seco:25,humedo:50,ambSeco:25,tempCalor:35},
+    {seco:40,humedo:65,ambSeco:40,tempCalor:30},
+    {seco:55,humedo:80,ambSeco:55,tempCalor:25}
+  ][pf-1];
+
+  let riegoConf = 0.08;
+  if (tAgua < 8 || tAgua > 40)      riegoConf = 0.02;
+  else if (hSuelo < cfg.seco)        riegoConf = 0.90;
+  else if (hSuelo > cfg.humedo)      riegoConf = 0.05;
+  else if (hAmb < cfg.ambSeco)       riegoConf = 0.72;
+  else if (tAmb > cfg.tempCalor)     riegoConf = 0.65;
+
+  return {
+    inputs: n,
+    h1, h2,
+    outputs: [uvNorm, riegoConf],
+    uvOut:    Math.round(uvNorm * 255),
+    riegoOut: riegoConf > 0.5,
+    riegoConf
+  };
+}
+
+// ═══════════════════════════════════════════════
+//  RAZONAMIENTO
+// ═══════════════════════════════════════════════
+function buildReasoning(tAmb, tAgua, hAmb, hSuelo, luz, pf) {
+  const entries = [];
+  const pfName  = ['Desértico','Regular','Alpino'][pf-1];
+  const mults   = [1.15, 1.0, 0.75];
+  const mult    = mults[pf-1];
+  const cfg = [
+    {seco:25,humedo:50,ambSeco:25,tempCalor:35},
+    {seco:40,humedo:65,ambSeco:40,tempCalor:30},
+    {seco:55,humedo:80,ambSeco:55,tempCalor:25}
+  ][pf-1];
+
+  // UV
+  entries.push({t:`Perfil ${pfName} → multiplicador UV ×${mult.toFixed(2)}`, c:'info'});
+  entries.push({t:`Luz exterior ${luz.toFixed(0)}% → señal UV base: ${Math.round(luz*2.55*mult)} pwm`, c:'info'});
+  if (tAmb > 35) entries.push({t:`Tº amb ${tAmb.toFixed(1)}°C > 35°C → alivio térmico UV ×0.85`, c:'warn'});
+  if (luz < 15)  entries.push({t:`Luz < 15% → UV nocturno mínimo activado`, c:'warn'});
+
+  // Riego
+  if (tAgua < 8)
+    entries.push({t:`Tº agua ${tAgua.toFixed(1)}°C < 8°C → riego bloqueado (proteger raíces)`, c:'alrt'});
+  else if (tAgua > 40)
+    entries.push({t:`Tº agua ${tAgua.toFixed(1)}°C > 40°C → riego bloqueado (agua demasiado caliente)`, c:'alrt'});
+  else if (hSuelo < cfg.seco)
+    entries.push({t:`Suelo ${hSuelo.toFixed(0)}% < ${cfg.seco}% (umbral seco) → riego activado`, c:'res'});
+  else if (hSuelo > cfg.humedo)
+    entries.push({t:`Suelo ${hSuelo.toFixed(0)}% > ${cfg.humedo}% (umbral húmedo) → riego innecesario`, c:'info'});
+  else if (hAmb < cfg.ambSeco)
+    entries.push({t:`Hum amb ${hAmb.toFixed(0)}% < ${cfg.ambSeco}% → ambiente seco activa riego`, c:'warn'});
+  else if (tAmb > cfg.tempCalor)
+    entries.push({t:`Tº ${tAmb.toFixed(1)}°C > ${cfg.tempCalor}°C → calor activa riego`, c:'warn'});
+  else
+    entries.push({t:`Condiciones estables → riego no requerido`, c:'info'});
+
+  return entries;
+}
+
+// ═══════════════════════════════════════════════
+//  CONSTRUCCIÓN DEL SVG
+// ═══════════════════════════════════════════════
+const svg = document.getElementById('netSvg');
+const NS  = 'http://www.w3.org/2000/svg';
+
+function mkEl(tag, attrs) {
+  const el = document.createElementNS(NS, tag);
+  for (const [k,v] of Object.entries(attrs)) el.setAttribute(k, v);
+  return el;
+}
+
+function buildSVG() {
+  svg.innerHTML = '';
+
+  // Defs: gradients & glows
+  const defs = mkEl('defs', {});
+  // Glow filter
+  const flt = mkEl('filter', {id:'glow', x:'-50%', y:'-50%', width:'200%', height:'200%'});
+  const fe1 = mkEl('feGaussianBlur', {in:'SourceGraphic', stdDeviation:'3', result:'blur'});
+  const fe2 = mkEl('feMerge', {});
+  const fm1 = mkEl('feMergeNode', {in:'blur'});
+  const fm2 = mkEl('feMergeNode', {in:'SourceGraphic'});
+  fe2.appendChild(fm1); fe2.appendChild(fm2);
+  flt.appendChild(fe1); flt.appendChild(fe2);
+  defs.appendChild(flt);
+  svg.appendChild(defs);
+
+  // ── Layer labels ──────────────────────────────
+  const layerLabels = [
+    {x:LX.inp, label:'ENTRADA\n[6]'},
+    {x:LX.h1,  label:'OCULTA 1\n[16 · ReLU]'},
+    {x:LX.h2,  label:'OCULTA 2\n[8 · ReLU]'},
+    {x:LX.out, label:'SALIDA\n[2 · Sigmoid]'},
+  ];
+  layerLabels.forEach(({x, label}) => {
+    const lines = label.split('\n');
+    lines.forEach((line, li) => {
+      const t = mkEl('text', {
+        x, y: 8 + li*12, 'text-anchor':'middle',
+        'font-family':'Courier New,monospace', 'font-size':'9',
+        fill:'#2a5438', 'letter-spacing':'1'
+      });
+      t.textContent = line;
+      svg.appendChild(t);
+    });
+  });
+
+  // ── Edges: INP → H1 ──────────────────────────
+  edgeEls.inp_h1 = [];
+  for (let i = 0; i < INP_N; i++) {
+    for (let j = 0; j < H1_N; j++) {
+      const e = mkEl('line', {
+        x1:LX.inp, y1:INP_Y[i], x2:LX.h1, y2:H1_Y[j],
+        stroke:'#00e676', 'stroke-width':'0.8', 'stroke-opacity':'0.05'
+      });
+      svg.appendChild(e);
+      edgeEls.inp_h1.push(e);
+    }
+  }
+
+  // ── Edges: H1 → H2 ───────────────────────────
+  edgeEls.h1_h2 = [];
+  for (let i = 0; i < H1_N; i++) {
+    for (let j = 0; j < H2_N; j++) {
+      const e = mkEl('line', {
+        x1:LX.h1, y1:H1_Y[i], x2:LX.h2, y2:H2_Y[j],
+        stroke:'#00e676', 'stroke-width':'0.8', 'stroke-opacity':'0.04'
+      });
+      svg.appendChild(e);
+      edgeEls.h1_h2.push(e);
+    }
+  }
+
+  // ── Edges: H2 → OUT ──────────────────────────
+  edgeEls.h2_out = [];
+  for (let i = 0; i < H2_N; i++) {
+    for (let j = 0; j < OUT_N; j++) {
+      const e = mkEl('line', {
+        x1:LX.h2, y1:H2_Y[i], x2:LX.out, y2:OUT_Y[j],
+        stroke:'#00e676', 'stroke-width':'1', 'stroke-opacity':'0.06'
+      });
+      svg.appendChild(e);
+      edgeEls.h2_out.push(e);
+    }
+  }
+
+  // ── Neuronas: INPUT ───────────────────────────
+  neuronEls.inp = [];
+  labelEls.inp  = [];
+  INP_Y.forEach((y, i) => {
+    const g = mkEl('g', {});
+
+    // Label izquierda
+    const lt = mkEl('text', {
+      x: LX.inp - 17, y: y+4, 'text-anchor':'end',
+      'font-family':'Courier New,monospace', 'font-size':'10',
+      fill:'#3a7050'
+    });
+    lt.textContent = INP_LABELS[i];
+    svg.appendChild(lt);
+    labelEls.inp.push(lt);
+
+    // Círculo
+    const c = mkEl('circle', {
+      cx:LX.inp, cy:y, r:'13',
+      fill:'#0c1610', stroke:'#1b3322', 'stroke-width':'1.5',
+      style:'cursor:pointer'
+    });
+    c.addEventListener('mouseenter', (e) => showTip(e, INP_LABELS[i], '?', 'ENTRADA'));
+    c.addEventListener('mouseleave', hideTip);
+    g.appendChild(c);
+
+    // Valor (actualizable)
+    const tv = mkEl('text', {
+      x:LX.inp, y:y+3, 'text-anchor':'middle',
+      'font-family':'Courier New,monospace', 'font-size':'8',
+      fill:'#2a5438', 'pointer-events':'none'
+    });
+    tv.textContent = '?';
+    g.appendChild(tv);
+    svg.appendChild(g);
+    neuronEls.inp.push({circle:c, valText:tv, y, label:INP_LABELS[i]});
+  });
+
+  // ── Neuronas: H1 ─────────────────────────────
+  neuronEls.h1 = [];
+  H1_Y.forEach((y, i) => {
+    const c = mkEl('circle', {
+      cx:LX.h1, cy:y, r:'8',
+      fill:'#0c1610', stroke:'#1b3322', 'stroke-width':'1.2',
+      style:'cursor:pointer'
+    });
+    c.addEventListener('mouseenter', (e) => showTip(e, H1_LABELS[i], '0.00', 'Capa oculta 1'));
+    c.addEventListener('mouseleave', hideTip);
+    svg.appendChild(c);
+    neuronEls.h1.push({circle:c, y, label:H1_LABELS[i]});
+  });
+
+  // ── Neuronas: H2 ─────────────────────────────
+  neuronEls.h2 = [];
+  H2_Y.forEach((y, i) => {
+    // Label derecha abreviada
+    const lt = mkEl('text', {
+      x: LX.h2 + 16, y: y+4, 'text-anchor':'start',
+      'font-family':'Courier New,monospace', 'font-size':'9',
+      fill:'#2a5438'
+    });
+    lt.textContent = H2_LABELS[i];
+    svg.appendChild(lt);
+    labelEls.h2 = labelEls.h2 || [];
+    labelEls.h2.push(lt);
+
+    const c = mkEl('circle', {
+      cx:LX.h2, cy:y, r:'10',
+      fill:'#0c1610', stroke:'#1b3322', 'stroke-width':'1.5',
+      style:'cursor:pointer'
+    });
+    c.addEventListener('mouseenter', (e) => showTip(e, H2_LABELS[i], '0.00', 'Capa oculta 2'));
+    c.addEventListener('mouseleave', hideTip);
+    svg.appendChild(c);
+    neuronEls.h2.push({circle:c, y, label:H2_LABELS[i]});
+  });
+
+  // ── Neuronas: OUTPUT ──────────────────────────
+  neuronEls.out = [];
+  OUT_Y.forEach((y, i) => {
+    // Label derecha
+    const lt = mkEl('text', {
+      x: LX.out + 20, y: y+4, 'text-anchor':'start',
+      'font-family':'Courier New,monospace', 'font-size':'11',
+      fill:'#3a7050', 'font-weight':'bold'
+    });
+    lt.textContent = OUT_LABELS[i];
+    svg.appendChild(lt);
+
+    const c = mkEl('circle', {
+      cx:LX.out, cy:y, r:'14',
+      fill:'#0c1610', stroke:'#1b3322', 'stroke-width':'2',
+      style:'cursor:pointer'
+    });
+    c.addEventListener('mouseenter', (e) => showTip(e, OUT_LABELS[i], '0.00', 'Salida'));
+    c.addEventListener('mouseleave', hideTip);
+    svg.appendChild(c);
+
+    // Valor texto
+    const tv = mkEl('text', {
+      x:LX.out, y:y+4, 'text-anchor':'middle',
+      'font-family':'Courier New,monospace', 'font-size':'8',
+      fill:'#2a5438', 'pointer-events':'none'
+    });
+    svg.appendChild(tv);
+    neuronEls.out.push({circle:c, valText:tv, y, label:OUT_LABELS[i]});
+  });
+}
+
+// ═══════════════════════════════════════════════
+//  ACTUALIZAR NEURONAS (color + valor)
+// ═══════════════════════════════════════════════
+function resetNeurons() {
+  [...neuronEls.inp, ...neuronEls.h1, ...neuronEls.h2, ...neuronEls.out].forEach(n => {
+    n.circle.setAttribute('fill', '#0c1610');
+    n.circle.setAttribute('stroke', '#1b3322');
+    if (n.valText) n.valText.setAttribute('fill', '#2a5438');
+    // reset tooltip activation
+    n._act = undefined;
+  });
+  // Reset edges
+  [...edgeEls.inp_h1, ...edgeEls.h1_h2, ...edgeEls.h2_out].forEach(e => {
+    e.setAttribute('stroke-opacity', e.dataset.baseOp || '0.05');
+  });
+}
+
+function setNeuronAct(nObj, act, showVal=false) {
+  nObj._act = act;
+  nObj.circle.setAttribute('fill', actColor(act));
+  nObj.circle.setAttribute('stroke', strokeColor(act));
+  if (act > 0.05) {
+    nObj.circle.setAttribute('filter', 'url(#glow)');
+  } else {
+    nObj.circle.removeAttribute('filter');
+  }
+  if (nObj.valText && showVal) {
+    nObj.valText.textContent = act.toFixed(2);
+    nObj.valText.setAttribute('fill', act > 0.3 ? '#070d09' : '#2a5438');
+  }
+  // Update tooltip if visible
+  if (nObj._tipActive) {
+    document.getElementById('tipAct').textContent = `Activación: ${act.toFixed(3)}`;
+  }
+}
+
+function setEdgesActive(group, actValues, srcValues, threshold=0.1) {
+  // actValues: activation of destination neurons
+  // srcValues: activation of source neurons
+  group.forEach((e, idx) => {
+    let srcIdx, dstIdx;
+    if (group === edgeEls.inp_h1) {
+      srcIdx = Math.floor(idx / H1_N);
+      dstIdx = idx % H1_N;
+      const a = Math.min(srcValues[srcIdx], actValues[dstIdx]);
+      const op = a > 0.05 ? clamp(a * 0.6, 0.04, 0.55) : 0.04;
+      e.setAttribute('stroke-opacity', String(op));
+      e.setAttribute('stroke', op > 0.2 ? '#00e676' : '#00994d');
+    } else if (group === edgeEls.h1_h2) {
+      srcIdx = Math.floor(idx / H2_N);
+      dstIdx = idx % H2_N;
+      const a = Math.min(srcValues[srcIdx], actValues[dstIdx]);
+      const op = a > 0.05 ? clamp(a * 0.7, 0.04, 0.65) : 0.04;
+      e.setAttribute('stroke-opacity', String(op));
+      e.setAttribute('stroke', op > 0.2 ? '#00e676' : '#00994d');
+    } else {
+      srcIdx = Math.floor(idx / OUT_N);
+      dstIdx = idx % OUT_N;
+      const a = Math.min(srcValues[srcIdx], actValues[dstIdx]);
+      const op = a > 0.05 ? clamp(a * 0.8, 0.06, 0.75) : 0.06;
+      e.setAttribute('stroke-opacity', String(op));
+      e.setAttribute('stroke', op > 0.3 ? '#00ff99' : '#00e676');
+    }
+  });
+}
+
+// ═══════════════════════════════════════════════
+//  ANIMACIÓN POR FASES
+// ═══════════════════════════════════════════════
+function delay(ms) { return new Promise(r => setTimeout(r, ms)); }
+
+async function runAnimation(result, tAmb, tAgua, hAmb, hSuelo, luz, pf) {
+  animating = true;
+  document.getElementById('simBtn').disabled = true;
+  resetNeurons();
+  document.getElementById('logWrap').innerHTML = '';
+  document.getElementById('uvNum').textContent  = '—';
+  document.getElementById('uvBar').style.width  = '0%';
+  document.getElementById('riegoVal').textContent = '—';
+  document.getElementById('riegoConf').textContent = 'procesando...';
+
+  const scan = document.getElementById('scan');
+
+  // ── FASE 0: Mostrar entradas ─────────────────
+  scan.style.opacity = '1';
+  scan.style.transition = 'top 0.3s ease';
+  scan.style.top = '0px';
+
+  for (let i = 0; i < INP_N; i++) {
+    const n = neuronEls.inp[i];
+    setNeuronAct(n, result.inputs[i], true);
+    n.circle.setAttribute('r', '14');
+    await delay(60);
+    n.circle.setAttribute('r', '13');
+  }
+  await delay(200);
+
+  // ── FASE 1: Propagar a Capa Oculta 1 ────────
+  scan.style.top = (document.getElementById('netPanel').offsetHeight * 0.25) + 'px';
+  setEdgesActive(edgeEls.inp_h1, result.h1, result.inputs);
+  await delay(100);
+
+  for (let i = 0; i < H1_N; i++) {
+    setNeuronAct(neuronEls.h1[i], result.h1[i]);
+    await delay(35);
+  }
+  await delay(200);
+
+  // ── FASE 2: Propagar a Capa Oculta 2 ────────
+  scan.style.top = (document.getElementById('netPanel').offsetHeight * 0.6) + 'px';
+  setEdgesActive(edgeEls.h1_h2, result.h2, result.h1);
+  await delay(100);
+
+  for (let i = 0; i < H2_N; i++) {
+    setNeuronAct(neuronEls.h2[i], result.h2[i]);
+    await delay(60);
+  }
+  await delay(200);
+
+  // ── FASE 3: Propagar a Salida ────────────────
+  scan.style.top = (document.getElementById('netPanel').offsetHeight * 0.88) + 'px';
+  setEdgesActive(edgeEls.h2_out, result.outputs, result.h2);
+  await delay(100);
+
+  for (let i = 0; i < OUT_N; i++) {
+    setNeuronAct(neuronEls.out[i], result.outputs[i], true);
+    await delay(80);
+  }
+  await delay(250);
+
+  scan.style.opacity = '0';
+
+  // ── FASE 4: Mostrar resultados ───────────────
+  // UV
+  const uvEl  = document.getElementById('uvNum');
+  const uvBar = document.getElementById('uvBar');
+  const target = result.uvOut;
+  let current = 0;
+  const step = Math.max(1, Math.floor(target / 20));
+  while (current < target) {
+    current = Math.min(current + step, target);
+    uvEl.textContent = current;
+    await delay(20);
+  }
+  uvEl.textContent = result.uvOut;
+  uvBar.style.width = (result.uvOut / 255 * 100) + '%';
+
+  // Riego
+  await delay(100);
+  const riegoBox = document.getElementById('riegoBox');
+  const riegoVal = document.getElementById('riegoVal');
+  const riegoConf = document.getElementById('riegoConf');
+  riegoBox.className = 'riego-box ' + (result.riegoOut ? 'on' : 'off');
+  riegoVal.textContent = result.riegoOut ? 'SI' : 'NO';
+  const pct = Math.round(result.riegoConf * 100);
+  riegoConf.textContent = `confianza: ${pct}%`;
+
+  // ── FASE 5: Razonamiento ─────────────────────
+  await delay(200);
+  const reasons = buildReasoning(tAmb, tAgua, hAmb, hSuelo, luz, pf);
+  const logWrap = document.getElementById('logWrap');
+  for (const r of reasons) {
+    const div = document.createElement('div');
+    div.className = `log-entry ${r.c}`;
+    div.textContent = r.t;
+    logWrap.appendChild(div);
+    await delay(30);
+    div.classList.add('vis');
+    await delay(120);
+  }
+
+  animating = false;
+  document.getElementById('simBtn').disabled = false;
+}
+
+// ═══════════════════════════════════════════════
+//  TOOLTIP
+// ═══════════════════════════════════════════════
+const tip = document.getElementById('tip');
+function showTip(e, name, act, layer) {
+  document.getElementById('tipName').textContent = name;
+  document.getElementById('tipAct').textContent  =
+    act !== '?' ? `Capa: ${layer}` : `Capa: ${layer}`;
+  tip.style.opacity = '1';
+  moveTip(e);
+}
+function moveTip(e) {
+  const x = Math.min(e.clientX + 12, window.innerWidth  - 175);
+  const y = Math.min(e.clientY + 12, window.innerHeight - 60);
+  tip.style.left = x + 'px';
+  tip.style.top  = y + 'px';
+}
+function hideTip() { tip.style.opacity = '0'; }
+document.addEventListener('mousemove', e => {
+  if (tip.style.opacity === '1') moveTip(e);
+});
+
+// ═══════════════════════════════════════════════
+//  UI — SLIDERS
+// ═══════════════════════════════════════════════
+const sliderDefs = [
+  { id:'s0', vid:'v0', suffix:' °C', decimals:1 },
+  { id:'s1', vid:'v1', suffix:' °C', decimals:1 },
+  { id:'s2', vid:'v2', suffix:' %',  decimals:0 },
+  { id:'s3', vid:'v3', suffix:' %',  decimals:0 },
+  { id:'s4', vid:'v4', suffix:' %',  decimals:0 },
+];
+
+sliderDefs.forEach(({id, vid, suffix, decimals}) => {
+  const s = document.getElementById(id);
+  const v = document.getElementById(vid);
+  const update = () => {
+    v.textContent = (+s.value).toFixed(decimals) + suffix;
+  };
+  s.addEventListener('input', update);
+  update();
+});
+
+// Perfil buttons
+document.querySelectorAll('.pbt').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.pbt').forEach(b => b.classList.remove('on'));
+    btn.classList.add('on');
+    perfil = +btn.dataset.p;
+  });
+});
+
+// Botón simular
+document.getElementById('simBtn').addEventListener('click', () => {
+  if (animating) return;
+  const tAmb   = +document.getElementById('s0').value;
+  const tAgua  = +document.getElementById('s1').value;
+  const hAmb   = +document.getElementById('s2').value;
+  const hSuelo = +document.getElementById('s3').value;
+  const luz    = +document.getElementById('s4').value;
+
+  const result = computeNetwork(tAmb, tAgua, hAmb, hSuelo, luz, perfil);
+  runAnimation(result, tAmb, tAgua, hAmb, hSuelo, luz, perfil);
+});
+
+// ═══════════════════════════════════════════════
+//  INIT
+// ═══════════════════════════════════════════════
+buildSVG();
+</script>
+</body>
+</html>

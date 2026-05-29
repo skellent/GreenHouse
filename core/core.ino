@@ -99,10 +99,12 @@ void setup() {
 
   /* CREACIÓN DE ÍCONOS PARA LA PANTALLA */
   lcd.createChar(0, iconoTemperatura);
-  lcd.createChar(1, iconoHumedad);
+  lcd.createChar(1, iconoSuelo);
   lcd.createChar(2, iconoWifi);
-  lcd.createChar(3, iconoAltura);
+  lcd.createChar(3, iconoTanque);
   lcd.createChar(4, iconoRed);
+  lcd.createChar(5, iconoUV);
+  lcd.createChar(6, iconoRiego);
 
   /* INICIALIZACIÓN DE ALICIA */
   lcd.clear();
@@ -165,8 +167,9 @@ void loop() {
             sensores.sen_humedad_ambiente     = datos[2];
             sensores.sen_humedad_suelo        = datos[3];
             sensores.sen_intensidad_luz       = datos[4];
-            sensores.sen_ultrasonido          = datos[5];
+            sensores.sen_nivel_tanque         = datos[5];
             sensores.sen_temperatura_agua_b   = datos[6];   // DS18[1]
+            sensores.sen_altura_planta        = datos[7];
             xSemaphoreGive(mutexDatos);
           }
 
@@ -217,11 +220,11 @@ void ejecutarActuadores(int uv, bool riego, uint8_t ventilacion) {
 /*╔══════════════════════════════════════════════════════════╗
   ║ [ NÚCLEO 1 ] PANTALLA LCD                                ║
   ╠══════════════════════════════════════════════════════════╣
-  ║  Botón PRESIONADO  → Sensores + salidas de la IA        ║
-  ║    Fila 1: [T] temp_amb °C  [H] hum_amb %  UV: xxx      ║
-  ║    Fila 2: S:xx% R:S/N  L:xx%                           ║
+  ║  Botón NO PRESIONADO → Sensores + salidas de la IA       ║
+  ║    Fila 1: [T]##C [S]##% [A]##%                         ║
+  ║    Fila 2: [UV]:### [R]:SI/NO                           ║
   ║                                                          ║
-  ║  Botón NO PRESIONADO → Info de red WiFi                  ║
+  ║  Botón PRESIONADO  → Info de red WiFi                    ║
   ║    Fila 1: [red_icon] NombreRed                         ║
   ║    Fila 2: [wifi_icon] IP                               ║
   ╚══════════════════════════════════════════════════════════╝*/
@@ -230,31 +233,8 @@ void actualizarLCD() {
   lcd.clear();
   lcd.setCursor(0, 0);
 
-  if (digitalRead(LCD_BOTON)) {
-    if (xSemaphoreTake(mutexDatos, pdMS_TO_TICKS(50)) == pdTRUE) {
-      /* FILA 1: temperatura | humedad ambiente | UV */
-      lcd.write(0);                                       // ícono temp
-      lcd.print((int)sensores.sen_temperatura_ambiente);
-      lcd.print("C ");
-      lcd.write(1);                                       // ícono humedad
-      lcd.print((int)sensores.sen_humedad_ambiente);
-      lcd.print("% ");
-      lcd.print("UV:");
-      lcd.print(sensores.ia_intensidad_uv);
-
-      /* FILA 2: humedad suelo | riego (IA) | luz exterior */
-      lcd.setCursor(0, 1);
-      lcd.print("S:");
-      lcd.print((int)sensores.sen_humedad_suelo);
-      lcd.print("% R:");
-      lcd.print(sensores.ia_riego ? "S" : "N");
-      lcd.print(" L:");
-      lcd.print((int)sensores.sen_intensidad_luz);
-      lcd.print("%");
-
-      xSemaphoreGive(mutexDatos);
-    }
-  } else {
+  if (!digitalRead(LCD_BOTON)) {
+    // Botón presionado → info de red WiFi
     lcd.write(4);
     lcd.print(" ");
     lcd.print(wifiRed);
@@ -262,6 +242,32 @@ void actualizarLCD() {
     lcd.write(2);
     lcd.print(" ");
     lcd.print(WiFi.localIP());
+  } else {
+    // Botón sin presionar → sensores + salidas de la IA
+    if (xSemaphoreTake(mutexDatos, pdMS_TO_TICKS(50)) == pdTRUE) {
+      /* FILA 1: temperatura ambiente | humedad suelo | nivel tanque */
+      lcd.write(0);                                        // [T] termómetro
+      lcd.print((int)sensores.sen_temperatura_ambiente);
+      lcd.print("C ");
+      lcd.write(1);                                        // [S] maceta
+      lcd.print(min((int)sensores.sen_humedad_suelo, 100));
+      lcd.print("% ");
+      lcd.write(3);                                        // [A] tanque
+      lcd.print(min((int)sensores.sen_nivel_tanque, 100));
+      lcd.print("%");
+
+      /* FILA 2: intensidad UV | riego (decisiones de Alicia) */
+      lcd.setCursor(0, 1);
+      lcd.write(5);                                        // [UV] sol
+      lcd.print(":");
+      lcd.print(sensores.ia_intensidad_uv);
+      lcd.print("  ");
+      lcd.write(6);                                        // [R] gotas
+      lcd.print(":");
+      lcd.print(sensores.ia_riego ? "SI" : "NO");
+
+      xSemaphoreGive(mutexDatos);
+    }
   }
 
   lastLCDUpdate = millis();
@@ -285,7 +291,8 @@ void servidorWeb(void *pvParameters) {
       informacion["sensores"]["humedad_ambiente"]     = sensores.sen_humedad_ambiente;
       informacion["sensores"]["humedad_suelo"]        = sensores.sen_humedad_suelo;
       informacion["sensores"]["intensidad_luz"]       = sensores.sen_intensidad_luz;
-      informacion["sensores"]["ultrasonido"]          = sensores.sen_ultrasonido;
+      informacion["sensores"]["nivel_tanque"]          = sensores.sen_nivel_tanque;
+      informacion["sensores"]["ultrasonido"]            = sensores.sen_altura_planta;
       informacion["esp32"]["temperatura"]             = sensores.esp32_temperatura;
       informacion["esp32"]["camStatus"]               = sensores.esp32_camStatus;
       informacion["ia"]["intensidad_uv"]              = sensores.ia_intensidad_uv;

@@ -9,7 +9,8 @@ struct Sensores {
   float sen_humedad_ambiente     ;
   float sen_humedad_suelo        ;
   int   sen_intensidad_luz       ;
-  int   sen_ultrasonido          ;
+  int   sen_nivel_tanque         ;   // porcentaje (0–100 %)
+  int   sen_altura_planta        ;   // distancia HC-SR04 en cm
   
   int   ia_perfilplanta  ;
   int   ia_ventilacion   ;

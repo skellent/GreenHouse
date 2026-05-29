@@ -3,8 +3,8 @@
 #include <Arduino.h>
 
 /* CREDENCIALES WIFI */
-#define WIFI_RED "Rodriguez's Net"
-#define WIFI_PSW "7kyxj2fd"
+#define WIFI_RED "Skellent"
+#define WIFI_PSW "greenhouse"
 
 #define PIN_RGB 48 // LED RGB INTEGRADO
 

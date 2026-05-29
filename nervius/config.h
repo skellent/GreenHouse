@@ -11,29 +11,37 @@
 /* CONFIGURACION DE LECTURA */
 #define INTERVALO 1
 
-/* LED INTEGRADO */
-#define LED_PIN 2
-
 /* PINES DE SENSORES */
-#define DHT_PIN 4
+#define DHT_PIN 19
 #define DHT_MODEL DHT22
-#define FC28_PIN  34
+#define FC28_PIN  2
 #define FC28_HIGH 2410
 #define FC28_LOW  4095
-#define FTRT_PIN  35
+#define FTRT_PIN  15
 #define FTRT_HIGH 4095
 #define FTRT_LOW  0
 #define TRIG_PIN 5
 #define ECHO_PIN 18
 #define DS18_PIN 22
 
+/* SENSOR DE NIVEL DE AGUA (analógico resistivo) */
+#define NIVEL_PIN   4        // pin ADC conectado a la salida del sensor
+#define NIVEL_LOW   0        // valor ADC con el sensor en seco (vacío)
+#define NIVEL_HIGH  3200     // valor ADC con el sensor totalmente sumergido (lleno)
+
 /* PINES DE ACTUADORES */
-#define UV_PIN      23   // LED UV — salida PWM (LEDC canal 0, 8-bit, 5 kHz)
-#define RIEGO_PIN   26   // Bomba de riego — salida digital a relé (HIGH = encendido)
+#define UV_PIN      23
+#define RIEGO_PIN   35
 
 /* CONFIGURACIÓN PWM PARA LUZ UV */
 #define UV_LEDC_CANAL      0
 #define UV_LEDC_FRECUENCIA 5000
-#define UV_LEDC_RESOLUCION 8     // 8 bits → valores 0–255
+#define UV_LEDC_RESOLUCION 8
+
+/* CANDELABRO DECORATIVO */
+#define CANDELABRO_CANAL 1
+#define CANDELABRO_FRECUENCIA 5000
+#define CANDELABRO_RESOLUCION 8
+#define CANDELABRO_PIN 34
 
 #endif
